@@ -11,6 +11,7 @@
 <meta property="og:image" content="https://maxlovefitness.com/og.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://maxlovefitness.com/og.jpg">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=EB+Garamond:ital@1&family=JetBrains+Mono:wght@400;600&display=swap">
 <link rel="stylesheet" href="site.css">
@@ -186,6 +187,26 @@ details.faq p{margin-top:10px;color:var(--ink2);font-size:15.5px;max-width:60ch}
   <p style="margin-top:20px"><a class="btn ghost" href="start.html#faq">All the questions</a></p>
 </div></section>
 
+<section class="sub" id="subscribe"><div class="wrap">
+  <div>
+    <h3>New tool, new prompt, new video — one email.</h3>
+    <p>No newsletter. When something on this site is new or a prompt gets better, I send one line and a link. That's the whole list.</p>
+  </div>
+  <div>
+    <form action="https://formsubmit.co/maxhlove@gmail.com" method="POST" id="subform">
+      <input type="hidden" name="_subject" value="New subscriber — maxlovefitness.com">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_next" value="https://maxlovefitness.com/index.html?subscribed=1#subscribe">
+      <input type="hidden" name="Page" value="index.html">
+      <input type="text" name="_honey" class="honey" tabindex="-1" autocomplete="off">
+      <input type="email" name="Email" placeholder="you@email.com" required autocomplete="email" aria-label="Email address">
+      <button class="btn dark" type="submit">Send me the next one</button>
+    </form>
+    <div class="ok" id="subok" hidden>Got it. You'll hear from me when there's something worth sending.</div>
+    <p class="fine">Goes straight to my inbox and nowhere else. Unsubscribe by replying "stop".</p>
+  </div>
+</div></section>
 <footer><div class="wrap">
   <div>
     <div><a href="start.html">Start here</a><a href="plan.html">Free plan</a><a href="tools.html">Tools</a><a href="about.html">About</a><a href="apply.html">Apply</a></div>
@@ -211,7 +232,8 @@ document.documentElement.classList.add("js");
     requestAnimationFrame(step); }); },{threshold:.5});
   cs.forEach(function(e){co.observe(e)});
 })();
-</script>
+
+if(new URLSearchParams(location.search).get("subscribed")==="1"){var f=document.getElementById("subform"),o=document.getElementById("subok");if(f&&o){f.hidden=true;o.hidden=false;}history.replaceState(null,"",location.pathname+"#subscribe");}</script>
 
 </body>
 </html>

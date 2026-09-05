@@ -73,6 +73,18 @@ a.tile span{font-size:14px;color:var(--ink2)}
 .photo img{width:100%;height:100%;object-fit:cover}
 figure.cap figcaption{font-family:"EB Garamond",Georgia,serif;font-style:italic;color:var(--ink3);font-size:14.5px;margin-top:8px}
 
+/* subscribe */
+.sub{border-top:1px solid var(--rule);background:var(--wash);padding:44px 0}
+.sub .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:center}
+.sub h3{font-size:22px;letter-spacing:-.02em;margin-bottom:6px}
+.sub p{color:var(--ink2);font-size:15px;max-width:52ch}
+.sub form{display:flex;gap:8px}
+.sub input[type=email]{flex:1;font-family:Inter,sans-serif;font-size:15px;padding:12px 14px;border:1px solid var(--rule);border-radius:9px;background:#fff;color:var(--ink);min-width:0}
+.sub input[type=email]:focus{outline:2px solid var(--red);outline-offset:1px}
+.sub .fine{font-size:12.5px;color:var(--ink3);margin-top:8px}
+.sub .honey{position:absolute;left:-9999px;opacity:0}
+.sub .ok{border-left:3px solid var(--go);background:var(--go-wash);padding:12px 14px;border-radius:0 8px 8px 0;font-size:15px}
+@media (max-width:820px){.sub .wrap{grid-template-columns:1fr}}
 /* footer */
 footer{border-top:1px solid var(--rule);padding:40px 0 60px;color:var(--ink3);font-size:14px}
 footer .wrap{display:grid;grid-template-columns:1fr auto;gap:20px;align-items:start}
