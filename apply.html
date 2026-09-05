@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Apply · 1-on-1 with Max Love</title>
+<meta name="description" content="Twelve weeks, two hard sets, your numbers set for you and someone actually checking the log. Five founding spots.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=EB+Garamond:ital@1&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+  :root{--paper:#fff;--ink:#16181C;--ink2:#41474E;--ink3:#8A9099;--rule:#E6E8EB;--wash:#F7F8F9;--red:#B4253A;--red-wash:#FDF2F3;--go:#1B7F4B;--go-wash:#F1F8F3}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{color-scheme:light}
+  body{background:var(--paper);color:var(--ink);font-family:Inter,system-ui,-apple-system,sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased}
+  main{max-width:620px;margin:0 auto;padding:32px 20px 120px}
+  a{color:var(--red)}
+  .crumb{font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3);margin-bottom:14px}
+  .crumb a{color:var(--ink3);text-decoration:none}
+  h1{font-size:clamp(30px,7.5vw,44px);letter-spacing:-.033em;line-height:1.02;text-wrap:balance;margin-bottom:12px}
+  h1 mark{background:linear-gradient(transparent 62%,#F9C7CE 62%);padding:0 .06em}
+  .lede{font-size:17px;color:var(--ink2);max-width:52ch;margin-bottom:26px}
+  h2{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3);margin:40px 0 14px;border-top:2px solid var(--ink);padding-top:14px}
+  h3{font-size:19px;letter-spacing:-.016em;margin-bottom:8px}
+  p{margin-bottom:12px;max-width:58ch}
+  .note{font-family:"EB Garamond",Georgia,serif;font-style:italic;color:var(--ink3);font-size:15.5px}
+
+  .stack{display:grid;gap:12px}
+  .item{display:grid;grid-template-columns:34px 1fr;gap:12px;align-items:start;border:1px solid var(--rule);border-radius:10px;padding:14px 16px}
+  .item .n{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.1em;color:var(--red);padding-top:4px}
+  .item b{display:block;font-size:16px;margin-bottom:2px}
+  .item span{font-size:14.5px;color:var(--ink2)}
+
+  .price{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:6px}
+  .tier{border:1px solid var(--rule);border-radius:12px;padding:16px}
+  .tier.f{border-color:var(--ink);border-width:2px}
+  .tier .k{font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3)}
+  .tier .v{font-size:30px;font-weight:800;letter-spacing:-.03em;margin:4px 0 2px;font-variant-numeric:tabular-nums}
+  .tier .v small{font-size:13px;font-weight:600;color:var(--ink3);letter-spacing:0}
+  .tier p{font-size:13.5px;color:var(--ink2);margin:6px 0 0}
+  .seats{display:inline-block;font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--red);border:1px solid #F0C4CA;border-radius:99px;padding:3px 9px;margin-top:8px}
+
+  .guar{border-left:3px solid var(--go);background:var(--go-wash);padding:14px 16px;border-radius:0 10px 10px 0;margin-top:18px;font-size:15px;color:var(--ink2)}
+  .guar b{color:var(--ink)}
+
+  form{margin-top:10px}
+  .prog{display:flex;gap:6px;margin:0 0 22px}
+  .prog i{flex:1;height:4px;background:var(--wash);border-radius:99px}
+  .prog i.on{background:var(--red)}
+  .step{display:none}
+  .step.on{display:block}
+  .step h3{margin-bottom:4px}
+  .step .sub{color:var(--ink3);font-size:14.5px;margin-bottom:20px}
+  .f{margin-bottom:18px}
+  label{display:block;font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:7px}
+  label .opt{color:#B7BCC2;text-transform:none;letter-spacing:0;font-family:Inter,sans-serif;font-size:12px;margin-left:6px}
+  input[type=text],input[type=email],input[type=number],textarea,select{width:100%;font-family:Inter,sans-serif;font-size:16px;color:var(--ink);background:var(--wash);border:1px solid var(--rule);border-radius:9px;padding:12px 14px}
+  input[type=number]{font-family:"JetBrains Mono",monospace;font-weight:600}
+  textarea{min-height:96px;resize:vertical;line-height:1.5}
+  input:focus,textarea:focus,select:focus{outline:2px solid var(--red);outline-offset:1px;background:#fff}
+  input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .seg{display:flex;gap:8px;flex-wrap:wrap}
+  .seg label{margin:0}
+  .seg input{position:absolute;opacity:0;pointer-events:none}
+  .seg span{display:inline-block;font-family:Inter,sans-serif;font-size:14px;font-weight:600;color:var(--ink2);background:var(--wash);border:1px solid var(--rule);border-radius:9px;padding:11px 14px;cursor:pointer;transition:.14s;text-transform:none;letter-spacing:0}
+  .seg span:hover{border-color:var(--ink3)}
+  .seg input:checked+span{background:var(--ink);border-color:var(--ink);color:#fff}
+  .seg input:focus-visible+span{outline:2px solid var(--red);outline-offset:2px}
+  .err{display:none;font-size:13.5px;color:var(--red);margin-top:6px}
+  .f.bad .err{display:block}
+  .f.bad input,.f.bad textarea{border-color:var(--red)}
+  .nav{display:flex;gap:10px;justify-content:space-between;margin-top:26px}
+  .btn{font-family:Inter,sans-serif;font-size:15px;font-weight:600;border-radius:9px;padding:13px 18px;cursor:pointer;border:1px solid transparent;transition:.14s}
+  .btn.solid{background:var(--red);color:#fff}
+  .btn.solid:hover{background:#9C1F32}
+  .btn.ghost{background:transparent;color:var(--ink2);border-color:var(--rule)}
+  .btn.ghost:hover{border-color:var(--ink3)}
+  .btn:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+  .btn[disabled]{opacity:.5;cursor:default}
+  .rev{border:1px solid var(--rule);border-radius:10px;overflow:hidden;margin-bottom:18px}
+  .rev div{display:grid;grid-template-columns:1fr 1.4fr;gap:10px;padding:9px 14px;border-bottom:1px solid var(--rule);font-size:14px}
+  .rev div:last-child{border-bottom:0}
+  .rev div span:first-child{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);padding-top:3px}
+  .honey{position:absolute;left:-9999px;opacity:0}
+
+  .done{border:2px solid var(--go);border-radius:12px;padding:22px}
+  .done h3{color:var(--go)}
+  @media (max-width:520px){.price,.two{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<main>
+  <div class="crumb"><a href="./">← start here</a></div>
+  <h1>Twelve weeks. <mark>Two hard sets.</mark> Someone actually watching.</h1>
+  <p class="lede">Everything on the start-here page is free and it works. This is for people who want their numbers set for them, the week-to-week decisions made with them, and a reason to show up on the days they wouldn't have.</p>
+
+  <div id="thanks" class="done" hidden>
+    <h3>Got it.</h3>
+    <p>I read every one of these myself. You'll hear back from me within 48 hours, from maxhlove@gmail.com, so check the folder that email goes to.</p>
+    <p style="margin-bottom:0">In the meantime, <a href="./">set up the two logs</a>. The onboarding call goes faster if you've already sent your first bodyweight.</p>
+  </div>
+
+  <div id="pitch">
+    <h2>What the twelve weeks are</h2>
+    <div class="stack">
+      <div class="item"><div class="n">01</div><div><b>Onboarding call, 45 minutes</b><span>Your calories and protein set live. Your two days written for the equipment you actually have. Both AI logs set up with your numbers before we hang up.</span></div></div>
+      <div class="item"><div class="n">02</div><div><b>A 20-minute call every week</b><span>We read your log and your photos together. If the weight isn't moving, I tell you which of the three stalls it is and what changes. If it is, we leave it alone.</span></div></div>
+      <div class="item"><div class="n">03</div><div><b>Me in your DMs, every day</b><span>Form check on a video, a question about a meal, a bad day. Same-day replies.</span></div></div>
+      <div class="item"><div class="n">04</div><div><b>Your numbers re-set as you change</b><span>Calories drop as bodyweight drops. Starting loads move as you get stronger. You never have to work out when.</span></div></div>
+      <div class="item"><div class="n">05</div><div><b>Before and after, done properly</b><span>Same pose, same light, dated, kept for you. In week twelve you'll have the comparison most people never get because they never took the first photo.</span></div></div>
+    </div>
+
+    <h2>The price</h2>
+    <div class="price">
+      <div class="tier f">
+        <div class="k">Founding · first five</div>
+        <div class="v">$149 <small>every 4 weeks</small></div>
+        <p>Twelve weeks minimum. Or <b>$399</b> up front for all twelve.</p>
+        <p style="color:var(--ink3)">In exchange: weekly photos, and permission to use your before-and-after.</p>
+        <div class="seats" id="seats">5 spots</div>
+      </div>
+      <div class="tier">
+        <div class="k">After that</div>
+        <div class="v">$199 <small>every 4 weeks</small></div>
+        <p>Twelve weeks minimum. Or <b>$497</b> up front.</p>
+        <p style="color:var(--ink3)">Founding members keep their rate for as long as they stay.</p>
+      </div>
+    </div>
+    <div class="guar"><b>The guarantee.</b> Send all twelve weekly check-ins. If your photos don't show a visible change at week twelve, I keep coaching you for free until they do.</div>
+    <p class="note" style="margin-top:14px">Nothing is charged from this form. Apply, I read it, and if it's a fit we book the onboarding call and sort payment then.</p>
+
+    <h2>Apply</h2>
+    <form id="app" action="https://formsubmit.co/maxhlove@gmail.com" method="POST" novalidate>
+      <input type="hidden" name="_subject" value="Coaching application" id="subj">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_next" id="nextUrl" value="">
+      <input type="hidden" name="_autoresponse" value="Got your application. I read every one of these myself and you'll hear back from me within 48 hours. In the meantime, set up the two AI logs on the start-here page — the onboarding call goes faster if you've already sent your first bodyweight. — Max">
+      <input type="text" name="_honey" class="honey" tabindex="-1" autocomplete="off">
+
+      <div class="prog" id="prog"><i class="on"></i><i></i><i></i><i></i><i></i></div>
+
+      <!-- STEP 1 -->
+      <section class="step on" data-step="1">
+        <h3>Who you are</h3>
+        <p class="sub">Thirty seconds. Five steps total.</p>
+        <div class="f"><label for="name">Your name</label><input type="text" id="name" name="Name" autocomplete="name" required><div class="err">I need something to call you.</div></div>
+        <div class="f"><label for="email">Email</label><input type="email" id="email" name="Email" autocomplete="email" required><div class="err">That doesn't look like an email.</div></div>
+        <div class="two">
+          <div class="f"><label for="ig">Instagram <span class="opt">optional</span></label><input type="text" id="ig" name="Instagram" placeholder="@" autocomplete="off"></div>
+          <div class="f"><label for="age">Age</label><input type="number" id="age" name="Age" min="16" max="80" inputmode="numeric" required><div class="err">Age, in years.</div></div>
+        </div>
+      </section>
+
+      <!-- STEP 2 -->
+      <section class="step" data-step="2">
+        <h3>Where you are right now</h3>
+        <p class="sub">Honest numbers. Nobody's judging the starting point.</p>
+        <div class="two">
+          <div class="f"><label for="bw">Bodyweight, lb</label><input type="number" id="bw" name="Bodyweight (lb)" min="90" max="400" inputmode="numeric" required><div class="err">Pounds, roughly.</div></div>
+          <div class="f"><label for="ht">Height</label><input type="text" id="ht" name="Height" placeholder="5'10" required><div class="err">Feet and inches is fine.</div></div>
+        </div>
+        <div class="two">
+          <div class="f"><label for="pu">Strict pull-ups, right now</label><input type="number" id="pu" name="Strict pull-ups" min="0" max="60" inputmode="numeric" required><div class="err">Zero is an answer.</div></div>
+          <div class="f"><label for="dp">Dips, right now</label><input type="number" id="dp" name="Dips" min="0" max="80" inputmode="numeric" required><div class="err">Zero is an answer.</div></div>
+        </div>
+        <div class="f"><label>Where you'll train</label>
+          <div class="seg">
+            <label><input type="radio" name="Where you train" value="Park bar" required><span>Park</span></label>
+            <label><input type="radio" name="Where you train" value="Home"><span>Home</span></label>
+            <label><input type="radio" name="Where you train" value="Gym"><span>Gym</span></label>
+          </div><div class="err">Pick one.</div>
+        </div>
+        <div class="f"><label for="gear">What you've got there <span class="opt">bar, dip station, belt, dumbbells…</span></label><input type="text" id="gear" name="Equipment" required><div class="err">Even "a bar and nothing else" helps.</div></div>
+        <div class="f"><label>Days a week you can realistically train</label>
+          <div class="seg">
+            <label><input type="radio" name="Days per week" value="2" required><span>2</span></label>
+            <label><input type="radio" name="Days per week" value="3"><span>3</span></label>
+          </div><div class="err">Pick one. Two is enough.</div>
+        </div>
+      </section>
+
+      <!-- STEP 3 -->
+      <section class="step" data-step="3">
+        <h3>What you want, and what's happened before</h3>
+        <p class="sub">This is the part I actually read twice.</p>
+        <div class="f"><label for="goal">In one sentence, what do you want to be true in twelve weeks?</label><textarea id="goal" name="Goal in 12 weeks" required></textarea><div class="err">One sentence is enough.</div></div>
+        <div class="f"><label for="tried">What have you tried before, and why did it stop?</label><textarea id="tried" name="Tried before and why it stopped" required></textarea><div class="err">Be honest. This decides what we do differently.</div></div>
+        <div class="f"><label>Do you count your food right now?</label>
+          <div class="seg">
+            <label><input type="radio" name="Counting food now" value="Yes, every day" required><span>Every day</span></label>
+            <label><input type="radio" name="Counting food now" value="Sometimes"><span>Sometimes</span></label>
+            <label><input type="radio" name="Counting food now" value="No"><span>No</span></label>
+          </div><div class="err">Pick one.</div>
+        </div>
+      </section>
+
+      <!-- STEP 4 -->
+      <section class="step" data-step="4">
+        <h3>The part that decides whether this works</h3>
+        <p class="sub">None of these are hard. All of them are non-negotiable.</p>
+        <div class="f"><label>Weigh yourself every morning and send the number</label>
+          <div class="seg">
+            <label><input type="radio" name="Daily weigh-in" value="Yes" required><span>Yes</span></label>
+            <label><input type="radio" name="Daily weigh-in" value="No"><span>No</span></label>
+          </div><div class="err">Pick one.</div>
+        </div>
+        <div class="f"><label>Send photos once a week, same pose, same light</label>
+          <div class="seg">
+            <label><input type="radio" name="Weekly photos" value="Yes" required><span>Yes</span></label>
+            <label><input type="radio" name="Weekly photos" value="No"><span>No</span></label>
+          </div><div class="err">Pick one.</div>
+        </div>
+        <div class="f"><label>Log every session the day you do it</label>
+          <div class="seg">
+            <label><input type="radio" name="Log every session" value="Yes" required><span>Yes</span></label>
+            <label><input type="radio" name="Log every session" value="No"><span>No</span></label>
+          </div><div class="err">Pick one.</div>
+        </div>
+        <div class="f"><label>Can you start within the next two weeks?</label>
+          <div class="seg">
+            <label><input type="radio" name="Start within two weeks" value="Yes" required><span>Yes</span></label>
+            <label><input type="radio" name="Start within two weeks" value="Not yet"><span>Not yet</span></label>
+          </div><div class="err">Pick one.</div>
+        </div>
+        <div class="f"><label>The founding rate is $149 every four weeks for twelve weeks, or $399 up front. Is that a yes?</label>
+          <div class="seg">
+            <label><input type="radio" name="Price acknowledged" value="Yes" required><span>Yes</span></label>
+            <label><input type="radio" name="Price acknowledged" value="Need to think"><span>I need to think</span></label>
+          </div><div class="err">Pick one. Either answer is fine.</div>
+        </div>
+      </section>
+
+      <!-- STEP 5 -->
+      <section class="step" data-step="5">
+        <h3>Last things, then send it</h3>
+        <p class="sub">Check it over. I'll see exactly this.</p>
+        <div class="two">
+          <div class="f"><label for="tz">Your time zone</label><input type="text" id="tz" name="Time zone" placeholder="Pacific" required><div class="err">Needed for the calls.</div></div>
+          <div class="f"><label for="call">Best time for a weekly 20-min call</label><input type="text" id="call" name="Best call time" placeholder="Weekday mornings" required><div class="err">Roughly is fine.</div></div>
+        </div>
+        <div class="f"><label for="inj">Injuries, medications, anything I should know <span class="opt">optional</span></label><textarea id="inj" name="Anything I should know"></textarea></div>
+        <div class="f"><label for="how">How did you find me? <span class="opt">optional</span></label><input type="text" id="how" name="How you found me"></div>
+        <div class="rev" id="review"></div>
+        <p class="note">By sending this you're applying, not paying. If it's a fit, we book the onboarding call and sort payment on it.</p>
+      </section>
+
+      <div class="nav">
+        <button type="button" class="btn ghost" id="back" disabled>Back</button>
+        <button type="button" class="btn solid" id="next">Next</button>
+        <button type="submit" class="btn solid" id="send" hidden>Send the application</button>
+      </div>
+    </form>
+  </div>
+</main>
+
+<script>
+(function(){
+  const $ = id => document.getElementById(id);
+  // thank-you state after FormSubmit redirects back
+  if (new URLSearchParams(location.search).get("sent") === "1"){
+    $("thanks").hidden = false; $("pitch").hidden = true;
+    history.replaceState(null, "", location.pathname);
+    return;
+  }
+  $("nextUrl").value = location.origin + location.pathname + "?sent=1";
+
+  const steps = [...document.querySelectorAll(".step")];
+  const prog  = [...$("prog").children];
+  let i = 0;
+
+  function show(k){
+    i = k;
+    steps.forEach((s, j) => s.classList.toggle("on", j === k));
+    prog.forEach((p, j) => p.classList.toggle("on", j <= k));
+    $("back").disabled = k === 0;
+    $("next").hidden = k === steps.length - 1;
+    $("send").hidden = k !== steps.length - 1;
+    if (k === steps.length - 1) buildReview();
+    window.scrollTo({ top: $("app").getBoundingClientRect().top + window.scrollY - 24, behavior: "smooth" });
+  }
+
+  function validate(k){
+    let ok = true, first = null;
+    steps[k].querySelectorAll(".f").forEach(f => {
+      const inputs = [...f.querySelectorAll("input,textarea,select")].filter(x => x.type !== "hidden");
+      if (!inputs.length) return;
+      let good = true;
+      if (inputs[0].type === "radio"){
+        if (inputs[0].required) good = inputs.some(x => x.checked);
+      } else {
+        const el = inputs[0];
+        if (el.required){
+          if (!el.value.trim()) good = false;
+          else if (el.type === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value)) good = false;
+          else if (el.type === "number" && el.value !== "" && (isNaN(+el.value) || +el.value < +el.min || +el.value > +el.max)) good = false;
+        }
+      }
+      f.classList.toggle("bad", !good);
+      if (!good){ ok = false; if (!first) first = f; }
+    });
+    if (first) first.scrollIntoView({ block: "center", behavior: "smooth" });
+    return ok;
+  }
+
+  $("next").addEventListener("click", () => { if (validate(i)) show(i + 1); });
+  $("back").addEventListener("click", () => show(i - 1));
+  document.querySelectorAll(".f input, .f textarea").forEach(el => el.addEventListener("input", () => el.closest(".f").classList.remove("bad")));
+  document.querySelectorAll(".f input[type=radio]").forEach(el => el.addEventListener("change", () => el.closest(".f").classList.remove("bad")));
+
+  function buildReview(){
+    const fd = new FormData($("app"));
+    const skip = new Set(["_subject","_template","_captcha","_next","_autoresponse","_honey","Time zone","Best call time","Anything I should know","How you found me"]);
+    let html = "";
+    for (const [k, v] of fd.entries()){
+      if (skip.has(k) || !String(v).trim()) continue;
+      html += "<div><span>" + k + "</span><span>" + String(v).replace(/</g,"&lt;") + "</span></div>";
+    }
+    $("review").innerHTML = html;
+    const nm = fd.get("Name"); if (nm) $("subj").value = "Coaching application — " + nm;
+  }
+
+  $("app").addEventListener("submit", e => {
+    if (!validate(i)){ e.preventDefault(); return; }
+    $("send").disabled = true; $("send").textContent = "Sending…";
+  });
+})();
+</script>
+</body>
+</html>
