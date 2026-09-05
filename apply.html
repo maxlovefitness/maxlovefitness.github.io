@@ -293,21 +293,75 @@ document.documentElement.classList.add("js");
 })();
 </script>
 <script>
-document.documentElement.classList.add("js");
 (function(){
-  var h=document.querySelector(".hdr"); if(h){ var f=function(){h.classList.toggle("stuck",window.scrollY>8)}; f(); addEventListener("scroll",f,{passive:true}); }
-  var els=[].slice.call(document.querySelectorAll(".rv"));
-  if(!("IntersectionObserver" in window)){ els.forEach(function(e){e.classList.add("in")}); return; }
-  var io=new IntersectionObserver(function(en){ en.forEach(function(x){ if(x.isIntersecting){ x.target.classList.add("in"); io.unobserve(x.target); } }); },{rootMargin:"0px 0px -8% 0px",threshold:.08});
-  els.forEach(function(e){io.observe(e)});
-  // count-up
-  var cs=[].slice.call(document.querySelectorAll("[data-count]"));
-  var co=new IntersectionObserver(function(en){ en.forEach(function(x){ if(!x.isIntersecting) return; co.unobserve(x.target);
-    var el=x.target, end=+el.getAttribute("data-count"), pre=el.getAttribute("data-pre")||"", t0=null;
-    if(matchMedia("(prefers-reduced-motion: reduce)").matches){ el.textContent=pre+end; return; }
-    var step=function(t){ if(!t0)t0=t; var p=Math.min(1,(t-t0)/900); var v=Math.round(end*(1-Math.pow(1-p,3))); el.textContent=pre+v; if(p<1) requestAnimationFrame(step); };
-    requestAnimationFrame(step); }); },{threshold:.5});
-  cs.forEach(function(e){co.observe(e)});
+  const $ = id => document.getElementById(id);
+  // thank-you state after FormSubmit redirects back
+  if (new URLSearchParams(location.search).get("sent") === "1"){
+    $("thanks").hidden = false; $("pitch").hidden = true;
+    history.replaceState(null, "", location.pathname);
+    return;
+  }
+  $("nextUrl").value = location.origin + location.pathname + "?sent=1";
+
+  const steps = [...document.querySelectorAll(".step")];
+  const prog  = [...$("prog").children];
+  let i = 0;
+
+  function show(k){
+    i = k;
+    steps.forEach((s, j) => s.classList.toggle("on", j === k));
+    prog.forEach((p, j) => p.classList.toggle("on", j <= k));
+    $("back").disabled = k === 0;
+    $("next").hidden = k === steps.length - 1;
+    $("send").hidden = k !== steps.length - 1;
+    if (k === steps.length - 1) buildReview();
+    window.scrollTo({ top: $("app").getBoundingClientRect().top + window.scrollY - 24, behavior: "smooth" });
+  }
+
+  function validate(k){
+    let ok = true, first = null;
+    steps[k].querySelectorAll(".f").forEach(f => {
+      const inputs = [...f.querySelectorAll("input,textarea,select")].filter(x => x.type !== "hidden");
+      if (!inputs.length) return;
+      let good = true;
+      if (inputs[0].type === "radio"){
+        if (inputs[0].required) good = inputs.some(x => x.checked);
+      } else {
+        const el = inputs[0];
+        if (el.required){
+          if (!el.value.trim()) good = false;
+          else if (el.type === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value)) good = false;
+          else if (el.type === "number" && el.value !== "" && (isNaN(+el.value) || +el.value < +el.min || +el.value > +el.max)) good = false;
+        }
+      }
+      f.classList.toggle("bad", !good);
+      if (!good){ ok = false; if (!first) first = f; }
+    });
+    if (first) first.scrollIntoView({ block: "center", behavior: "smooth" });
+    return ok;
+  }
+
+  $("next").addEventListener("click", () => { if (validate(i)) show(i + 1); });
+  $("back").addEventListener("click", () => show(i - 1));
+  document.querySelectorAll(".f input, .f textarea").forEach(el => el.addEventListener("input", () => el.closest(".f").classList.remove("bad")));
+  document.querySelectorAll(".f input[type=radio]").forEach(el => el.addEventListener("change", () => el.closest(".f").classList.remove("bad")));
+
+  function buildReview(){
+    const fd = new FormData($("app"));
+    const skip = new Set(["_subject","_template","_captcha","_next","_autoresponse","_honey","Time zone","Best call time","Anything I should know","How you found me"]);
+    let html = "";
+    for (const [k, v] of fd.entries()){
+      if (skip.has(k) || !String(v).trim()) continue;
+      html += "<div><span>" + k + "</span><span>" + String(v).replace(/</g,"&lt;") + "</span></div>";
+    }
+    $("review").innerHTML = html;
+    const nm = fd.get("Name"); if (nm) $("subj").value = "Coaching application — " + nm;
+  }
+
+  $("app").addEventListener("submit", e => {
+    if (!validate(i)){ e.preventDefault(); return; }
+    $("send").disabled = true; $("send").textContent = "Sending…";
+  });
 })();
 </script>
 </body>
