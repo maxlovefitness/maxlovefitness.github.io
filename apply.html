@@ -4,20 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Apply · 1-on-1 with Max Love</title>
-<meta property="og:title" content="Apply for 1-on-1 coaching with Max Love">
-<meta property="og:description" content="Twelve weeks, two hard sets, your numbers set for you and someone actually watching. Five founding spots.">
-<meta property="og:url" content="https://maxlovefitness.com/apply.html">
+<meta name="description" content="Twelve weeks, two hard sets, your numbers set for you and someone actually watching. Five founding spots.">
 <link rel="canonical" href="https://maxlovefitness.com/apply.html">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Max Love Fitness">
+<meta property="og:title" content="Apply · 1-on-1 with Max Love"><meta property="og:description" content="Twelve weeks, two hard sets, your numbers set for you and someone actually watching. Five founding spots."><meta property="og:url" content="https://maxlovefitness.com/apply.html">
+<meta property="og:image" content="https://maxlovefitness.com/og.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://maxlovefitness.com/og.jpg">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Max Love Fitness">
-<meta property="og:image" content="https://maxlovefitness.com/og.jpg">
-<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://maxlovefitness.com/og.jpg">
-
-<meta name="description" content="Twelve weeks, two hard sets, your numbers set for you and someone actually checking the log. Five founding spots.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=EB+Garamond:ital@1&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="site.css">
+
 <style>
   :root{--paper:#fff;--ink:#16181C;--ink2:#41474E;--ink3:#8A9099;--rule:#E6E8EB;--wash:#F7F8F9;--red:#B4253A;--red-wash:#FDF2F3;--go:#1B7F4B;--go-wash:#F1F8F3}
   *{box-sizing:border-box;margin:0;padding:0}
@@ -100,15 +97,19 @@
 </style>
 </head>
 <body>
+<header class="hdr"><div class="wrap">
+  <a class="brand" href="index.html">Max Love <span>Fitness</span></a>
+  <nav class="nav" aria-label="Site"><a href="index.html">Home</a><a href="start.html">Start here</a><a href="plan.html">Free plan</a><a href="tools.html">Tools</a><a href="about.html">About</a><a class="cta" href="apply.html">Apply</a></nav>
+</div></header>
 <main>
-  <div class="crumb"><a href="./">← start here</a></div>
+  <div class="crumb"><a href="start.html">← start here</a></div>
   <h1>Twelve weeks. <mark>Two hard sets.</mark> Someone actually watching.</h1>
   <p class="lede">Everything on the start-here page is free and it works. This is for people who want their numbers set for them, the week-to-week decisions made with them, and a reason to show up on the days they wouldn't have.</p>
 
   <div id="thanks" class="done" hidden>
     <h3>Got it.</h3>
     <p>I read every one of these myself. You'll hear back from me within 48 hours, from maxhlove@gmail.com, so check the folder that email goes to.</p>
-    <p style="margin-bottom:0">In the meantime, <a href="./">set up the two logs</a>. The onboarding call goes faster if you've already sent your first bodyweight.</p>
+    <p style="margin-bottom:0">In the meantime, <a href="start.html#prompts">set up the two logs</a>. The onboarding call goes faster if you've already sent your first bodyweight.</p>
   </div>
 
   <div id="pitch">
@@ -264,7 +265,32 @@
     </form>
   </div>
 </main>
-
+<footer><div class="wrap">
+  <div>
+    <div><a href="start.html">Start here</a><a href="plan.html">Free plan</a><a href="tools.html">Tools</a><a href="about.html">About</a><a href="apply.html">Apply</a></div>
+    <div style="margin-top:8px"><a href="https://www.youtube.com/@maxlovefitness" rel="me noopener" target="_blank">YouTube</a><a href="https://www.instagram.com/maxlovefitness/" rel="me noopener" target="_blank">Instagram</a></div>
+    <p class="fine">General information from one person's experience, not medical advice. Check with a doctor before starting anything if you have a condition. © 2026 Max Love.</p>
+  </div>
+  <div class="eyebrow">fewer sets, heavier bar.</div>
+</div></footer>
+<script>
+document.documentElement.classList.add("js");
+(function(){
+  var h=document.querySelector(".hdr"); if(h){ var f=function(){h.classList.toggle("stuck",window.scrollY>8)}; f(); addEventListener("scroll",f,{passive:true}); }
+  var els=[].slice.call(document.querySelectorAll(".rv"));
+  if(!("IntersectionObserver" in window)){ els.forEach(function(e){e.classList.add("in")}); return; }
+  var io=new IntersectionObserver(function(en){ en.forEach(function(x){ if(x.isIntersecting){ x.target.classList.add("in"); io.unobserve(x.target); } }); },{rootMargin:"0px 0px -8% 0px",threshold:.08});
+  els.forEach(function(e){io.observe(e)});
+  // count-up
+  var cs=[].slice.call(document.querySelectorAll("[data-count]"));
+  var co=new IntersectionObserver(function(en){ en.forEach(function(x){ if(!x.isIntersecting) return; co.unobserve(x.target);
+    var el=x.target, end=+el.getAttribute("data-count"), pre=el.getAttribute("data-pre")||"", t0=null;
+    if(matchMedia("(prefers-reduced-motion: reduce)").matches){ el.textContent=pre+end; return; }
+    var step=function(t){ if(!t0)t0=t; var p=Math.min(1,(t-t0)/900); var v=Math.round(end*(1-Math.pow(1-p,3))); el.textContent=pre+v; if(p<1) requestAnimationFrame(step); };
+    requestAnimationFrame(step); }); },{threshold:.5});
+  cs.forEach(function(e){co.observe(e)});
+})();
+</script>
 <script>
 (function(){
   const $ = id => document.getElementById(id);

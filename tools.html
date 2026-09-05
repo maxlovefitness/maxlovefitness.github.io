@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tools · Max Love Fitness</title>
+<meta name="description" content="Calories and protein, starting belt weight, estimated max, plate math, weekly bodyweight average, a 24-session counter and a rest timer. Free, no account.">
+<link rel="canonical" href="https://maxlovefitness.com/tools.html">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Max Love Fitness">
+<meta property="og:title" content="Tools · Max Love Fitness"><meta property="og:description" content="Calories and protein, starting belt weight, estimated max, plate math, weekly bodyweight average, a 24-session counter and a rest timer. Free, no account."><meta property="og:url" content="https://maxlovefitness.com/tools.html">
+<meta property="og:image" content="https://maxlovefitness.com/og.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://maxlovefitness.com/og.jpg">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=EB+Garamond:ital@1&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="site.css">
+
+<style>
+.tool{border:1px solid var(--rule);border-radius:16px;padding:26px;margin-top:22px;scroll-margin-top:80px;background:#fff}
+.tool h3{font-size:22px;letter-spacing:-.02em;margin-bottom:6px}
+.tool .sub{color:var(--ink2);font-size:15px;margin-bottom:18px;max-width:60ch}
+.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px}
+label{display:block;font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:6px}
+input[type=number]{width:100%;font-family:"JetBrains Mono",monospace;font-size:18px;font-weight:600;color:var(--ink);background:var(--wash);border:1px solid var(--rule);border-radius:9px;padding:11px 13px}
+input[type=number]:focus{outline:2px solid var(--red);outline-offset:1px;background:#fff}
+input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.seg{display:flex;gap:8px;flex-wrap:wrap}
+.seg button{flex:1 1 auto;min-width:80px;font-family:Inter,sans-serif;font-size:14px;font-weight:600;color:var(--ink2);background:var(--wash);border:1px solid var(--rule);border-radius:9px;padding:10px 12px;cursor:pointer}
+.seg button[aria-pressed=true]{background:var(--ink);border-color:var(--ink);color:#fff}
+.out{margin-top:18px;border-left:3px solid var(--red);background:var(--red-wash);border-radius:0 10px 10px 0;padding:16px 18px}
+.out.ok{border-color:var(--go);background:var(--go-wash)}
+.out .big{font-size:24px;font-weight:800;letter-spacing:-.02em;line-height:1.2}
+.out .why{font-size:14.5px;color:var(--ink2);margin-top:6px;max-width:60ch}
+.nums{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:14px;margin-top:14px;border-top:1px solid rgba(0,0,0,.08);padding-top:12px}
+.nums .k{font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3)}
+.nums .v{font-size:21px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.nums .v small{font-size:12px;color:var(--ink3);font-weight:600}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.chip{font-family:"JetBrains Mono",monospace;font-size:13px;font-weight:600;border:1px solid var(--ink);border-radius:8px;padding:8px 12px;background:#fff}
+.chip.small{border-color:var(--rule);color:var(--ink2)}
+.check{display:flex;gap:8px;flex-wrap:wrap}
+.check label{display:flex;gap:6px;align-items:center;font-family:"JetBrains Mono",monospace;font-size:13px;letter-spacing:0;text-transform:none;color:var(--ink);background:var(--wash);border:1px solid var(--rule);border-radius:8px;padding:8px 10px;cursor:pointer;margin:0}
+.check input{accent-color:var(--red)}
+.week{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
+.week input{font-size:15px;padding:9px 6px;text-align:center}
+.timer{text-align:center;padding:10px 0}
+.clock{font-family:"JetBrains Mono",monospace;font-size:clamp(48px,12vw,72px);font-weight:600;letter-spacing:-.03em;font-variant-numeric:tabular-nums;line-height:1}
+.clock.done{color:var(--go)}
+.tbar{height:4px;background:var(--wash);border-radius:99px;margin:14px auto 16px;max-width:420px;overflow:hidden}.tbar i{display:block;height:100%;background:var(--red);width:100%}
+.trow{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.btn.sm{padding:10px 14px;font-size:14px}
+.prog{height:10px;background:var(--wash);border-radius:99px;overflow:hidden;margin-top:12px}.prog i{display:block;height:100%;background:var(--red);width:0;transition:width .4s}
+.toc{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+.toc a{font-size:13.5px;font-weight:600;color:var(--ink2);text-decoration:none;border:1px solid var(--rule);border-radius:99px;padding:7px 12px}
+.toc a:hover{border-color:var(--ink);color:var(--ink)}
+@media (max-width:640px){.week{grid-template-columns:repeat(4,1fr)}}
+</style>
+</head>
+<body>
+<header class="hdr"><div class="wrap">
+  <a class="brand" href="index.html">Max Love <span>Fitness</span></a>
+  <nav class="nav" aria-label="Site"><a href="index.html">Home</a><a href="start.html">Start here</a><a href="plan.html">Free plan</a><a href="tools.html" class="on">Tools</a><a href="about.html">About</a><a class="cta" href="apply.html">Apply</a></nav>
+</div></header>
+
+<section class="band" style="padding-bottom:30px"><div class="narrow">
+  <div class="eyebrow rv">free tools</div>
+  <h1 class="hero rv d1" style="font-size:clamp(34px,6vw,56px);margin-top:12px">Your numbers, <mark>done for you.</mark></h1>
+  <p class="lede rv d2" style="margin-top:14px">Nothing here needs an account. Type in what's true today. The weekly tracker and the session counter save on this device only.</p>
+  <div class="toc rv d3">
+    <a href="#food">Calories &amp; protein</a><a href="#start">Starting weight</a><a href="#max">Estimated max</a><a href="#plates">Plate math</a><a href="#week">Weekly average</a><a href="#count">24 sessions</a><a href="#rest">Rest timer</a>
+  </div>
+</div></section>
+
+<section style="padding-bottom:80px"><div class="narrow">
+
+  <div class="tool rv" id="food">
+    <h3>Calories and protein</h3>
+    <p class="sub">The two numbers that decide whether the fat comes off and the muscle stays. Bodyweight times a multiplier for calories; 0.8 grams per pound for protein. Approximate is fine — roughly right every day beats exactly right for a week.</p>
+    <div class="fields">
+      <div><label for="f-bw">Bodyweight, lb</label><input type="number" id="f-bw" value="180" min="90" max="400" inputmode="numeric"></div>
+      <div><label>Goal</label><div class="seg" id="f-goal"><button data-v="cut" aria-pressed="true">Lose fat</button><button data-v="hold" aria-pressed="false">Hold</button><button data-v="gain" aria-pressed="false">Build</button></div></div>
+    </div>
+    <div class="out ok" id="f-out"></div>
+  </div>
+
+  <div class="tool rv" id="start">
+    <h3>Starting belt weight</h3>
+    <p class="sub">Eight strict reps before you hang anything. After that, your rep count tells you where to start so the first set lands in the five-to-eight range. Dips are always stronger than pull-ups.</p>
+    <div class="fields">
+      <div><label for="s-pu">Strict pull-ups you can do</label><input type="number" id="s-pu" value="8" min="0" max="60" inputmode="numeric"></div>
+      <div><label for="s-dp">Dips you can do</label><input type="number" id="s-dp" value="12" min="0" max="80" inputmode="numeric"></div>
+    </div>
+    <div class="out" id="s-out"></div>
+  </div>
+
+  <div class="tool rv" id="max">
+    <h3>Estimated max for a weighted set</h3>
+    <p class="sub">A weighted pull-up moves your whole body plus the plate. This converts any set you've done into what it's really worth, and tells you what a hard 5 and a hard 8 should look like at that strength.</p>
+    <div class="fields">
+      <div><label for="m-bw">Bodyweight, lb</label><input type="number" id="m-bw" value="180" min="90" max="400" inputmode="numeric"></div>
+      <div><label for="m-add">Added on the belt, lb</label><input type="number" id="m-add" value="45" min="0" max="400" inputmode="numeric"></div>
+      <div><label for="m-reps">Reps you got</label><input type="number" id="m-reps" value="6" min="1" max="20" inputmode="numeric"></div>
+    </div>
+    <div class="out ok" id="m-out"></div>
+  </div>
+
+  <div class="tool rv" id="plates">
+    <h3>Plate math for the belt</h3>
+    <p class="sub">A dip belt takes single plates on a chain, so there's no pairing. Tick what you own and it tells you what to hang.</p>
+    <div class="fields">
+      <div><label for="p-target">Target added weight, lb</label><input type="number" id="p-target" value="65" min="0" max="400" step="2.5" inputmode="decimal"></div>
+      <div><label>Plates you have</label><div class="check" id="p-have">
+        <label><input type="checkbox" value="45" checked>45</label><label><input type="checkbox" value="35">35</label><label><input type="checkbox" value="25" checked>25</label><label><input type="checkbox" value="10" checked>10</label><label><input type="checkbox" value="5" checked>5</label><label><input type="checkbox" value="2.5" checked>2.5</label></div></div>
+    </div>
+    <div class="out ok" id="p-out"></div>
+  </div>
+
+  <div class="tool rv" id="week">
+    <h3>Weekly bodyweight average</h3>
+    <p class="sub">One morning tells you how salty dinner was. Seven mornings averaged tell you the truth. Enter this week's weigh-ins; it compares to the last week you saved on this device.</p>
+    <div class="week" id="w-days"></div>
+    <div class="fields" style="margin-top:12px"><div><label>Goal</label><div class="seg" id="w-goal"><button data-v="cut" aria-pressed="true">Lose fat</button><button data-v="hold" aria-pressed="false">Hold</button><button data-v="gain" aria-pressed="false">Build</button></div></div></div>
+    <div class="out" id="w-out"></div>
+    <div class="trow" style="justify-content:flex-start;margin-top:12px"><button class="btn dark sm" id="w-save">Save this week</button><button class="btn ghost sm" id="w-clear">Clear saved weeks</button></div>
+  </div>
+
+  <div class="tool rv" id="count">
+    <h3>Twenty-four sessions</h3>
+    <p class="sub">The count that matters more than the mirror. Tap it after every session. Never two in a row — that's the only rule that decides whether you get here.</p>
+    <div class="out ok" id="c-out"></div>
+    <div class="prog"><i id="c-bar"></i></div>
+    <div class="trow" style="justify-content:flex-start;margin-top:14px"><button class="btn solid sm" id="c-add">Logged a session</button><button class="btn ghost sm" id="c-undo">Undo</button><button class="btn ghost sm" id="c-reset">Start over</button></div>
+  </div>
+
+  <div class="tool rv" id="rest">
+    <h3>Rest timer</h3>
+    <p class="sub">Three to five minutes between the hard sets. If you're not resting long enough to get bored, you're not lifting heavy enough to need it. Leave this open at the bar.</p>
+    <div class="timer">
+      <div class="clock" id="clock">3:00</div>
+      <div class="tbar"><i id="tfill"></i></div>
+      <div class="trow"><button class="btn solid" id="tStart">Start</button><button class="btn ghost" id="tReset">Reset</button></div>
+      <div class="trow" style="margin-top:10px"><button class="btn ghost sm" data-secs="120">2 min</button><button class="btn ghost sm" data-secs="180">3 min</button><button class="btn ghost sm" data-secs="240">4 min</button><button class="btn ghost sm" data-secs="300">5 min</button></div>
+    </div>
+  </div>
+
+  <p class="note" style="margin-top:28px">Want these set up for you, with someone checking the log each week? <a href="apply.html">That's the coaching.</a></p>
+</div></section>
+
+<footer><div class="wrap">
+  <div>
+    <div><a href="start.html">Start here</a><a href="plan.html">Free plan</a><a href="tools.html">Tools</a><a href="about.html">About</a><a href="apply.html">Apply</a></div>
+    <div style="margin-top:8px"><a href="https://www.youtube.com/@maxlovefitness" rel="me noopener" target="_blank">YouTube</a><a href="https://www.instagram.com/maxlovefitness/" rel="me noopener" target="_blank">Instagram</a></div>
+    <p class="fine">General information from one person's experience, not medical advice. Check with a doctor before starting anything if you have a condition. © 2026 Max Love.</p>
+  </div>
+  <div class="eyebrow">fewer sets, heavier bar.</div>
+</div></footer>
+<script>
+document.documentElement.classList.add("js");
+(function(){
+  var h=document.querySelector(".hdr"); if(h){ var f=function(){h.classList.toggle("stuck",window.scrollY>8)}; f(); addEventListener("scroll",f,{passive:true}); }
+  var els=[].slice.call(document.querySelectorAll(".rv"));
+  if(!("IntersectionObserver" in window)){ els.forEach(function(e){e.classList.add("in")}); return; }
+  var io=new IntersectionObserver(function(en){ en.forEach(function(x){ if(x.isIntersecting){ x.target.classList.add("in"); io.unobserve(x.target); } }); },{rootMargin:"0px 0px -8% 0px",threshold:.08});
+  els.forEach(function(e){io.observe(e)});
+  // count-up
+  var cs=[].slice.call(document.querySelectorAll("[data-count]"));
+  var co=new IntersectionObserver(function(en){ en.forEach(function(x){ if(!x.isIntersecting) return; co.unobserve(x.target);
+    var el=x.target, end=+el.getAttribute("data-count"), pre=el.getAttribute("data-pre")||"", t0=null;
+    if(matchMedia("(prefers-reduced-motion: reduce)").matches){ el.textContent=pre+end; return; }
+    var step=function(t){ if(!t0)t0=t; var p=Math.min(1,(t-t0)/900); var v=Math.round(end*(1-Math.pow(1-p,3))); el.textContent=pre+v; if(p<1) requestAnimationFrame(step); };
+    requestAnimationFrame(step); }); },{threshold:.5});
+  cs.forEach(function(e){co.observe(e)});
+})();
+</script>
+<script>
+(function(){
+const $=id=>document.getElementById(id);
+const seg=(id,cb)=>{const el=$(id);el.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;[...el.children].forEach(x=>x.setAttribute("aria-pressed",String(x===b)));cb(b.dataset.v);});};
+const cal=(bw,g)=>{const r=n=>Math.round(bw*n/10)*10;return g==="cut"?[r(10),r(12)]:g==="hold"?[r(12.5),r(13.5)]:[r(15),r(16)];};
+
+/* food */
+let fg="cut";
+function food(){const bw=Math.max(90,Math.min(400,+$("f-bw").value||180));const c=cal(bw,fg),p=Math.round(bw*.8);
+  const how=fg==="cut"?"Losing about 0.5–1% of bodyweight a week is right. Faster two weeks running, eat more. Nothing moving two weeks running, eat less.":fg==="hold"?"Your weekly average should stay flat. If it drifts more than 1% either way two weeks running, adjust.":"Gaining about 0.25–0.5% of bodyweight a week is right. Faster than that two weeks running, eat a little less.";
+  $("f-out").innerHTML=`<div class="big">${c[0].toLocaleString()}–${c[1].toLocaleString()} calories · ${p} g protein</div><div class="why">${how}</div>
+  <div class="nums"><div><div class="k">Protein looks like</div><div class="v">${Math.round(p/52*10)/10} <small>× 6 oz chicken</small></div></div><div><div class="k">or</div><div class="v">${Math.round(p/19*10)/10} <small>× 3 eggs</small></div></div><div><div class="k">or</div><div class="v">${Math.round(p/25*10)/10} <small>× 1 scoop whey</small></div></div></div>`;}
+$("f-bw").addEventListener("input",food);seg("f-goal",v=>{fg=v;food();});food();
+
+/* start */
+const puStart=n=>n<8?null:n<=10?10:n<=14?20:n<=19?35:45;
+const dpStart=n=>n<10?null:n<=14?15:n<=19?30:n<=24?45:60;
+function start(){const pu=+$("s-pu").value||0,dp=+$("s-dp").value||0,a=puStart(pu),b=dpStart(dp);const o=$("s-out");o.className="out"+((a||b)?" ok":"");
+  const pl=a===null?`<b>Pull-up: no belt yet.</b> Get to 8 strict reps first — dead hang, chin over, no kick.`:`<b>Pull-up: start at ${a} lb.</b> Two hard sets of 5–8. Over 8 on the first go means too light — add 5.`;
+  const dl=b===null?`<b>Dip: no belt yet.</b> Get to 10 clean reps — shoulders below elbows, full lockout.`:`<b>Dip: start at ${b} lb.</b> Same two sets. Lean forward for chest, upright for triceps, pick one.`;
+  o.innerHTML=`<div class="why" style="font-size:16px;color:var(--ink)">${pl}</div><div class="why" style="font-size:16px;color:var(--ink);margin-top:8px">${dl}</div><div class="why">When both sets hit eight, add five pounds and start again at five. <a href="plan.html">The full plan.</a></div>`;}
+["s-pu","s-dp"].forEach(id=>$(id).addEventListener("input",start));start();
+
+/* max (Epley on system weight) */
+function emax(){const bw=+$("m-bw").value||180,add=+$("m-add").value||0,reps=Math.max(1,Math.min(20,+$("m-reps").value||1));
+  const sys=bw+add,one=reps===1?sys:sys*(1+reps/30);const five=one/(1+5/30),eight=one/(1+8/30);const r5=Math.round((five-bw)/5)*5,r8=Math.round((eight-bw)/5)*5;
+  $("m-out").innerHTML=`<div class="big">That set moved ${sys.toLocaleString()} lb. Estimated one-rep system max: ${Math.round(one).toLocaleString()} lb.</div>
+  <div class="why">Bodyweight counts — a +${add} pull-up at ${bw} lb is a ${sys} lb pull. Which is why a 22-lb plate on a 160-lb lifter is not a small number.</div>
+  <div class="nums"><div><div class="k">Est. 1-rep added</div><div class="v">${Math.max(0,Math.round(one-bw))} <small>lb</small></div></div><div><div class="k">A hard 5 · added</div><div class="v">${Math.max(0,r5)} <small>lb</small></div></div><div><div class="k">A hard 8 · added</div><div class="v">${Math.max(0,r8)} <small>lb</small></div></div></div>
+  <div class="why">Estimates, not promises. Use them to sanity-check a starting weight, then let the log take over.</div>`;}
+["m-bw","m-add","m-reps"].forEach(id=>$(id).addEventListener("input",emax));emax();
+
+/* plates */
+function plates(){const t=Math.max(0,+$("p-target").value||0);const have=[...document.querySelectorAll("#p-have input:checked")].map(x=>+x.value).sort((a,b)=>b-a);
+  let left=t,used=[];for(const p of have){while(left>=p-0.001){used.push(p);left-=p;if(used.length>12)break;}}
+  const got=t-left;const o=$("p-out");o.className="out"+(left<0.001?" ok":"");
+  o.innerHTML=used.length?`<div class="big">Hang ${used.length} plate${used.length>1?"s":""}: ${used.join(" + ")} = ${got} lb</div><div class="chips">${used.map(p=>`<span class="chip">${p}</span>`).join("")}</div>`+(left>0.001?`<div class="why">Short by ${Math.round(left*10)/10} lb with the plates you ticked. Closest you can hang is ${got}; next step up needs a smaller plate.</div>`:`<div class="why">Heaviest plate closest to your body on the chain, so it swings less.</div>`)
+   :`<div class="big">Nothing to hang yet.</div><div class="why">Zero is a legitimate target for the first two weeks. Use a backpack with books if you want a number between 0 and your smallest plate.</div>`;}
+$("p-target").addEventListener("input",plates);document.querySelectorAll("#p-have input").forEach(x=>x.addEventListener("change",plates));plates();
+
+/* week */
+let wg="cut";const K="mlf_weeks";const wd=$("w-days");const days=["M","T","W","T","F","S","S"];
+wd.innerHTML=days.map((d,i)=>`<div><label style="text-align:center">${d}</label><input type="number" step="0.1" inputmode="decimal" data-i="${i}" placeholder="—"></div>`).join("");
+const load=()=>{try{return JSON.parse(localStorage.getItem(K)||"[]")}catch(e){return[]}};
+function week(){const vals=[...wd.querySelectorAll("input")].map(x=>+x.value).filter(v=>v>50);const o=$("w-out");
+  if(vals.length<3){o.className="out";o.innerHTML=`<div class="why">Enter at least three mornings. Skipped days are fine.</div>`;return;}
+  const avg=vals.reduce((a,b)=>a+b,0)/vals.length;const saved=load();const prev=saved.length?saved[saved.length-1].avg:null;
+  let verdict="";if(prev!==null){const d=avg-prev,pct=d/prev*100;
+    if(wg==="cut")verdict=pct<-1.2?"Faster than 1% a week. Eat a bit more — you're losing muscle with the fat.":pct<-0.4?"On pace. Change nothing.":pct<0.2?"Flat for the week. If next week is flat too, drop calories slightly.":"Up on a cut. Check the food log honestly before changing anything.";
+    else if(wg==="hold")verdict=Math.abs(pct)<1?"Holding. Good.":"Drifting more than 1%. Adjust a little.";
+    else verdict=pct>0.6?"Faster than half a percent. Ease off slightly.":pct>0.15?"On pace for a lean gain.":"Not moving. Add a little food.";}
+  o.className="out ok";o.innerHTML=`<div class="big">This week: ${avg.toFixed(1)} lb average${prev!==null?` · ${avg-prev>=0?"+":""}${(avg-prev).toFixed(1)} vs last saved week`:""}</div><div class="why">${prev===null?"No saved week yet. Save this one and next week you'll get a real comparison.":verdict}</div>${saved.length?`<div class="chips">${saved.slice(-8).map(w=>`<span class="chip small">${w.avg.toFixed(1)}</span>`).join("")}</div>`:""}`;}
+wd.addEventListener("input",week);seg("w-goal",v=>{wg=v;week();});
+$("w-save").addEventListener("click",()=>{const vals=[...wd.querySelectorAll("input")].map(x=>+x.value).filter(v=>v>50);if(vals.length<3)return;const s=load();s.push({t:Date.now(),avg:vals.reduce((a,b)=>a+b,0)/vals.length});try{localStorage.setItem(K,JSON.stringify(s.slice(-26)))}catch(e){}wd.querySelectorAll("input").forEach(x=>x.value="");week();});
+$("w-clear").addEventListener("click",()=>{try{localStorage.removeItem(K)}catch(e){}week();});week();
+
+/* count */
+const CK="mlf_sessions";const getC=()=>{try{return Math.max(0,+localStorage.getItem(CK)||0)}catch(e){return 0}};const setC=n=>{try{localStorage.setItem(CK,String(n))}catch(e){}};
+function count(){const n=getC();const left=Math.max(0,24-n);$("c-bar").style.width=Math.min(100,n/24*100)+"%";
+  const line=n===0?"Zero. The first one is the only one that needs deciding.":n<9?`${n} of 24. This is where most plans die. Yours doesn't have to.`:n<16?`${n} of 24. Past the quit zone. It stopped being a plan and became what you do.`:n<24?`${n} of 24. ${left} to go. Don't judge the mirror yet.`:`${n}. Twenty-four is done. Look at yourself now, then keep going.`;
+  $("c-out").innerHTML=`<div class="big">${n} / 24</div><div class="why">${line}</div>`;}
+$("c-add").addEventListener("click",()=>{setC(getC()+1);count();});$("c-undo").addEventListener("click",()=>{setC(Math.max(0,getC()-1));count();});$("c-reset").addEventListener("click",()=>{setC(0);count();});count();
+
+/* rest */
+let total=180,left=180,tick=null;const fmt=s=>Math.floor(s/60)+":"+String(s%60).padStart(2,"0");
+const paint=()=>{$("clock").textContent=left===0?"Go":fmt(left);$("clock").classList.toggle("done",left===0);$("tfill").style.width=(left/total*100)+"%";};
+const stop=()=>{if(tick){clearInterval(tick);tick=null;}$("tStart").textContent="Start";};
+$("tStart").addEventListener("click",()=>{if(tick){stop();return;}if(left===0)left=total;$("tStart").textContent="Pause";tick=setInterval(()=>{left=Math.max(0,left-1);paint();if(left===0){stop();try{navigator.vibrate&&navigator.vibrate([200,80,200])}catch(e){}}},1000);});
+$("tReset").addEventListener("click",()=>{stop();left=total;paint();});
+document.querySelectorAll("[data-secs]").forEach(b=>b.addEventListener("click",()=>{stop();total=+b.dataset.secs;left=total;paint();}));paint();
+})();
+</script>
+</body>
+</html>

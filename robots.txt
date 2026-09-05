@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://maxlovefitness.com/sitemap.xml

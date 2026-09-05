@@ -1,0 +1,823 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Start Here · Max Love Fitness</title>
+<meta name="description" content="Your starting weight, your food numbers, what counts as a rep, and two prompts that turn ChatGPT into your training and food log. Free.">
+<link rel="canonical" href="https://maxlovefitness.com/start.html">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Max Love Fitness">
+<meta property="og:title" content="Start Here · Max Love Fitness"><meta property="og:description" content="Your starting weight, your food numbers, what counts as a rep, and two prompts that turn ChatGPT into your training and food log. Free."><meta property="og:url" content="https://maxlovefitness.com/start.html">
+<meta property="og:image" content="https://maxlovefitness.com/og.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://maxlovefitness.com/og.jpg">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=EB+Garamond:ital@1&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="site.css">
+
+<style>
+  :root{
+    --paper:#FFFFFF; --ink:#16181C; --ink2:#41474E; --ink3:#8A9099; --rule:#E6E8EB; --wash:#F7F8F9;
+    --red:#B4253A; --red-wash:#FDF2F3; --go:#1B7F4B; --go-wash:#F1F8F3; --term:#14161A;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--paper);color:var(--ink);font-family:Inter,system-ui,-apple-system,sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased}
+  main{max-width:660px;margin:0 auto;padding:32px 20px 120px}
+
+  h1{font-size:clamp(30px,7.5vw,45px);letter-spacing:-.033em;line-height:1.01;text-wrap:balance;margin-bottom:11px}
+  h1 mark{background:linear-gradient(transparent 62%,#F9C7CE 62%);padding:0 .06em}
+  .lede{font-size:17px;color:var(--ink2);max-width:52ch;margin-bottom:9px}
+  .by{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3)}
+
+  .proof{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:center;margin-top:18px;border:1px solid var(--rule);border-radius:12px;padding:14px 16px}
+  .proof img{width:88px;height:110px;object-fit:cover;object-position:top;border-radius:8px;display:block}
+  .proof .pk{font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:5px}
+  .proof .pv{font-size:15px;color:var(--ink2);line-height:1.5}
+  .proof .pv b{color:var(--ink);font-weight:800}
+  .proof .pn{font-family:"EB Garamond",Georgia,serif;font-style:italic;color:var(--ink3);font-size:14.5px;margin-top:5px}
+  @media (max-width:520px){ .proof{grid-template-columns:1fr} .proof img{width:100%;height:220px} }
+  nav.toc{margin-top:26px;border:1px solid var(--rule);border-radius:12px;padding:16px 18px}
+  nav.toc div{font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:9px}
+  nav.toc ol{list-style:none;display:grid;gap:6px;counter-reset:t}
+  nav.toc li{counter-increment:t;font-size:15px}
+  nav.toc a{color:var(--ink2);text-decoration:none;border-bottom:1px solid transparent}
+  nav.toc a:hover{color:var(--ink);border-bottom-color:var(--red)}
+  nav.toc li:before{content:counter(t,decimal-leading-zero) "  ";font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--ink3)}
+
+  section{border-top:2px solid var(--ink);padding-top:15px;margin-top:46px;scroll-margin-top:16px}
+  h2{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3);margin-bottom:15px}
+  h3{font-size:20px;letter-spacing:-.018em;margin-bottom:9px;text-wrap:balance}
+  h4{font-size:16px;margin:22px 0 7px}
+  p{margin-bottom:12px;max-width:58ch}
+  .note{font-family:"EB Garamond",Georgia,serif;font-style:italic;color:var(--ink3);font-size:15.5px}
+  a.inline{color:var(--red);text-decoration:none;border-bottom:1px solid #F0C4CA}
+
+  .fields{display:grid;gap:16px}
+  label{display:block;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:6px}
+  input[type=number]{width:100%;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:19px;font-weight:600;color:var(--ink);background:var(--wash);border:1px solid var(--rule);border-radius:9px;padding:12px 14px}
+  input[type=number]:focus{outline:2px solid var(--red);outline-offset:1px;background:#fff}
+  input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+  .seg{display:flex;gap:8px;flex-wrap:wrap}
+  .seg button{flex:1 1 auto;min-width:86px;font-family:Inter,sans-serif;font-size:14px;font-weight:600;color:var(--ink2);background:var(--wash);border:1px solid var(--rule);border-radius:9px;padding:11px 12px;cursor:pointer;transition:.14s}
+  .seg button:hover{border-color:var(--ink3)}
+  .seg button[aria-pressed=true]{background:var(--ink);border-color:var(--ink);color:#fff}
+  .seg button:focus-visible,.btn:focus-visible,summary:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+
+  .out{margin-top:26px;border-left:3px solid var(--red);background:var(--red-wash);border-radius:0 10px 10px 0;padding:18px 18px 20px}
+  .out.ready{border-color:var(--go);background:var(--go-wash)}
+  .verdict{font-size:21px;font-weight:800;letter-spacing:-.02em;line-height:1.22;margin-bottom:10px}
+  .why{font-size:15px;color:var(--ink2);margin-bottom:16px;max-width:56ch}
+  .nums{display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));gap:14px;border-top:1px solid rgba(0,0,0,.09);padding-top:14px}
+  .nums div .k{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3)}
+  .nums div .v{font-size:22px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums;margin-top:2px}
+  .nums div .v small{font-size:12px;font-weight:600;color:var(--ink3);letter-spacing:0}
+
+  .days{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}
+  .day{border:1px solid var(--rule);border-radius:10px;padding:14px}
+  .day h4{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin:0 0 9px}
+  .day ol{padding-left:17px;font-size:14.5px;color:var(--ink2)}
+  .day ol li{margin-bottom:5px}
+  .day ol li:first-child{font-weight:700;color:var(--ink)}
+
+  .steps{counter-reset:s;display:grid;gap:14px;margin-bottom:22px}
+  .steps li{list-style:none;counter-increment:s;position:relative;padding-left:38px;font-size:15.5px;color:var(--ink2);max-width:56ch}
+  .steps li:before{content:counter(s);position:absolute;left:0;top:-1px;width:26px;height:26px;border-radius:50%;background:var(--ink);color:#fff;font-family:"JetBrains Mono",monospace;font-size:12px;font-weight:600;display:grid;place-items:center}
+  .steps li b{color:var(--ink)}
+
+  .figs{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin:6px 0 18px}
+  .figs figure{text-align:center}
+  .figs svg{width:100%;height:auto;max-height:230px}
+  .figs figcaption{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin-top:6px}
+
+  table.d{border-collapse:collapse;width:100%;font-size:14px;margin:6px 0 4px}
+  table.d th{text-align:left;font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);border-bottom:1px solid var(--ink);padding:6px 10px 6px 0}
+  table.d td{padding:8px 10px 8px 0;border-bottom:1px solid var(--rule);color:var(--ink2);vertical-align:top}
+  table.d td:first-child{color:var(--ink);font-weight:600}
+  table.d td.n{font-family:"JetBrains Mono",monospace;font-variant-numeric:tabular-nums;color:var(--ink)}
+  table.d tr.hl td{background:var(--red-wash)}
+  .scroller{overflow-x:auto}
+
+  .timer{border:1px solid var(--rule);border-radius:12px;padding:20px;text-align:center}
+  .clock{font-family:"JetBrains Mono",monospace;font-size:clamp(44px,13vw,66px);font-weight:600;letter-spacing:-.03em;font-variant-numeric:tabular-nums;line-height:1}
+  .clock.done{color:var(--go)}
+  .tbar{height:4px;background:var(--wash);border-radius:99px;margin:14px 0 16px;overflow:hidden}
+  .tbar i{display:block;height:100%;background:var(--red);width:100%}
+  .trow{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+
+  .promptbox{background:var(--term);border-radius:12px;padding:18px}
+  .promptbox pre{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:12.5px;line-height:1.66;color:#E4E7EA;white-space:pre-wrap;word-break:break-word;max-height:360px;overflow-y:auto}
+  .copyrow{display:flex;gap:10px;align-items:center;margin-top:14px;flex-wrap:wrap}
+  .btn{font-family:Inter,sans-serif;font-size:14px;font-weight:600;border-radius:9px;padding:11px 16px;cursor:pointer;border:1px solid transparent;transition:.14s}
+  .btn.solid{background:var(--red);color:#fff}
+  .btn.solid:hover{background:#9C1F32}
+  .btn.ghost{background:transparent;color:var(--ink2);border-color:var(--rule)}
+  .btn.ghost:hover{border-color:var(--ink3)}
+  .copied{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--go)}
+
+  .demo{border:1px solid var(--rule);border-radius:12px;overflow:hidden;margin-top:16px}
+  .demo .row{display:grid;grid-template-columns:auto 1fr;gap:12px;padding:13px 15px;border-bottom:1px solid var(--rule);align-items:start}
+  .demo .row:last-child{border-bottom:0}
+  .demo .who{font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink3);padding-top:3px;white-space:nowrap}
+  .demo .row.you{background:var(--wash)}
+  .demo .row.you .msg{font-family:"JetBrains Mono",monospace;font-size:14px;font-weight:600}
+  .demo .msg{font-size:15px;color:var(--ink2)}
+  .demo .msg b{color:var(--ink)}
+  .demo table{border-collapse:collapse;font-family:"JetBrains Mono",monospace;font-size:12.5px;margin:6px 0 8px}
+  .demo th{text-align:left;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);border-bottom:1px solid var(--ink);padding:3px 12px 3px 0}
+  .demo td{padding:4px 12px 4px 0;border-bottom:1px solid var(--rule);color:var(--ink)}
+
+  ul.o{list-style:none}
+  ul.o li{padding-left:16px;position:relative;margin-bottom:11px;font-size:15.5px;color:var(--ink2);max-width:58ch}
+  ul.o li:before{content:"";position:absolute;left:0;top:9px;width:5px;height:5px;border-radius:50%;background:var(--red)}
+  ul.o li b{color:var(--ink)}
+
+  .card{border:1px solid var(--rule);border-radius:12px;padding:16px 18px;margin-bottom:12px}
+  .card h4{margin:0 0 5px;font-size:16.5px}
+  .card p{margin-bottom:0;font-size:15px;color:var(--ink2)}
+  .card .tagline{font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--red);margin-bottom:6px}
+
+  details{border-bottom:1px solid var(--rule);padding:13px 0}
+  details summary{cursor:pointer;font-weight:600;font-size:16px;list-style:none;display:flex;justify-content:space-between;gap:12px;align-items:baseline}
+  details summary::-webkit-details-marker{display:none}
+  details summary:after{content:"+";font-family:"JetBrains Mono",monospace;color:var(--ink3);font-weight:400}
+  details[open] summary:after{content:"–"}
+  details .body{margin-top:10px;font-size:15.5px;color:var(--ink2);max-width:58ch}
+  details .body p{font-size:15.5px}
+
+  .check{list-style:none;display:grid;gap:10px}
+  .check li{display:grid;grid-template-columns:auto 1fr;gap:11px;align-items:start;font-size:15.5px;color:var(--ink2)}
+  .check li:before{content:"";width:17px;height:17px;border:1.5px solid var(--ink3);border-radius:4px;margin-top:3px}
+  .check li b{color:var(--ink)}
+
+  .cta{margin-top:48px;border:2px solid var(--ink);border-radius:12px;padding:22px}
+  .cta h3{margin-bottom:7px}
+  @media (max-width:520px){ .days{grid-template-columns:1fr} .demo .row{grid-template-columns:1fr;gap:4px} .figs{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+<header class="hdr"><div class="wrap">
+  <a class="brand" href="index.html">Max Love <span>Fitness</span></a>
+  <nav class="nav" aria-label="Site"><a href="index.html">Home</a><a href="start.html" class="on">Start here</a><a href="plan.html">Free plan</a><a href="tools.html">Tools</a><a href="about.html">About</a><a class="cta" href="apply.html">Apply</a></nav>
+</div></header>
+<main>
+  <h1>Start here. It takes <mark>two numbers</mark>.</h1>
+  <p class="lede">Everything I actually do, on one page. Where to start, what counts as a rep, what to eat, what to do when it stalls, and the two prompts that turn ChatGPT into your log.</p>
+  <p class="by">Max Love · weighted calisthenics</p>
+  <div class="proof">
+    <img src="max.jpg" alt="Max Love" width="88" height="110">
+    <div>
+      <div class="pk">Who's telling you this</div>
+      <div class="pv"><b>+205 lb</b> dip &nbsp;·&nbsp; <b>+125 lb</b> chin-up &nbsp;·&nbsp; <b>22</b> strict pull-ups &nbsp;·&nbsp; <b>70 lb</b> lost, muscle kept</div>
+      <div class="pn">Two lifts, two hard sets, two or three days a week. Everything below is exactly what I do.</div>
+    </div>
+  </div>
+
+  <nav class="toc">
+    <div>What's on this page</div>
+    <ol>
+      <li><a href="#numbers">Your starting numbers</a></li>
+      <li><a href="#reps">What counts as a rep</a></li>
+      <li><a href="#progress">The one progression rule</a></li>
+      <li><a href="#rest">A rest timer you can use today</a></li>
+      <li><a href="#prompts">Two prompts that log everything</a></li>
+      <li><a href="#food">Hitting protein without thinking</a></li>
+      <li><a href="#stall">When it stops working</a></li>
+      <li><a href="#gear">What to buy, and the free version</a></li>
+      <li><a href="#week">Your first week, hour by hour</a></li>
+      <li><a href="#faq">The questions everyone asks</a></li>
+    </ol>
+  </nav>
+
+  <section id="numbers">
+    <h2>1 · Your starting numbers</h2>
+    <div class="fields">
+      <div>
+        <label for="bw">Your bodyweight, pounds</label>
+        <input type="number" id="bw" value="180" min="90" max="400" inputmode="numeric">
+      </div>
+      <div>
+        <label for="pu">Strict pull-ups you can do right now</label>
+        <input type="number" id="pu" value="6" min="0" max="60" inputmode="numeric">
+      </div>
+      <div>
+        <label>What you want first</label>
+        <div class="seg" role="group" id="goalSeg">
+          <button data-goal="cut" aria-pressed="true">Lose fat</button>
+          <button data-goal="hold" aria-pressed="false">Stay here</button>
+          <button data-goal="gain" aria-pressed="false">Build up</button>
+        </div>
+      </div>
+      <div>
+        <label>Days a week you can actually train</label>
+        <div class="seg" role="group" id="daySeg">
+          <button data-days="2" aria-pressed="true">2 days</button>
+          <button data-days="3" aria-pressed="false">3 days</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="out" id="out">
+      <p class="verdict" id="verdict"></p>
+      <p class="why" id="why"></p>
+      <div class="nums" id="nums"></div>
+    </div>
+
+    <div class="days" id="daysOut"></div>
+    <p class="note" style="margin-top:15px">Two hard sets on the first lift of each day. Three to five minutes rest between them. Everything after the first lift is support and doesn't need careful progression.</p>
+  </section>
+
+  <section id="reps">
+    <h2>2 · What counts as a rep</h2>
+    <h3>Half your problem is that half your reps don't count.</h3>
+    <p>Adding weight to a rep you're cutting short doesn't make you stronger, it just makes the number on your log a lie. This is the standard, and it's not negotiable at any weight.</p>
+
+    <h4>The pull-up</h4>
+    <div class="figs">
+      <figure>
+        <svg viewBox="0 0 200 240" fill="none" stroke="#16181C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Pull-up bottom position, arms straight in a dead hang">
+          <line x1="18" y1="30" x2="182" y2="30" stroke-width="5"/><line x1="40" y1="30" x2="40" y2="10" stroke-width="5"/><line x1="160" y1="30" x2="160" y2="10" stroke-width="5"/>
+          <path d="M74 30 L74 88 M126 30 L126 88"/>
+          <circle cx="100" cy="100" r="13" fill="#fff"/>
+          <path d="M74 88 Q100 108 126 88 L120 162 L80 162 Z" fill="#fff"/>
+          <path d="M80 162 L77 216 M120 162 L123 216"/>
+          <text x="140" y="70" fill="#B4253A" font-family="EB Garamond, Georgia, serif" font-style="italic" font-size="13" stroke="none">arms straight</text>
+        </svg>
+        <figcaption>Bottom — dead hang</figcaption>
+      </figure>
+      <figure>
+        <svg viewBox="0 0 200 240" fill="none" stroke="#16181C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Pull-up top position, chin above the bar">
+          <line x1="18" y1="30" x2="182" y2="30" stroke-width="5"/><line x1="40" y1="30" x2="40" y2="10" stroke-width="5"/><line x1="160" y1="30" x2="160" y2="10" stroke-width="5"/>
+          <circle cx="100" cy="22" r="13" fill="#fff"/>
+          <path d="M74 30 L74 58 M126 30 L126 58"/>
+          <path d="M74 58 Q100 46 126 58 L120 122 L80 122 Z" fill="#fff"/>
+          <path d="M80 122 L76 180 M120 122 L124 180"/>
+          <text x="140" y="18" fill="#B4253A" font-family="EB Garamond, Georgia, serif" font-style="italic" font-size="13" stroke="none">chin over</text>
+        </svg>
+        <figcaption>Top — chin above the bar</figcaption>
+      </figure>
+    </div>
+    <ul class="o">
+      <li><b>Start from straight arms.</b> Every rep. The bottom is where the load actually is, and cutting it is cutting the exercise in half.</li>
+      <li><b>Chin over the bar, not level with it.</b> Nose doesn't count. Eyes don't count.</li>
+      <li><b>No kick.</b> If your legs swing, the rep didn't happen. With a belt on, a kick is how a shoulder gets hurt.</li>
+      <li><b>Two seconds down.</b> The lowering half builds as much as the pull, and it's the half everyone drops.</li>
+    </ul>
+
+    <h4>The dip</h4>
+    <div class="figs">
+      <figure>
+        <svg viewBox="0 0 200 240" fill="none" stroke="#16181C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Dip bottom position, shoulders below elbows">
+          <line x1="30" y1="96" x2="30" y2="220" stroke-width="5"/><line x1="170" y1="96" x2="170" y2="220" stroke-width="5"/>
+          <line x1="30" y1="96" x2="70" y2="96" stroke-width="5"/><line x1="130" y1="96" x2="170" y2="96" stroke-width="5"/>
+          <circle cx="100" cy="86" r="13" fill="#fff"/>
+          <path d="M62 96 L74 124 M138 96 L126 124"/>
+          <path d="M74 100 Q100 120 126 100 L120 168 L80 168 Z" fill="#fff"/>
+          <path d="M82 168 L78 216 M118 168 L122 216"/>
+          <path d="M120 178 L120 200" stroke="#B4253A" stroke-dasharray="3 4"/><circle cx="120" cy="206" r="7" fill="#B4253A" stroke="none"/>
+          <text x="18" y="72" fill="#B4253A" font-family="EB Garamond, Georgia, serif" font-style="italic" font-size="13" stroke="none">shoulders below elbows</text>
+        </svg>
+        <figcaption>Bottom — shoulders below elbows</figcaption>
+      </figure>
+      <figure>
+        <svg viewBox="0 0 200 240" fill="none" stroke="#16181C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Dip top position, arms locked out">
+          <line x1="30" y1="96" x2="30" y2="220" stroke-width="5"/><line x1="170" y1="96" x2="170" y2="220" stroke-width="5"/>
+          <line x1="30" y1="96" x2="70" y2="96" stroke-width="5"/><line x1="130" y1="96" x2="170" y2="96" stroke-width="5"/>
+          <circle cx="100" cy="44" r="13" fill="#fff"/>
+          <path d="M64 96 L74 66 M136 96 L126 66"/>
+          <path d="M74 58 Q100 74 126 58 L120 128 L80 128 Z" fill="#fff"/>
+          <path d="M82 128 L78 190 M118 128 L122 190"/>
+          <path d="M120 150 L120 172" stroke="#B4253A" stroke-dasharray="3 4"/><circle cx="120" cy="178" r="7" fill="#B4253A" stroke="none"/>
+          <text x="132" y="40" fill="#B4253A" font-family="EB Garamond, Georgia, serif" font-style="italic" font-size="13" stroke="none">locked out</text>
+        </svg>
+        <figcaption>Top — arms locked</figcaption>
+      </figure>
+    </div>
+    <ul class="o">
+      <li><b>Shoulders below elbows at the bottom.</b> Anything less is a triceps press-down with your bodyweight on it.</li>
+      <li><b>Lock out at the top.</b> Every rep finishes.</li>
+      <li><b>Lean forward for chest, stay upright for triceps.</b> Pick one and stay with it so the log means something.</li>
+      <li><b>Control the bottom.</b> Dropping into the stretch is where shoulders get hurt, and the plates hanging off you make it worse.</li>
+    </ul>
+  </section>
+
+  <section id="progress">
+    <h2>3 · The one progression rule</h2>
+    <h3>Both sets hit eight. Then, and only then, add five pounds.</h3>
+    <p>This is called double progression. Reps climb first on the same weight, then the weight jumps and the reps reset. It's the entire program, and it's why you don't need a new plan every eight weeks.</p>
+    <div class="scroller">
+      <table class="d" id="progTable">
+        <thead><tr><th>Session</th><th>Belt</th><th>Set 1</th><th>Set 2</th><th>What you do next</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <p class="note">Repeating a weight isn't standing still. Going from a hard five to a clean eight on the same load <em>is</em> the progress. The plate change is just the receipt.</p>
+    <ul class="o" style="margin-top:18px">
+      <li><b>Five pounds at a time.</b> Ten if the last jump felt like nothing. Never double it — tendons adapt slower than muscle, and they don't warn you first.</li>
+      <li><b>Missed one rep on set two?</b> Same weight next time. You're not stuck, you're one session away.</li>
+      <li><b>Never add weight to fix a stall.</b> If the reps stopped climbing, more load is the last thing that will help.</li>
+    </ul>
+  </section>
+
+  <section id="rest">
+    <h2>4 · A rest timer you can use today</h2>
+    <h3>The reason your second set is worse.</h3>
+    <p>Ninety seconds and set two is a fraction of set one — you wrote down two sets and did about one and a half. Three to five minutes and both sets land near what you're capable of. Same two sets on paper, roughly double the work. Leave this page open at the bar.</p>
+    <div class="timer">
+      <div class="clock" id="clock">3:00</div>
+      <div class="tbar"><i id="tfill"></i></div>
+      <div class="trow">
+        <button class="btn solid" id="tStart">Start</button>
+        <button class="btn ghost" id="tReset">Reset</button>
+      </div>
+      <div class="trow" style="margin-top:10px">
+        <button class="btn ghost" data-secs="120">2 min</button>
+        <button class="btn ghost" data-secs="180">3 min</button>
+        <button class="btn ghost" data-secs="240">4 min</button>
+        <button class="btn ghost" data-secs="300">5 min</button>
+      </div>
+    </div>
+    <p class="note" style="margin-top:14px">If you're not resting long enough to get bored, you're not lifting heavy enough to need it.</p>
+  </section>
+
+  <section id="prompts">
+    <h2>5 · Two prompts that log everything</h2>
+    <h3>I don't use a training app. I use two chats.</h3>
+    <p>One keeps my lifts and tells me what to add. The other estimates and totals my food so I never look up a macro. Both are free, and both answer back, which is the part an app can't do.</p>
+
+    <ol class="steps">
+      <li><b>Open two new chats</b> in ChatGPT or Claude. Call them Training and Food.</li>
+      <li><b>Paste one prompt into each.</b> Your numbers from section one are already filled in.</li>
+      <li><b>Never start a third.</b> The whole value is that they remember.</li>
+    </ol>
+
+    <div class="seg" role="group" id="modeSeg" style="margin-bottom:14px">
+      <button data-mode="train" aria-pressed="true">Training log</button>
+      <button data-mode="food" aria-pressed="false">Food log</button>
+    </div>
+
+    <div class="promptbox"><pre id="promptText"></pre></div>
+    <div class="copyrow">
+      <button class="btn solid" id="copyBtn">Copy the training prompt</button>
+      <button class="btn ghost" id="selBtn">Select it instead</button>
+      <span class="copied" id="copied" hidden>Copied</span>
+    </div>
+
+    <h4 id="demoTitle" style="margin-top:30px">Four words in. A decision back.</h4>
+    <div class="demo" id="demoTrain">
+      <div class="row you"><div class="who">You</div><div class="msg">pull 20x8,8</div></div>
+      <div class="row"><div class="who">It</div><div class="msg">
+        <table>
+          <thead><tr><th>Date</th><th>Lift</th><th>Wt</th><th>S1</th><th>S2</th></tr></thead>
+          <tbody>
+            <tr><td>Mar 4</td><td>pull</td><td>20</td><td>7</td><td>6</td></tr>
+            <tr><td>Mar 11</td><td>pull</td><td>20</td><td>8</td><td>7</td></tr>
+            <tr><td>Mar 18</td><td>pull</td><td>20</td><td>8</td><td>8</td></tr>
+          </tbody>
+        </table>
+        <b>Up.</b> Both sets at 8 for the first time.<br>Next pull day: 25 lb, target 5 reps both sets.
+      </div></div>
+      <div class="row you"><div class="who">You</div><div class="msg">bw 177.2</div></div>
+      <div class="row"><div class="who">It</div><div class="msg">Logged. 7-day average 177.9, down 0.8 from last week. On pace.</div></div>
+      <div class="row you"><div class="who">You</div><div class="msg">elbow felt off today</div></div>
+      <div class="row"><div class="who">It</div><div class="msg">Holding you at 20 lb and stopping each set a rep earlier. No progression until you tell me it's quiet.</div></div>
+    </div>
+
+    <div class="demo" id="demoFood" hidden>
+      <div class="row you"><div class="who">You</div><div class="msg">8oz ribeye and 3 eggs</div></div>
+      <div class="row"><div class="who">It</div><div class="msg">
+        Ribeye, 8 oz — 640 kcal, 56 g<br>
+        Eggs, 3 — 215 kcal, 19 g<br>
+        <b>Today: 855 kcal, 75 g protein</b><br>
+        Left: 1,305 kcal, 69 g protein
+      </div></div>
+      <div class="row you"><div class="who">You</div><div class="msg">chipotle bowl, double chicken, white rice, cheese</div></div>
+      <div class="row"><div class="who">It</div><div class="msg">
+        Chipotle bowl (est) — 890 kcal, 62 g<br>
+        <b>Today: 1,745 kcal, 137 g protein</b><br>
+        Left: 415 kcal, 7 g protein
+      </div></div>
+      <div class="row you"><div class="who">You</div><div class="msg">what should I have</div></div>
+      <div class="row"><div class="who">It</div><div class="msg">Greek yogurt, 200 g — 130 kcal, 20 g. Puts you at 1,875 and over on protein.</div></div>
+    </div>
+    <p class="note" style="margin-top:15px">Every Sunday each one gives you the week: your average weight and its change, your average protein, and how many days out of seven you hit it.</p>
+  </section>
+
+  <section id="food">
+    <h2>6 · Hitting protein without thinking</h2>
+    <h3>Protein is the number people miss. It's also the easiest to fix.</h3>
+    <p>You don't need a diet. You need to hit two numbers with food you'd eat anyway. Pick three or four of these, repeat them, and the number takes care of itself.</p>
+    <div class="scroller">
+      <table class="d">
+        <thead><tr><th>Food</th><th>Portion</th><th>Protein</th><th>Calories</th></tr></thead>
+        <tbody>
+          <tr><td>Chicken breast</td><td>6 oz cooked</td><td class="n">52 g</td><td class="n">280</td></tr>
+          <tr><td>Sirloin</td><td>6 oz cooked</td><td class="n">46 g</td><td class="n">340</td></tr>
+          <tr><td>Lean ground beef, 93%</td><td>6 oz cooked</td><td class="n">46 g</td><td class="n">330</td></tr>
+          <tr><td>Salmon</td><td>6 oz cooked</td><td class="n">40 g</td><td class="n">350</td></tr>
+          <tr><td>Canned tuna</td><td>1 can</td><td class="n">27 g</td><td class="n">120</td></tr>
+          <tr><td>Cottage cheese</td><td>1 cup</td><td class="n">25 g</td><td class="n">180</td></tr>
+          <tr><td>Whey protein</td><td>1 scoop</td><td class="n">25 g</td><td class="n">120</td></tr>
+          <tr><td>Greek yogurt, non-fat</td><td>200 g</td><td class="n">20 g</td><td class="n">120</td></tr>
+          <tr><td>Eggs</td><td>3 large</td><td class="n">19 g</td><td class="n">215</td></tr>
+          <tr><td>Milk</td><td>16 oz</td><td class="n">16 g</td><td class="n">250</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Approximate, and approximate is fine. Being roughly right every day beats being exactly right for a week.</p>
+    <ul class="o" style="margin-top:18px">
+      <li><b>Protein first on every plate.</b> Decide the meat, then fill in around it. That single order of operations does most of the work.</li>
+      <li><b>The food itself is up to you.</b> Macros over food choices. Keep it mostly real food because of how you feel, not because of a rule.</li>
+      <li><b>Weigh yourself every morning</b>, same time, and only ever judge the seven-day average. One morning tells you nothing except how salty dinner was.</li>
+      <li><b>Cook the week's protein on Sunday.</b> Twenty minutes, and the week's decisions are gone. Decisions are where diets die, not hunger.</li>
+    </ul>
+  </section>
+
+  <section id="stall">
+    <h2>7 · When it stops working</h2>
+    <h3>Three sessions at the same numbers. Now what?</h3>
+    <p>Everyone stalls. It means one of three things and they need opposite responses, which is why guessing makes it worse.</p>
+
+    <div class="card">
+      <div class="tagline">Cause one</div>
+      <h4>Something aches the day after</h4>
+      <p>Elbows, front of the shoulder, wrists. The load got ahead of your tendons — they adapt slower than muscle and don't warn you first. <b>Hold the weight, stop each set one rep earlier, and add a light warm-up set.</b> Nothing hurts before you progress.</p>
+    </div>
+    <div class="card">
+      <div class="tagline">Cause two</div>
+      <h4>Nothing hurts, you're just flat</h4>
+      <p>Sleep is short, work is heavy, you feel slow warming up. That's recovery, not training. <b>Take the week at one session instead of two, same weight, then come back.</b> Almost everyone reads this as needing to train harder, which is exactly backwards.</p>
+    </div>
+    <div class="card">
+      <div class="tagline">Cause three</div>
+      <h4>You've been cutting a long time</h4>
+      <p>Strength stalling in a deficit is normal and not a failure. You can't build much on low calories forever. <b>Eat at maintenance for two weeks</b> — bodyweight times about 13 — and the bar usually starts moving again within a session or two.</p>
+    </div>
+    <p class="note" style="margin-top:16px">Never add weight to fix a stall, and never skip the dead hang to buy one more rep. Both are how six-week injuries start.</p>
+  </section>
+
+  <section id="gear">
+    <h2>8 · What to buy, and the free version</h2>
+    <div class="scroller">
+      <table class="d">
+        <thead><tr><th>Thing</th><th>Roughly</th><th>Why</th></tr></thead>
+        <tbody>
+          <tr><td>Dip belt</td><td class="n">$30–40</td><td>The chain has to clear your knees or the plates swing into them. Not a weight vest — a vest changes how you move; a belt hangs the load and leaves the movement alone.</td></tr>
+          <tr><td>Plates</td><td class="n">varies</td><td>Two 10s, two 25s and a 45 cover the first couple of years. Add two 2.5s, because most jumps should be small.</td></tr>
+          <tr><td>Chalk</td><td class="n">$6</td><td>Stops your grip being the limit on a set your back could have finished. A block lasts a year.</td></tr>
+          <tr><td>A bar</td><td class="n">free</td><td>Any park. A doorway bar works. This is the whole gym.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h4>The free version, for month one</h4>
+    <p>A backpack with books in it does the same job as a belt. Weigh it on a bathroom scale — stand on the scale holding it, subtract your bodyweight — and log that number like any other. Buy the belt once you've proven to yourself that you'll show up.</p>
+  </section>
+
+  <section id="week">
+    <h2>9 · Your first week, hour by hour</h2>
+    <h3>Do exactly this. Change nothing for eight weeks.</h3>
+    <ul class="check">
+      <li><span><b>Sunday, 20 minutes.</b> Cook the week's protein. Put the belt or the backpack by the door.</span></li>
+      <li><span><b>Sunday, 5 minutes.</b> Open the two chats and paste the prompts. Send your bodyweight to the food one.</span></li>
+      <li><span><b>Monday, 40 minutes.</b> Pull day. One easy bodyweight set, then two hard sets on the pull-up. Log it the moment you're done.</span></li>
+      <li><span><b>Every morning, 10 seconds.</b> Weigh yourself and send the number. Ignore what it says day to day.</span></li>
+      <li><span><b>Thursday, 40 minutes.</b> Push day. Weighted dip first, same two sets, log it.</span></li>
+      <li><span><b>Sunday again.</b> Read the weekly summary. Change nothing based on one week.</span></li>
+      <li><span><b>Then repeat it seven more times.</b> Twenty-four sessions is where a body visibly changes. Nine is where most people quit.</span></li>
+    </ul>
+  </section>
+
+  <section id="faq">
+    <h2>10 · The questions everyone asks</h2>
+
+    <details><summary>Is two hard sets really enough?</summary><div class="body">
+      <p>For the first year or two, comfortably. You don't have a volume problem, you have an intensity problem — most people do sixteen sets that all feel like a seven out of ten because they know more sets are coming. Two sets you actually mean, fully rested, beat that. Add volume later, once the weight has genuinely stopped moving and nothing hurts.</p></div></details>
+
+    <details><summary>Can I do this entirely at home?</summary><div class="body">
+      <p>Yes. A pull-up bar, something to dip on, and a backpack is the whole requirement. Parallel bars exist in most parks. The accessories — rows, presses, curls — can be dumbbells, bands, or skipped in month one without much cost.</p></div></details>
+
+    <details><summary>What if I can't do a single dip yet?</summary><div class="body">
+      <p>Do the top half only, from lockout down to about halfway, and control the lowering. Three sets of five. Add an inch of depth each week. You'll have a full one inside a month, and the same eight-clean-reps rule then applies before you add weight.</p></div></details>
+
+    <details><summary>What about cardio?</summary><div class="body">
+      <p>Optional for fat loss — the diet does that. Walk if you like walking, and it helps your recovery and your head. Don't add running on top of a deficit and two hard sessions and then wonder why you're flat.</p></div></details>
+
+    <details><summary>Do I need supplements?</summary><div class="body">
+      <p>No. Creatine is the one with real evidence behind it: five grams a day, any brand, cheap, and it doesn't matter when you take it. Protein powder is food, not a supplement — useful if you struggle to hit the number, useless if you don't. Everything else is optional at best.</p></div></details>
+
+    <details><summary>How long until I see something?</summary><div class="body">
+      <p>Strength moves first — you'll notice the weight going up before the mirror does. The mirror follows, then other people say something, in that order and never faster. Judge the count, not the reflection: if you're twenty-four sessions in and the belt is heavier, it's working, whatever the mirror said this morning.</p></div></details>
+
+    <details><summary>Should I bulk or cut first?</summary><div class="body">
+      <p>If you can't see any abdominal definition, cut first. You'll build plenty of muscle while losing fat at this training age, and you'll enjoy the result sooner. If you're already lean and small, eat at maintenance and let the strength do the work.</p></div></details>
+
+    <details><summary>Do I need a deload week?</summary><div class="body">
+      <p>Not on a schedule. Take one when the signs show up — flat sessions, poor sleep, aches — which is what section seven is for. Deloading every fourth week whether you need it or not is a solution to a problem two hard sets a week doesn't create.</p></div></details>
+
+    <details><summary>What if I miss a session?</summary><div class="body">
+      <p>Nothing. It happens to everyone who has ever trained. Missing two in a row is the one that matters, because that's what teaches your brain the plan is optional. On a day you really don't want to go, do the twenty-minute version: one hard set of the main lift, log it, leave.</p></div></details>
+
+    <details><summary>Can I add exercises?</summary><div class="body">
+      <p>You can, and it's usually the wrong move. Every exercise you add takes intensity out of the first one, which is the one that's actually growing you. If the weight on the belt is still going up, you don't need anything else. If it isn't, adding a movement won't be why.</p></div></details>
+  </section>
+
+  <section>
+    <h2>Where the AI stops</h2>
+    <h3>It logs. It doesn't coach.</h3>
+    <ul class="o">
+      <li><b>It can't see you.</b> It has no idea whether your chin cleared the bar or your legs kicked. It'll happily record a rep that didn't count.</li>
+      <li><b>It knows you stalled, not which one it is.</b> Section seven has three causes with opposite fixes. It'll ask. It can't tell.</li>
+      <li><b>It doesn't care whether you show up.</b> That has never been an information problem, and it's the one most people actually have.</li>
+    </ul>
+  </section>
+
+  <section class="cta">
+    <h3>If you want me watching it</h3>
+    <p>Everything above is what I do, in full, for free. What it can't give you is someone checking the log with you, telling you which of the three stalls is yours, and adjusting your numbers as your bodyweight moves.</p>
+    <p style="margin-bottom:14px">Twelve weeks, one-on-one. Five founding spots.</p>
+    <a class="btn solid" href="apply.html" style="display:inline-block;text-decoration:none">Apply for 1-on-1 coaching →</a>
+  </section>
+</main>
+<footer><div class="wrap">
+  <div>
+    <div><a href="start.html">Start here</a><a href="plan.html">Free plan</a><a href="tools.html">Tools</a><a href="about.html">About</a><a href="apply.html">Apply</a></div>
+    <div style="margin-top:8px"><a href="https://www.youtube.com/@maxlovefitness" rel="me noopener" target="_blank">YouTube</a><a href="https://www.instagram.com/maxlovefitness/" rel="me noopener" target="_blank">Instagram</a></div>
+    <p class="fine">General information from one person's experience, not medical advice. Check with a doctor before starting anything if you have a condition. © 2026 Max Love.</p>
+  </div>
+  <div class="eyebrow">fewer sets, heavier bar.</div>
+</div></footer>
+<script>
+document.documentElement.classList.add("js");
+(function(){
+  var h=document.querySelector(".hdr"); if(h){ var f=function(){h.classList.toggle("stuck",window.scrollY>8)}; f(); addEventListener("scroll",f,{passive:true}); }
+  var els=[].slice.call(document.querySelectorAll(".rv"));
+  if(!("IntersectionObserver" in window)){ els.forEach(function(e){e.classList.add("in")}); return; }
+  var io=new IntersectionObserver(function(en){ en.forEach(function(x){ if(x.isIntersecting){ x.target.classList.add("in"); io.unobserve(x.target); } }); },{rootMargin:"0px 0px -8% 0px",threshold:.08});
+  els.forEach(function(e){io.observe(e)});
+  // count-up
+  var cs=[].slice.call(document.querySelectorAll("[data-count]"));
+  var co=new IntersectionObserver(function(en){ en.forEach(function(x){ if(!x.isIntersecting) return; co.unobserve(x.target);
+    var el=x.target, end=+el.getAttribute("data-count"), pre=el.getAttribute("data-pre")||"", t0=null;
+    if(matchMedia("(prefers-reduced-motion: reduce)").matches){ el.textContent=pre+end; return; }
+    var step=function(t){ if(!t0)t0=t; var p=Math.min(1,(t-t0)/900); var v=Math.round(end*(1-Math.pow(1-p,3))); el.textContent=pre+v; if(p<1) requestAnimationFrame(step); };
+    requestAnimationFrame(step); }); },{threshold:.5});
+  cs.forEach(function(e){co.observe(e)});
+})();
+</script>
+<script>
+const $ = id => document.getElementById(id);
+let goal = "cut", days = 2, mode = "train";
+const PROMPTS = { train: "", food: "" };
+
+function startWeight(pu){
+  if (pu < 8)   return null;
+  if (pu <= 10) return 10;
+  if (pu <= 14) return 20;
+  if (pu <= 19) return 35;
+  return 45;
+}
+function calories(bw, g){
+  const r = n => Math.round(bw * n / 10) * 10;
+  if (g === "cut")  return [r(10), r(12)];
+  if (g === "hold") return [r(12.5), r(13.5)];
+  return [r(15), r(16)];
+}
+
+function render(){
+  const bw = Math.max(90, Math.min(400, +$("bw").value || 180));
+  const pu = Math.max(0, Math.min(60, +$("pu").value || 0));
+  const sw = startWeight(pu);
+  const dw = sw === null ? null : sw + 10;
+  const c  = calories(bw, goal);
+  const protein = Math.round(bw * 0.8);
+
+  $("out").classList.toggle("ready", sw !== null);
+
+  if (sw === null){
+    $("verdict").textContent = "Don't put a belt on yet.";
+    $("why").textContent = pu === 0
+      ? "Start with the bar itself. Adding weight before you can pull your own bodyweight makes you worse at pull-ups, not stronger. Everything else on this page still applies, just without a belt."
+      : "You're at " + pu + ". Get to eight strict reps first: dead hang at the bottom, chin over the bar, no kicking. Below eight, a belt only buys you bad reps.";
+  } else {
+    $("verdict").textContent = "Start at " + sw + " lb on the pull-up.";
+    $("why").textContent = "At " + pu + " strict reps, " + sw + " lb should land you in the five-to-eight range. Dips are always stronger, so start those at " + dw + ". If you get more than eight on the first attempt it was too light — add five and carry on.";
+  }
+
+  const rows = [
+    ["Calories a day", c[0].toLocaleString() + "–" + c[1].toLocaleString()],
+    ["Protein a day", protein + " <small>g</small>"],
+    ["Sessions a week", days],
+    [sw === null ? "First goal" : "Pull-up / dip", sw === null ? "8 <small>strict reps</small>" : sw + " / " + dw + " <small>lb</small>"]
+  ];
+  $("nums").innerHTML = rows.map(r => '<div><div class="k">' + r[0] + '</div><div class="v">' + r[1] + '</div></div>').join("");
+
+  const pull = sw === null
+    ? ["Pull-ups — 3 sets, 2 reps short of failure", "A row or a pulldown — 2 sets", "Curls — 2 sets"]
+    : ["Weighted pull-up, " + sw + " lb — 2 × 5–8", "A row or a pulldown — 2 sets", "Curls — 2 sets"];
+  const push = sw === null
+    ? ["Dips — 3 sets, 2 reps short of failure", "A press — 2 sets", "Lateral raises, triceps — 2 sets"]
+    : ["Weighted dip, " + dw + " lb — 2 × 5–8", "A press — 2 sets", "Lateral raises, triceps — 2 sets"];
+
+  let html = '<div class="day"><h4>Day one · pull</h4><ol>' + pull.map(x => "<li>" + x + "</li>").join("") + '</ol></div>'
+           + '<div class="day"><h4>Day two · push</h4><ol>' + push.map(x => "<li>" + x + "</li>").join("") + '</ol></div>';
+  if (days === 3){
+    html += '<div class="day"><h4>Day three · legs</h4><ol><li>Hack squat or goblet squat — 2 sets</li><li>Hamstring curl — 2 sets</li><li>Calves, if you care — 2 sets</li></ol></div>';
+  }
+  $("daysOut").innerHTML = html;
+
+  const base = sw === null ? 10 : sw;
+  const plan = [[base,5,5],[base,6,6],[base,7,7],[base,8,8],[base+5,5,5],[base+5,6,6],[base+5,7,7],[base+5,8,8]];
+  $("progTable").querySelector("tbody").innerHTML = plan.map(function(r,k){
+    const add = r[1] === 8 && r[2] === 8;
+    const jumped = k > 0 && plan[k-1][0] !== r[0];
+    return '<tr class="' + (add ? "hl" : "") + '"><td class="n">' + (k+1) + '</td><td class="n">' + r[0] + ' lb' + (jumped ? " ▲" : "") + '</td><td class="n">' + r[1] + '</td><td class="n">' + r[2] + '</td><td>' + (add ? "Both sets at 8 — add 5 lb, reset to 5" : "Same weight again") + '</td></tr>';
+  }).join("");
+
+  buildTrainPrompt(bw, sw, dw, c, protein);
+  buildFoodPrompt(bw, c, protein);
+  paint();
+}
+
+function buildTrainPrompt(bw, sw, dw, c, protein){
+  const loads = sw === null
+    ? "bodyweight on both — I'm working up to 8 strict pull-ups before I add a belt"
+    : "pull-up " + sw + " lb, dip " + dw + " lb";
+  const goalLine = goal === "cut" ? "lose fat while keeping muscle" : goal === "hold" ? "hold my weight and get stronger" : "build up";
+  const paceLine = goal === "cut"
+    ? "- Losing about 0.5 to 1% of my bodyweight a week is right. Faster than that two weeks running, tell me to eat more. No change two weeks running, tell me to eat less.\n"
+    : goal === "gain"
+    ? "- Gaining about 0.25 to 0.5% of my bodyweight a week is right. Faster than that two weeks running, tell me to eat less.\n"
+    : "- My weekly average should stay flat. Moving more than 1% either way two weeks running, tell me to adjust.\n";
+
+  PROMPTS.train =
+"You are my training log. You are not a coach and not a cheerleader. You keep records, apply my rules, and give me the next action in one line.\n" +
+"\n" +
+"MY SETUP\n" +
+"- Bodyweight " + bw + " lb. Goal: " + goalLine + ".\n" +
+"- Eating " + c[0] + "-" + c[1] + " calories and " + protein + " g protein a day.\n" +
+"- Training " + days + " days a week.\n" +
+"- Pull day opens with the weighted pull-up. Push day opens with the weighted dip. Those two are the lifts that matter. Everything else is support and does not need careful progression.\n" +
+"- Current working loads: " + loads + ".\n" +
+"- Two hard sets of the opening lift, 5 to 8 reps, three to five minutes rest.\n" +
+"\n" +
+"HOW I WILL TALK TO YOU\n" +
+"Short lines. Read them like this:\n" +
+"  pull 20x8,7   = weighted pull-up, 20 lb, 8 reps then 7 reps\n" +
+"  dip 30x6,5    = weighted dip, 30 lb, 6 then 5\n" +
+"  bw 177.2      = this morning's bodyweight\n" +
+"  skipped       = I meant to train and did not\n" +
+"If a line is ambiguous, ask one short question. Never guess.\n" +
+"\n" +
+"THE PROGRESSION RULE\n" +
+"When BOTH sets of an opening lift reach 8 clean reps, add 5 lb next session and reset to 5 reps. Any other result, repeat the same weight. Never add weight to fix a stall.\n" +
+"\n" +
+"EVERY TIME I SEND A SESSION\n" +
+"1. Reprint the whole training log as one table: date, lift, weight, set 1, set 2. Oldest first. Never truncate it or summarise it away.\n" +
+"2. One line comparing this session to the last time I did that lift: up, held, or down.\n" +
+"3. One line with the exact weight and rep target for that lift next session.\n" +
+"Nothing else. No encouragement.\n" +
+"\n" +
+"THINGS TO TELL ME WITHOUT BEING ASKED\n" +
+"- Same weight and same reps three sessions running: say so, and ask three questions — how I'm sleeping, whether I'm in a calorie deficit, and whether anything aches. Do not tell me to add weight.\n" +
+"- I mention any pain anywhere: hold the weight, stop each set one rep earlier, and do not progress me until I say it is quiet.\n" +
+"- Two missed sessions in a row: say so in one line. One missed session: say nothing.\n" +
+"- I come back after two weeks or more off: tell me to test one heavy set, then drop to about half that and do the work there for a week. Do not restart me where I left off.\n" +
+"\n" +
+"BODYWEIGHT\n" +
+"- Keep a second table: date and bodyweight. Judge it on the 7-day average, never a single morning.\n" +
+paceLine +
+"- Every Sunday give me four lines: this week's average weight, the change from last week's average, how many sessions I trained, and whether my opening lifts went up.\n" +
+"\n" +
+"HARD RULES\n" +
+"- Never invent a number I did not give you. If one is missing, ask for it.\n" +
+"- One line of feedback, never a paragraph. No motivation, no exclamation marks, no emoji.\n" +
+"- Pounds, not kilos.\n" +
+"- If I ask to change the program, repeat the progression rule back to me and ask what problem I am trying to solve.\n" +
+"\n" +
+"Reply with \"log ready\" and then wait for my first session.";
+}
+
+function buildFoodPrompt(bw, c, protein){
+  const aim = goal === "cut" ? "lose fat while keeping muscle" : goal === "hold" ? "hold my weight" : "build up";
+  PROMPTS.food =
+"You are my food log. You estimate, you total, and you tell me what is left. You do not comment on my food choices.\n" +
+"\n" +
+"MY NUMBERS\n" +
+"- Bodyweight " + bw + " lb. Goal: " + aim + ".\n" +
+"- Target " + c[0] + "-" + c[1] + " calories and " + protein + " g protein a day.\n" +
+"- Protein is the number I care most about hitting. Calories are the number that decides the fat loss.\n" +
+"\n" +
+"HOW I WILL TALK TO YOU\n" +
+"Plain English, as I eat it. \"8oz ribeye and 3 eggs\". \"Protein shake\". \"Chipotle bowl, double chicken, white rice, cheese\".\n" +
+"- Estimate calories and protein yourself. Use normal portion sizes unless I give you a weight.\n" +
+"- For restaurant food or anything you are unsure about, estimate calories on the high side and protein on the low side, and mark it (est).\n" +
+"- If something is too vague to estimate, ask ONE short question, then estimate anyway.\n" +
+"\n" +
+"EVERY TIME I SEND FOOD\n" +
+"Reply in exactly this shape and nothing more:\n" +
+"  [item] - [kcal] kcal, [protein] g\n" +
+"  Today: [running total] kcal, [running total] g protein\n" +
+"  Left: [remaining] kcal, [remaining] g protein\n" +
+"If I am over on calories, say the number I am over by. No comment on it.\n" +
+"\n" +
+"CLOSING A DAY\n" +
+"When I say \"done\", or when I send the first food of a new day, close the previous day: add a row to a table with date, calories, protein, and whether I hit my protein target. Reprint the last 7 days of that table every time you close a day.\n" +
+"\n" +
+"EVERY SUNDAY\n" +
+"Four lines only: average daily calories, average daily protein, how many days out of seven I hit protein, and one sentence on whether my intake matches my target.\n" +
+"\n" +
+"HARD RULES\n" +
+"- Never comment on whether a food is healthy, clean, or a good choice. Not once. Macros over food choices.\n" +
+"- Never invent a number I gave you, and never quietly round my targets.\n" +
+"- One line per item. No paragraphs, no motivation, no emoji.\n" +
+"- If I ask what to eat, give me two or three options that fit the calories and protein I have left. Nothing about how I should feel.\n" +
+"- Grams and pounds.\n" +
+"\n" +
+"Reply with \"food log ready\" and then wait for my first meal.";
+}
+
+function paint(){
+  $("promptText").textContent = PROMPTS[mode];
+  $("demoTrain").hidden = mode !== "train";
+  $("demoFood").hidden  = mode !== "food";
+  $("demoTitle").textContent = mode === "train" ? "Four words in. A decision back." : "Type what you ate. It does the maths.";
+  $("copyBtn").textContent = mode === "train" ? "Copy the training prompt" : "Copy the food prompt";
+}
+
+$("modeSeg").addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  mode = b.dataset.mode;
+  [...$("modeSeg").children].forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+  paint();
+});
+$("goalSeg").addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  goal = b.dataset.goal;
+  [...$("goalSeg").children].forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+  render();
+});
+$("daySeg").addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  days = +b.dataset.days;
+  [...$("daySeg").children].forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+  render();
+});
+$("bw").addEventListener("input", render);
+$("pu").addEventListener("input", render);
+
+/* rest timer */
+let total = 180, left = 180, tick = null;
+function fmt(s){ return Math.floor(s/60) + ":" + String(s%60).padStart(2,"0"); }
+function paintClock(){
+  $("clock").textContent = left === 0 ? "Go" : fmt(left);
+  $("clock").classList.toggle("done", left === 0);
+  $("tfill").style.width = (left/total*100) + "%";
+}
+function stopTimer(){ if (tick){ clearInterval(tick); tick = null; } $("tStart").textContent = "Start"; }
+$("tStart").addEventListener("click", () => {
+  if (tick){ stopTimer(); return; }
+  if (left === 0) left = total;
+  $("tStart").textContent = "Pause";
+  tick = setInterval(() => {
+    left = Math.max(0, left - 1);
+    paintClock();
+    if (left === 0){
+      stopTimer();
+      if (navigator.vibrate) { try { navigator.vibrate([200,80,200]); } catch(e){} }
+    }
+  }, 1000);
+});
+$("tReset").addEventListener("click", () => { stopTimer(); left = total; paintClock(); });
+document.querySelectorAll("[data-secs]").forEach(b => b.addEventListener("click", () => {
+  stopTimer(); total = +b.dataset.secs; left = total; paintClock();
+}));
+
+/* copy */
+function selectPrompt(){
+  const el = $("promptText");
+  const r = document.createRange(); r.selectNodeContents(el);
+  const s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+  el.scrollIntoView({ block: "center", behavior: "smooth" });
+}
+$("selBtn").addEventListener("click", selectPrompt);
+$("copyBtn").addEventListener("click", async () => {
+  const text = $("promptText").textContent;
+  let ok = false;
+  try { await navigator.clipboard.writeText(text); ok = true; } catch (e) { ok = false; }
+  if (!ok){
+    try {
+      const ta = document.createElement("textarea");
+      ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
+      document.body.appendChild(ta); ta.select();
+      ok = document.execCommand("copy");
+      document.body.removeChild(ta);
+    } catch (e) { ok = false; }
+  }
+  if (ok){ const cp = $("copied"); cp.hidden = false; setTimeout(() => { cp.hidden = true; }, 2000); }
+  else { selectPrompt(); }
+});
+
+render();
+paintClock();
+</script>
+</body>
+</html>
