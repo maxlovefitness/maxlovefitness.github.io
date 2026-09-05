@@ -25,6 +25,9 @@
 .day{border:1px solid var(--rule);border-radius:12px;padding:16px;background:#fff}
 .day h4{font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin-bottom:9px}
 .day ol{padding-left:18px;font-size:15px;color:var(--ink2)}.day ol li{margin-bottom:5px}.day ol li:first-child{font-weight:700;color:var(--ink)}
+.ba{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.ba figure img{aspect-ratio:3/4;object-fit:cover;object-position:top;border-radius:12px;width:100%}
+.ba figcaption{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-top:8px;text-align:center}
 .yt{aspect-ratio:9/16;max-width:360px;border-radius:14px;overflow:hidden;background:#000;margin:0 auto}
 .yt iframe{width:100%;height:100%;border:0}
 .offer{display:grid;grid-template-columns:1.1fr .9fr;gap:30px;align-items:start}
@@ -50,7 +53,8 @@ details.faq p{margin-top:10px;color:var(--ink2);font-size:15.5px;max-width:60ch}
 <body>
 <header class="hdr"><div class="wrap">
   <a class="brand" href="index.html">Max Love <span>Fitness</span></a>
-  <nav class="nav" aria-label="Site"><a href="index.html" class="on">Home</a><a href="start.html">Start here</a><a href="plan.html">Free plan</a><a href="tools.html">Tools</a><a href="about.html">About</a><a class="cta" href="apply.html">Apply</a></nav>
+  <nav class="nav" aria-label="Site"><a href="index.html" class="on">Home</a><a href="start.html">Start here</a><a href="plan.html">Free plan</a><a href="tools.html">Tools</a><a href="about.html">About</a></nav>
+  <a class="btn dark" href="apply.html">Apply</a>
 </div></header>
 
 <section class="hero"><div class="wrap"><div class="grid2">
@@ -63,7 +67,7 @@ details.faq p{margin-top:10px;color:var(--ink2);font-size:15.5px;max-width:60ch}
       <a class="btn ghost" href="apply.html">Apply for 1-on-1 coaching</a>
     </div>
   </div>
-  <figure class="photo rv d1"><img src="hero.jpg" alt="Max Love in the gym" width="900" height="1200" fetchpriority="high"></figure>
+  <figure class="photo rv d1"><img src="hero.jpg" alt="Max Love" width="922" height="1800" fetchpriority="high"></figure>
 </div>
 <div class="stats rv" style="margin-top:44px">
   <div><div class="k">Weighted dip</div><div class="v"><span data-count="205" data-pre="+">+205</span> <small>lb</small></div></div>
@@ -80,6 +84,21 @@ details.faq p{margin-top:10px;color:var(--ink2);font-size:15.5px;max-width:60ch}
     <div class="card rv"><div class="k">01 · diet</div><h3>Count everything.</h3><p>Calories at bodyweight × 10–12 to lean out. Protein at 0.8 g per pound, every day. The food itself is whatever you'll actually eat. This did every pound of my fat loss; the training didn't.</p></div>
     <div class="card rv d1"><div class="k">02 · training</div><h3>Fewer sets, heavier bar.</h3><p>The weighted pull-up opens pull day, the weighted dip opens push day. Two hard sets of 5–8, three to five minutes rest. Both sets hit eight, add five pounds. That's progressive overload, and it's the entire program.</p></div>
     <div class="card rv d2"><div class="k">03 · consistency</div><h3>Never two in a row.</h3><p>Missing one session costs nothing. Missing two teaches your brain the plan is optional. Twenty-four sessions is where a body visibly changes; most people quit at nine, four separate times.</p></div>
+  </div>
+</div></section>
+
+<section class="band"><div class="wrap">
+  <div class="grid2" style="align-items:center">
+    <div class="ba rv">
+      <figure><img src="before.jpg" alt="Max, before" width="1000" height="1116" loading="lazy"><figcaption>Before</figcaption></figure>
+      <figure><img src="after.jpg" alt="Max, after" width="922" height="1640" loading="lazy"><figcaption>After</figcaption></figure>
+    </div>
+    <div>
+      <div class="eyebrow rv">before and after</div>
+      <h2 class="sec rv d1">Seventy pounds. <mark>Same person.</mark></h2>
+      <p class="lede rv d2">No app, no six-day split, no supplements you can't pronounce. Counted food, two hard sets, a bar and a belt, and a notebook. The left is where I started. The right is a professional shoot after.</p>
+      <p class="note rv d3" style="margin-top:12px">No timeline on purpose. It took as long as it took, and yours will too. The number that matters is the session count, not the calendar.</p>
+    </div>
   </div>
 </div></section>
 
