@@ -184,6 +184,7 @@ document.documentElement.classList.add("js");
   if(!("IntersectionObserver" in window)){ els.forEach(function(e){e.classList.add("in")}); return; }
   var io=new IntersectionObserver(function(en){ en.forEach(function(x){ if(x.isIntersecting){ x.target.classList.add("in"); io.unobserve(x.target); } }); },{rootMargin:"0px 0px -8% 0px",threshold:.08});
   els.forEach(function(e){io.observe(e)});
+  setTimeout(function(){els.forEach(function(e){if(e.getBoundingClientRect().top<innerHeight)e.classList.add("in")})},1800); // in-app browsers: never leave the fold blank
   // count-up
   var cs=[].slice.call(document.querySelectorAll("[data-count]"));
   var co=new IntersectionObserver(function(en){ en.forEach(function(x){ if(!x.isIntersecting) return; co.unobserve(x.target);
