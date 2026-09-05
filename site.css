@@ -2,7 +2,7 @@
 :root{--paper:#FFFFFF;--ink:#16181C;--ink2:#41474E;--ink3:#6B7280;--rule:#E6E8EB;--wash:#F7F8F9;--red:#B4253A;--red-wash:#FDF2F3;--go:#1B7F4B;--go-wash:#F1F8F3;--term:#14161A}
 *{box-sizing:border-box;margin:0;padding:0}
 html{color-scheme:light;scroll-behavior:smooth}
-body{background:var(--paper);color:var(--ink);font-family:Inter,system-ui,-apple-system,sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased}
+body{background:var(--paper);color:var(--ink);font-family:Manrope,Inter,system-ui,-apple-system,sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased}
 a{color:var(--red)}
 img{max-width:100%;display:block}
 .wrap{max-width:1040px;margin:0 auto;padding:0 22px}
@@ -31,7 +31,7 @@ img{max-width:100%;display:block}
 }
 
 /* buttons */
-.btn{display:inline-block;font-family:Inter,sans-serif;font-size:15px;font-weight:600;border-radius:9px;padding:13px 18px;cursor:pointer;border:1px solid transparent;text-decoration:none;transition:.14s;text-align:center}
+.btn{display:inline-block;font-family:Manrope,Inter,sans-serif;font-size:15px;font-weight:600;border-radius:9px;padding:13px 18px;cursor:pointer;border:1px solid transparent;text-decoration:none;transition:.14s;text-align:center}
 .btn.solid{background:var(--red);color:#fff}
 .btn.solid:hover{background:#9C1F32}
 .btn.dark{background:var(--ink);color:#fff}
@@ -42,8 +42,8 @@ img{max-width:100%;display:block}
 
 /* type */
 .eyebrow{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3)}
-h1.hero{font-size:clamp(38px,7vw,72px);letter-spacing:-.04em;line-height:.98;text-wrap:balance}
-h2.sec{font-size:clamp(26px,4vw,38px);letter-spacing:-.03em;line-height:1.08;text-wrap:balance;margin-bottom:12px}
+h1.hero{font-family:"Fraunces",Georgia,serif;font-weight:600;font-size:clamp(38px,7vw,72px);letter-spacing:-.03em;line-height:.98;text-wrap:balance;font-variation-settings:"opsz" 144}
+h2.sec{font-family:"Fraunces",Georgia,serif;font-weight:600;font-size:clamp(28px,4.2vw,42px);letter-spacing:-.02em;line-height:1.08;text-wrap:balance;margin-bottom:12px}
 .lede{font-size:18px;color:var(--ink2);max-width:54ch}
 .note{font-family:"EB Garamond",Georgia,serif;font-style:italic;color:var(--ink3);font-size:15.5px}
 section.band{padding:72px 0}
