@@ -23,10 +23,10 @@
     --red:#B4253A; --red-wash:#FDF2F3; --go:#1B7F4B; --go-wash:#F1F8F3; --term:#14161A;
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  body{background:var(--paper);color:var(--ink);font-family:Inter,system-ui,-apple-system,sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased}
+  body{background:var(--paper);color:var(--ink);font-family:Manrope,system-ui,-apple-system,sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased}
   main{max-width:660px;margin:0 auto;padding:32px 20px 120px}
 
-  h1{font-size:clamp(30px,7.5vw,45px);letter-spacing:-.033em;line-height:1.01;text-wrap:balance;margin-bottom:11px}
+  h1{font-family:"Fraunces",Georgia,serif;font-weight:600;font-size:clamp(32px,7.5vw,50px);letter-spacing:-.03em;line-height:1;text-wrap:balance;margin-bottom:11px}
   .lede{font-size:17px;color:var(--ink2);max-width:52ch;margin-bottom:9px}
   .by{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3)}
 
@@ -52,7 +52,7 @@
   input[type=number]:focus{outline:2px solid var(--red);outline-offset:1px;background:#fff}
   input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
   .seg{display:flex;gap:8px;flex-wrap:wrap}
-  .seg button{flex:1 1 auto;min-width:86px;font-family:Inter,sans-serif;font-size:14px;font-weight:600;color:var(--ink2);background:var(--wash);border:1px solid var(--rule);border-radius:9px;padding:11px 12px;cursor:pointer;transition:.14s}
+  .seg button{flex:1 1 auto;min-width:86px;font-family:Manrope,sans-serif;font-size:14px;font-weight:600;color:var(--ink2);background:var(--wash);border:1px solid var(--rule);border-radius:9px;padding:11px 12px;cursor:pointer;transition:.14s}
   .seg button:hover{border-color:var(--ink3)}
   .seg button[aria-pressed=true]{background:var(--ink);border-color:var(--ink);color:#fff}
   .seg button:focus-visible,.btn:focus-visible,summary:focus-visible{outline:2px solid var(--red);outline-offset:2px}
@@ -101,7 +101,7 @@
   .promptbox{background:var(--term);border-radius:12px;padding:18px}
   .promptbox pre{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:12.5px;line-height:1.66;color:#E4E7EA;white-space:pre-wrap;word-break:break-word;max-height:360px;overflow-y:auto}
   .copyrow{display:flex;gap:10px;align-items:center;margin-top:14px;flex-wrap:wrap}
-  .btn{font-family:Inter,sans-serif;font-size:14px;font-weight:600;border-radius:9px;padding:11px 16px;cursor:pointer;border:1px solid transparent;transition:.14s}
+  .btn{font-family:Manrope,sans-serif;font-size:14px;font-weight:600;border-radius:9px;padding:11px 16px;cursor:pointer;border:1px solid transparent;transition:.14s}
   .btn.solid{background:var(--red);color:#fff}
   .btn.solid:hover{background:#9C1F32}
   .btn.ghost{background:transparent;color:var(--ink2);border-color:var(--rule)}
