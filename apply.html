@@ -8,8 +8,8 @@
 <link rel="canonical" href="https://maxlovefitness.com/apply.html">
 <meta property="og:type" content="website"><meta property="og:site_name" content="Max Love Fitness">
 <meta property="og:title" content="Apply · 1-on-1 with Max Love"><meta property="og:description" content="Twelve weeks, two hard sets, your numbers set for you and someone actually watching. Five founding spots."><meta property="og:url" content="https://maxlovefitness.com/apply.html">
-<meta property="og:image" content="https://maxlovefitness.com/og.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
-<meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://maxlovefitness.com/og.jpg">
+<meta property="og:image" content="https://maxlovefitness.com/og-apply.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://maxlovefitness.com/og-apply.jpg">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -33,8 +33,14 @@
   p{margin-bottom:12px;max-width:58ch}
   .note{font-family:"EB Garamond",Georgia,serif;font-style:italic;color:var(--ink3);font-size:15.5px}
 
-  .who{display:grid;grid-template-columns:150px 1fr;gap:20px;align-items:start;border:1px solid var(--rule);border-radius:14px;padding:18px;margin:26px 0 14px;background:#fff}
-  .who img{width:150px;height:190px;object-fit:cover;object-position:top;border-radius:10px;display:block}
+  .who{border:1px solid var(--rule);border-radius:14px;padding:18px;margin:26px 0 14px;background:#fff}
+  .who .ba{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
+  .who .ba figure{margin:0;position:relative}
+  .who .ba img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:10px;display:block}
+  .who .ba figure:first-child img{object-position:50% 35%;filter:saturate(.92) contrast(.97)}
+  .who .ba figure:last-child img{object-position:50% 12%}
+  .who .ba figcaption{position:absolute;left:10px;bottom:10px;font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:rgba(0,0,0,.45);padding:4px 8px;border-radius:6px}
+  .who .ba .bc{grid-column:1/-1;font-family:"EB Garamond",Georgia,serif;font-style:italic;color:var(--ink3);font-size:14.5px;margin:2px 0 0}
   .who .wk{font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3)}
   .who .wn{font-size:22px;font-weight:800;letter-spacing:-.02em;margin:3px 0 6px}
   .who .ws{font-size:14.5px;color:var(--ink2);line-height:1.55}
@@ -45,7 +51,7 @@
   .steps3 .n{width:24px;height:24px;border-radius:50%;background:var(--ink);color:#fff;font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:600;display:grid;place-items:center;margin-bottom:8px}
   .steps3 b{display:block;font-size:15px;margin-bottom:3px}
   .steps3 span{font-size:13.5px;color:var(--ink2)}
-  @media (max-width:560px){.who{grid-template-columns:1fr}.who img{width:100%;height:260px}.steps3{grid-template-columns:1fr}}
+  @media (max-width:560px){.who{padding:14px}.who .ba{gap:6px}.steps3{grid-template-columns:1fr}}
   .stack{display:grid;gap:12px}
   .item{display:grid;grid-template-columns:34px 1fr;gap:12px;align-items:start;border:1px solid var(--rule);border-radius:10px;padding:14px 16px}
   .item .n{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.1em;color:var(--red);padding-top:4px}
@@ -122,7 +128,11 @@
   <p class="lede">Everything on the start-here page is free and it works. This is for people who want their numbers set for them, the week-to-week decisions made with them, and a reason to show up on the days they wouldn't have.</p>
 
   <div class="who">
-    <img src="coach.jpg" alt="Max Love" width="800" height="1244">
+    <div class="ba">
+      <figure><img src="before.jpg" alt="Max, before" width="1000" height="1116"><figcaption>before</figcaption></figure>
+      <figure><img src="after.jpg" alt="Max, after" width="922" height="1640"><figcaption>after</figcaption></figure>
+      <p class="bc">Left: where I started. Right: a professional shoot after. No timeline on purpose — it took as long as it took.</p>
+    </div>
     <div>
       <div class="wk">Who you're applying to</div>
       <div class="wn">Max Love</div>
