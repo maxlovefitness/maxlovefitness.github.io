@@ -1,0 +1,193 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="color-scheme" content="dark"><meta name="robots" content="noindex,nofollow"><title>Teleprompter</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;800&display=swap">
+<style>
+  :root{--bg:#0B0C0E;--fg:#F3F4F6;--dim:#7C8390;--red:#E0455C;--bar:#15171B;--line:#262930}
+  html,body{height:100%}
+  body{margin:0;background:var(--bg);color:var(--fg);font-family:Inter,system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased;overflow:hidden}
+  #stage{position:fixed;inset:0 0 88px 0;overflow-y:auto;overflow-x:hidden;scroll-behavior:auto;-webkit-overflow-scrolling:touch}
+  #stage.mirror{transform:scaleX(-1)}
+  .script{max-width:820px;margin:0 auto;padding:44vh 28px 70vh;font-size:var(--fs,40px);line-height:1.38;font-weight:600;letter-spacing:-.01em}
+  .script p{margin:0 0 .85em}
+  .script h2{font-size:.42em;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);font-weight:800;margin:1.6em 0 .6em;border-top:1px solid var(--line);padding-top:.9em}
+  .script h2:first-child{border:0;margin-top:0;padding-top:0}
+  .script .cue{color:var(--dim);font-style:italic;font-weight:500;font-size:.62em}
+  .script .note{color:var(--red);font-weight:600;font-size:.55em;line-height:1.35;border-left:3px solid var(--red);padding-left:.8em}
+  .script .alt{color:var(--dim);font-weight:500;font-size:.72em}
+  .script .hook{color:#fff;font-weight:800}
+  .script .end{color:var(--dim);font-size:.5em;letter-spacing:.2em;text-transform:uppercase;text-align:center;margin-top:3em}
+  #eye{position:fixed;left:0;right:0;top:calc(44vh - 1px);height:2px;background:linear-gradient(90deg,transparent,rgba(224,69,92,.55) 12%,rgba(224,69,92,.55) 88%,transparent);pointer-events:none}
+  #prog{position:fixed;left:0;top:0;height:3px;background:var(--red);width:0}
+  #bar{position:fixed;left:0;right:0;bottom:0;height:88px;background:var(--bar);border-top:1px solid var(--line);display:flex;align-items:center;gap:10px;padding:0 14px;box-sizing:border-box;overflow-x:auto;scrollbar-width:none}
+  #bar::-webkit-scrollbar{display:none}
+  .btn{flex:0 0 auto;background:#1F2228;color:var(--fg);border:1px solid var(--line);border-radius:10px;padding:12px 14px;font:600 15px Inter,sans-serif;cursor:pointer;min-width:44px}
+  .btn:active{background:#2A2E36}
+  .btn.play{background:var(--red);border-color:var(--red);color:#fff;min-width:96px}
+  .btn.on{outline:2px solid var(--red);outline-offset:1px}
+  select{flex:0 0 auto;background:#1F2228;color:var(--fg);border:1px solid var(--line);border-radius:10px;padding:12px 10px;font:600 15px Inter,sans-serif;max-width:190px}
+  .spd{display:flex;align-items:center;gap:8px;flex:0 0 auto;color:var(--dim);font-size:13px;font-weight:600}
+  .spd input{width:120px;accent-color:var(--red)}
+  #hint{position:fixed;left:0;right:0;bottom:100px;text-align:center;color:var(--dim);font-size:14px;font-weight:600;pointer-events:none;transition:opacity .4s}
+  #hint.hide{opacity:0}
+  .btn:focus-visible,select:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+</style></head><body>
+
+<div id="prog"></div>
+<div id="eye"></div>
+<div id="stage"><div class="script" id="script"></div></div>
+<div id="hint">tap the text or press space to start · arrows change speed</div>
+<div id="bar">
+  <select id="pick" aria-label="Script"></select>
+  <button class="btn play" id="play">Play</button>
+  <div class="spd"><span>speed</span><input id="speed" type="range" min="10" max="140" value="48" aria-label="Scroll speed"></div>
+  <button class="btn" id="smaller" aria-label="Smaller text">A−</button>
+  <button class="btn" id="bigger" aria-label="Bigger text">A+</button>
+  <button class="btn" id="mirror" aria-pressed="false">Mirror</button>
+  <button class="btn" id="top">Restart</button>
+</div>
+
+<script>
+// Spoken text only. Cues in italics are for the operator, not for reading aloud.
+const SCRIPTS = {
+"stop-short": {name:"Stop adding exercises · SHORT (60–70s)", parts:[
+ ["h2","hook — say it flat, no wind-up"],
+ ["hook","Stop adding exercises. You don't need a fifth movement. You need a heavier belt."],
+ ["h2","body"],
+ ["p","Here's what happens to everyone. You start with pull-ups and dips. Fine. Then you read that you're missing the lower chest, so you add a decline press. Then rear delts, so you add face pulls. Then someone says you need direct arm work."],
+ ["p","Now you've got nine exercises, you're in there for ninety minutes, and every single set is easy because you've got eight more coming. Nine exercises means nine sets you're pacing yourself through."],
+ ["p","I have two that matter. Weighted pull-up opens one day. Weighted dip opens the other. Two hard sets each, three to five minutes rest, and I write the number down."],
+ ["p","The first plate on my belt was twenty pounds. It's a hundred now, for five. The dip is two-oh-five."],
+ ["note","NUMBER CHECK — your log says pull-up +100 × 5 and chin-up +125 × 1. You told Lane A \"135 lbs 1\". Say whichever number is true today, and say the same one in every video."],
+ ["p","Nothing was added. The same two lifts just got heavier, over and over, for a long time."],
+ ["p","Variety is what you do when you can't measure progress. A number on a belt you can measure."],
+ ["h2","cta"],
+ ["p","Comment PLAN and I'll send you the two-day routine."],
+ ["alt","alt: Or grab it free at maxlovefitness.com — link in bio."],
+ ["end","end"]
+]},
+"stop-long": {name:"Stop adding exercises · LONG (6 min)", parts:[
+ ["h2","0:00 — hook and promise"],
+ ["hook","Stop adding exercises."],
+ ["p","If your workout has more than about four movements in it, that's the reason you look the same as last year. Not your genetics, not your split, not your supplements."],
+ ["p","I'm going to show you why more exercises makes you weaker, what to do instead, and the one number that replaces all of it. This takes about six minutes and you can use it tomorrow."],
+ ["h2","0:30 — how the pile happens"],
+ ["p","Nobody decides to do nine exercises. It accumulates."],
+ ["p","You start with two or three movements that actually work. Then you see a video about a muscle you're 'neglecting'. So you add one. Then another. Each one seems reasonable on its own."],
+ ["p","Six months later you're doing nine exercises, ninety minutes, and here's the part nobody says out loud: you can't go hard on the first one, because you know there are eight more waiting."],
+ ["p","So every set becomes a seven out of ten. You do a lot of seven-out-of-ten work, you feel tired, and tired feels like progress. It isn't."],
+ ["cue","[b-roll: a crowded gym floor, or the bar]"],
+ ["h2","1:30 — the actual mechanism"],
+ ["p","Muscle grows when you make it do something it couldn't do before. That's the whole mechanism. More weight, or more reps at the same weight, than last time."],
+ ["p","Notice what's not in that sentence: variety. Novelty. Hitting it from a new angle."],
+ ["p","Those things aren't useless, they're just downstream. They're what you argue about after the main lifts are heavy, and almost nobody gets there, because they spent their energy on the argument instead of the bar."],
+ ["p","Here's the test. Do you know what you lifted on your main movement last session? The exact weight and the exact reps? If you don't, you're not overloading anything. You're just visiting."],
+ ["h2","2:45 — what to do instead"],
+ ["p","Two lifts carry your upper body. A vertical pull and a dip."],
+ ["p","Pull day: weighted pull-up first, two hard sets of five to eight. Then a row or a pulldown. Then curls."],
+ ["p","Push day: weighted dip first, same two sets. Then a press, lateral raises, triceps."],
+ ["p","Legs when you can. Hack squat, hamstring curl."],
+ ["p","Two hard sets each. Three to five minutes rest, and I mean actually rest, not scroll for ninety seconds. If you're not resting that long you're not lifting heavy enough to need it."],
+ ["p","Forty minutes, door to door. Two or three days a week."],
+ ["cue","[b-roll: the belt going on, the plates]"],
+ ["h2","4:15 — the one number"],
+ ["p","Then you write it down. Lift, weight, both sets."],
+ ["p","That page is the program. Next session you look at it: if both sets hit eight, add five pounds and start again at five. If they didn't, do the same weight until they do."],
+ ["p","Own the weight, then leave it. That's all progressive overload is, and it's the only thing separating people who change from people who attend."],
+ ["p","My first plate was twenty pounds. Now it's a hundred for five, the dip is two-oh-five, and the chin-up is one twenty-five. I never added an exercise. The same lifts got heavier."],
+ ["note","NUMBER CHECK — same as the short: confirm the pull-up and chin-up numbers before you say them."],
+ ["h2","5:15 — the objection, and the honest part"],
+ ["p","Someone's going to say you need more volume to grow. Maybe, eventually. But you don't have a volume problem, you have an intensity problem, and adding exercises makes intensity worse, not better."],
+ ["p","And I'll be straight with you about the other half: the training built the muscle. The training did not make me lean. Counting my food did that, every day, and no exercise you add will fix a diet you haven't measured."],
+ ["h2","6:00 — close"],
+ ["p","Two lifts. Two hard sets. Write it down. Add five pounds when both sets hit eight."],
+ ["p","Comment PLAN and I'll send you the routine and the numbers for your bodyweight. Subscribe if you want the rest of this."],
+ ["alt","alt: The plan's free at maxlovefitness.com, link in the description."],
+ ["end","end"]
+]},
+"ai-short": {name:"Your AI is your logger · SHORT (60–70s)", parts:[
+ ["h2","hook"],
+ ["hook","I haven't opened a training app in over a year. I log everything in ChatGPT, and it's better."],
+ ["h2","body"],
+ ["p","Here's what an app does. It stores the number you typed. Then it shows you a chart and sends you a streak notification."],
+ ["p","Here's what a log actually has to do. Store the set. Compare it to last time. Decide what you lift next. Warn you when something's wrong. Apps stop at step one and leave the other three to you, at the bar, tired."],
+ ["p","So I gave a chat one prompt. It knows my two lifts, my rule — both sets hit eight, add five pounds — and my numbers. After a session I type four characters and a number. Pull, twenty, eight and seven."],
+ ["p","It reprints my whole log, tells me I went up, and tells me exactly what to lift next time. Three lines. Never a paragraph."],
+ ["p","If I stall three sessions in a row it says so and asks about my sleep. If I say my elbow feels off it holds the weight until I say it's quiet. If I miss two sessions it tells me. An app has never once done any of that."],
+ ["p","It's free. The prompt's on my site, with your numbers already filled in."],
+ ["h2","cta"],
+ ["p","Link's in the bio. maxlovefitness.com, start here."],
+ ["end","end"]
+]},
+"ai-long": {name:"Your AI is your logger · LONG (6 min)", parts:[
+ ["h2","0:00 — hook and promise"],
+ ["hook","I haven't opened a training app in over a year, and my log is better than it's ever been."],
+ ["p","I use ChatGPT. Not to coach me — to log for me. In six minutes I'll show you exactly how, you'll see it work live, and both prompts are free at the end with your numbers already in them."],
+ ["h2","0:30 — store versus decide"],
+ ["cue","[deck: page 2]"],
+ ["p","An app does one thing: it stores what you type. Everything after that — comparing to last time, deciding whether to add weight, noticing you've been flat for three weeks — it leaves to you. And you're standing at a bar, tired, trying to remember what you did last Thursday."],
+ ["p","A log has four jobs. Store, compare, decide, warn. Give a chat the rule once and it does all four, every session, and it answers back."],
+ ["h2","1:30 — the setup"],
+ ["cue","[deck: page 3]"],
+ ["p","Two chats. One for training, one for food. Paste a prompt into each — your bodyweight, your targets, your two lifts, your starting loads, and one rule. It says 'log ready' and waits."],
+ ["p","Then you never open a new chat again. That's the only thing you have to remember. The whole value is that it remembers what you lifted last time, and a new chat is a new stranger."],
+ ["h2","2:15 — what's in the prompt"],
+ ["cue","[deck: page 4, click each block as you name it]"],
+ ["p","Six blocks. My setup, so it never asks the basics again. A shorthand — pull twenty by eight comma seven — so logging takes less effort than opening an app. The progression rule: both sets hit eight, add five, reset to five. What to do every time I send a session: reprint the whole table, one line comparing, one line with the next target, nothing else. Things to tell me unprompted: three flat sessions, any pain, two misses, coming back from a layoff."],
+ ["p","And hard rules. Never invent a number. One line, never a paragraph. No motivation, no emoji. And my favourite: if I ask to change the program, repeat the rule back to me and ask what problem I'm solving. That one sentence has stopped me program-hopping more than any coach ever did."],
+ ["h2","3:30 — live"],
+ ["cue","[deck: page 5, press the buttons on camera]"],
+ ["p","Watch. Pull, twenty, seven and six. It logs it. Next session — eight and seven. It says 'up' and tells me same weight again, not eight on both yet. Next — eight and eight. Both at eight: it says add five, twenty-five next time, back to five reps. Then I tell it my elbow felt off. It holds the weight and stops progressing me until I say it's quiet."],
+ ["p","That's the entire decision-making of a training program, done for you, in three lines."],
+ ["h2","4:45 — food, and the average"],
+ ["cue","[deck: pages 6 and 7]"],
+ ["p","The food chat is the same idea. You type 'eight ounce ribeye and three eggs' in plain English. It estimates, totals, and tells you what's left. Three lines. And it's forbidden from ever commenting on whether a food is healthy. Macros over food choices."],
+ ["p","You send your bodyweight every morning too, and it only ever judges the seven-day average. One morning can swing two pounds and mean nothing. People quit cuts over one bad number on the scale. The average makes that impossible."],
+ ["h2","5:45 — where it stops, and close"],
+ ["cue","[deck: pages 8 and 10]"],
+ ["p","It can't see your form. It knows you stalled, not which of the three reasons. And it doesn't care whether you show up. Those three things are what coaching is. Everything else, it does for free."],
+ ["p","Both prompts are at maxlovefitness.com, start here, with your numbers filled in. Paste them tonight, send your first bodyweight, and you have a log that talks back."],
+ ["end","end"]
+]}};
+
+const stage=document.getElementById('stage'), script=document.getElementById('script'), pick=document.getElementById('pick'),
+      play=document.getElementById('play'), speed=document.getElementById('speed'), prog=document.getElementById('prog'), hint=document.getElementById('hint');
+let running=false, last=null, raf=null, fs=40;
+
+for(const k in SCRIPTS){ const o=document.createElement('option'); o.value=k; o.textContent=SCRIPTS[k].name; pick.appendChild(o); }
+function load(k){
+  script.innerHTML='';
+  for(const [t,txt] of SCRIPTS[k].parts){
+    const el=document.createElement(t==='h2'?'h2':'p'); if(t!=='h2'&&t!=='p') el.className=t; el.textContent=txt; script.appendChild(el);
+  }
+  stage.scrollTop=0; stop(); try{localStorage.setItem('tp_pick',k)}catch(e){}
+}
+function step(ts){
+  if(!running) return; if(last===null) last=ts; const dt=(ts-last)/1000; last=ts;
+  stage.scrollTop+=dt*(+speed.value); const max=stage.scrollHeight-stage.clientHeight; prog.style.width=(100*stage.scrollTop/max)+'%';
+  if(stage.scrollTop>=max-1) stop(); else raf=requestAnimationFrame(step);
+}
+function start(){ running=true; last=null; play.textContent='Pause'; hint.classList.add('hide'); raf=requestAnimationFrame(step); lock(); }
+function stop(){ running=false; play.textContent='Play'; if(raf) cancelAnimationFrame(raf); }
+function toggle(){ running?stop():start(); }
+let wl=null; async function lock(){ try{ if('wakeLock' in navigator && !wl){ wl=await navigator.wakeLock.request('screen'); wl.addEventListener('release',()=>{wl=null}); } }catch(e){} }
+
+play.onclick=toggle; stage.onclick=e=>{ if(e.target.closest('#bar')) return; toggle(); };
+document.getElementById('top').onclick=()=>{ stop(); stage.scrollTop=0; prog.style.width='0'; };
+document.getElementById('mirror').onclick=e=>{ const on=stage.classList.toggle('mirror'); e.currentTarget.setAttribute('aria-pressed',on); e.currentTarget.classList.toggle('on',on); };
+function setFs(v){ fs=Math.max(24,Math.min(72,v)); document.documentElement.style.setProperty('--fs',fs+'px'); try{localStorage.setItem('tp_fs',fs)}catch(e){} }
+document.getElementById('bigger').onclick=()=>setFs(fs+4); document.getElementById('smaller').onclick=()=>setFs(fs-4);
+pick.onchange=()=>load(pick.value);
+speed.oninput=()=>{ try{localStorage.setItem('tp_speed',speed.value)}catch(e){} };
+document.addEventListener('keydown',e=>{
+  if(e.target.tagName==='SELECT'||e.target.tagName==='INPUT') return;
+  if(e.code==='Space'){ e.preventDefault(); toggle(); }
+  else if(e.key==='ArrowUp'||e.key==='ArrowRight'){ speed.value=Math.min(140,+speed.value+6); speed.oninput(); }
+  else if(e.key==='ArrowDown'||e.key==='ArrowLeft'){ speed.value=Math.max(10,+speed.value-6); speed.oninput(); }
+  else if(e.key==='m') document.getElementById('mirror').click();
+  else if(e.key==='r') document.getElementById('top').click();
+});
+document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='visible'&&running) lock(); });
+
+let k='stop-short'; try{ k=localStorage.getItem('tp_pick')||k; setFs(+localStorage.getItem('tp_fs')||40); speed.value=localStorage.getItem('tp_speed')||48; }catch(e){ setFs(40); }
+pick.value=k; load(k);
+</script>
+</body></html>
