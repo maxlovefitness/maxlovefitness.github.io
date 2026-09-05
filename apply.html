@@ -32,6 +32,19 @@
   p{margin-bottom:12px;max-width:58ch}
   .note{font-family:"EB Garamond",Georgia,serif;font-style:italic;color:var(--ink3);font-size:15.5px}
 
+  .who{display:grid;grid-template-columns:150px 1fr;gap:20px;align-items:start;border:1px solid var(--rule);border-radius:14px;padding:18px;margin:26px 0 14px;background:#fff}
+  .who img{width:150px;height:190px;object-fit:cover;object-position:top;border-radius:10px;display:block}
+  .who .wk{font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3)}
+  .who .wn{font-size:22px;font-weight:800;letter-spacing:-.02em;margin:3px 0 6px}
+  .who .ws{font-size:14.5px;color:var(--ink2);line-height:1.55}
+  .who .ws b{color:var(--ink);font-weight:800}
+  .who .wp{font-size:14.5px;color:var(--ink2);margin:10px 0 0;max-width:none}
+  .steps3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:8px}
+  .steps3>div{border:1px solid var(--rule);border-radius:12px;padding:14px;background:var(--wash)}
+  .steps3 .n{width:24px;height:24px;border-radius:50%;background:var(--ink);color:#fff;font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:600;display:grid;place-items:center;margin-bottom:8px}
+  .steps3 b{display:block;font-size:15px;margin-bottom:3px}
+  .steps3 span{font-size:13.5px;color:var(--ink2)}
+  @media (max-width:560px){.who{grid-template-columns:1fr}.who img{width:100%;height:260px}.steps3{grid-template-columns:1fr}}
   .stack{display:grid;gap:12px}
   .item{display:grid;grid-template-columns:34px 1fr;gap:12px;align-items:start;border:1px solid var(--rule);border-radius:10px;padding:14px 16px}
   .item .n{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.1em;color:var(--red);padding-top:4px}
@@ -104,8 +117,24 @@
 </div></header>
 <main>
   <div class="crumb"><a href="start.html">← start here</a></div>
-  <h1>Twelve weeks. <mark>Two hard sets.</mark> Someone actually watching.</h1>
+  <h1>Twelve weeks, one on one. Your numbers, your two days, and someone actually watching.</h1>
   <p class="lede">Everything on the start-here page is free and it works. This is for people who want their numbers set for them, the week-to-week decisions made with them, and a reason to show up on the days they wouldn't have.</p>
+
+  <div class="who">
+    <img src="coach.jpg" alt="Max Love" width="800" height="1244">
+    <div>
+      <div class="wk">Who you're applying to</div>
+      <div class="wn">Max Love</div>
+      <div class="ws"><b>+205 lb</b> dip &nbsp;·&nbsp; <b>+125 lb</b> chin-up &nbsp;·&nbsp; <b>22</b> strict pull-ups &nbsp;·&nbsp; <b>70 lb</b> lost, muscle kept</div>
+      <p class="wp">I work a 2-to-9 shift and train before it. I got here with two lifts, two hard sets, a bar, a belt, and a food log I never skipped. No trainer, no app, no gym membership for most of it. I'm not a physio or a doctor. I'm the guy who wrote everything down, and I'll read your log the way I read mine.</p>
+    </div>
+  </div>
+
+  <div class="steps3">
+    <div><div class="n">1</div><b>You send this</b><span>Five short steps. Nothing is charged.</span></div>
+    <div><div class="n">2</div><b>I read it myself</b><span>You hear back within 48 hours, from maxhlove@gmail.com.</span></div>
+    <div><div class="n">3</div><b>We book the call</b><span>If it's a fit, a 45-minute onboarding call and payment sorted on it. If it isn't, I'll say so and point you at the free plan.</span></div>
+  </div>
 
   <div id="thanks" class="done" hidden>
     <h3>Got it.</h3>
