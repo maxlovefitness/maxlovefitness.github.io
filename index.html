@@ -871,6 +871,9 @@ if(new URLSearchParams(location.search).get("subscribed")==="1"){var f=document.
   var hIO = new IntersectionObserver(function(en){ en.forEach(function(x){ if (x.isIntersecting) { x.target.classList.add("in"); hIO.unobserve(x.target); } }); }, { threshold: .4 });
   $$("h2.sec[data-split]").forEach(function(h){ hIO.observe(h); });
   setTimeout(function(){ $$("h2.sec[data-split]").forEach(function(h){ if (h.getBoundingClientRect().top < innerHeight) h.classList.add("in"); }); }, 1800);
+  // calculator numbers roll in the first time the card is seen
+  var calcSeen = false, calcIO = new IntersectionObserver(function(en){ en.forEach(function(x){ if (x.isIntersecting && !calcSeen) { calcSeen = true; last = { c0: 0, c1: 0, p: 0 }; paintCalc(); calcIO.disconnect(); } }); }, { threshold: .35 });
+  calcIO.observe($(".calc-out"));
 
   // ---------- shared state: the two numbers ----------
   var S = { bw: 180, goal: "cut" }, last = { c0: 0, c1: 0, p: 0 };
@@ -1066,7 +1069,7 @@ if(new URLSearchParams(location.search).get("subscribed")==="1"){var f=document.
   // ---------- ticker ----------
   var tk = $("#tk"), tkX = 0, tkHalf = 0;
   var LINES = ['<b>pull 20x8,8</b> <i>up</i> next 25 lb', '<b>bw 177.2</b> 7-day avg 177.9', '<b>8oz ribeye and 3 eggs</b> 855 kcal · 75 g', '<b>dip 30x6,5</b> held · same weight', '<b>both sets at 8</b> <i>+5 lb, reset to 5</i>', '<b>sunday</b> avg 177.9 · −0.8 · 2 sessions · lifts up', '<b>chipotle bowl</b> ~1,020 kcal · 78 g (est)', '<b>skipped</b> one costs nothing', '<b>+205 lb dip</b> for one', '<b>22 strict pull-ups</b> dead hang, chin over'];
-  if (tk) { var html = LINES.map(function(l){ return "<span>" + l + "</span>"; }).join(""); tk.innerHTML = html + html; }
+  var tkPause = false; if (tk) { var html = LINES.map(function(l){ return "<span>" + l + "</span>"; }).join(""); tk.innerHTML = html + html; tk.parentNode.addEventListener("pointerenter", function(){ tkPause = true; }); tk.parentNode.addEventListener("pointerleave", function(){ tkPause = false; }); }
 
   // ---------- staircase (scrubbed) ----------
   var stair = $("#stair"), stairPath = $("#stairPath"), dots = $("#stairDots");
@@ -1128,7 +1131,7 @@ if(new URLSearchParams(location.search).get("subscribed")==="1"){var f=document.
         el.style.transform = "translate3d(" + dx.toFixed(1) + "px," + (y * sp + dy).toFixed(1) + "px,0)" + extra; });
       if (glow && hx) { var hr = hx.getBoundingClientRect(); glow.style.transform = "translate3d(" + ((gx + .5) * hr.width).toFixed(0) + "px," + ((gy + .5) * Math.min(hr.height, vh)).toFixed(0) + "px,0)"; } }
     // ticker: base drift plus scroll velocity
-    if (tk && !reduce) { if (!tkHalf) tkHalf = tk.scrollWidth / 2; tkX -= (28 + Math.min(900, Math.abs(vel) * 9)) * dt; if (tkX <= -tkHalf) tkX += tkHalf; if (tkX > 0) tkX -= tkHalf; tk.style.transform = "translate3d(" + tkX.toFixed(1) + "px,0,0)"; }
+    if (tk && !reduce && !tkPause) { if (!tkHalf) tkHalf = tk.scrollWidth / 2; tkX -= (28 + Math.min(900, Math.abs(vel) * 9)) * dt; if (tkX <= -tkHalf) tkX += tkHalf; if (tkX > 0) tkX -= tkHalf; tk.style.transform = "translate3d(" + tkX.toFixed(1) + "px,0,0)"; }
     // watermark numbers drift
     numSecs.forEach(function(s){ var r = s.getBoundingClientRect(); if (r.bottom < 0 || r.top > vh) return; s.style.setProperty("--wy", ((r.top - vh * .5) * -.12).toFixed(1)); });
     if (desktop() && !reduce) {
@@ -1157,7 +1160,7 @@ if(new URLSearchParams(location.search).get("subscribed")==="1"){var f=document.
   // ---------- first paint + reserve thank-you ----------
   cBw.value = S.bw; $$("#cGoal button").forEach(function(x){ x.setAttribute("aria-pressed", String(x.getAttribute("data-v") === S.goal)); });
   try { var sm = JSON.parse(localStorage.getItem("mlf_meals") || "null"); if (sm) { picked = sm; $$(".meal", mealList).forEach(function(b){ b.setAttribute("aria-pressed", String(!!picked[b.getAttribute("data-i")])); }); } } catch(e){}
-  paintCalc();
+  (function(){ var c = calories(S.bw, S.goal); last = { c0: c[0], c1: c[1], p: protein(S.bw) }; })(); paintCalc();
   var q = new URLSearchParams(location.search); var msg = $("#reservedMsg");
   if (msg && q.get("reserved")) { msg.hidden = false; msg.scrollIntoView({ block: "center" }); }
 })();
