@@ -1,0 +1,18 @@
+{
+ "name": "Max Love Fitness",
+ "short_name": "MLF",
+ "start_url": "./index.html",
+ "scope": "./",
+ "display": "standalone",
+ "background_color": "#FFFFFF",
+ "theme_color": "#FFFFFF",
+ "description": "Weighted calisthenics for people with a job: the free plan, the tools and the log prompts.",
+ "icons": [
+  {
+   "src": "apple-touch-icon.jpg",
+   "sizes": "180x180",
+   "type": "image/jpeg",
+   "purpose": "any"
+  }
+ ]
+}
