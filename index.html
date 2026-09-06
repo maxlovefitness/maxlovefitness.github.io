@@ -307,6 +307,115 @@
   .prog-grid,.mani-grid{grid-template-columns:1fr;gap:26px}
 }
 @media (max-width:560px){.meal-list{grid-template-columns:1fr}.hx{padding-top:28px}.calc-top{grid-template-columns:1fr}}
+
+/* ===== v4 motion layer ===== */
+html.smooth{scroll-behavior:auto}
+.hx-visual{perspective:1200px}
+.hx-photo{transform-style:preserve-3d}
+.hx-glow{position:absolute;width:520px;height:520px;left:0;top:0;margin:-260px 0 0 -260px;border-radius:50%;pointer-events:none;background:radial-gradient(circle, rgba(180,37,58,.16), rgba(180,37,58,0) 62%);opacity:0;transition:opacity .6s;will-change:transform;z-index:0}
+.hx:hover .hx-glow{opacity:1}
+.hx .wrap{position:relative;z-index:1}
+.chip{animation:bob 6s ease-in-out infinite}
+.chip.c2{animation-delay:-2s}.chip.c3{animation-delay:-4s}
+@keyframes bob{0%,100%{margin-top:0}50%{margin-top:-6px}}
+
+/* ticker */
+.ticker{overflow:hidden;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);background:#fff;padding:12px 0;white-space:nowrap;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.tk{display:inline-flex;gap:0;will-change:transform}
+.tk span{display:inline-flex;align-items:center;gap:10px;padding:0 26px;font-family:"JetBrains Mono",monospace;font-size:12.5px;color:var(--ink2)}
+.tk span b{font-weight:600;color:var(--ink)}
+.tk span i{font-style:normal;color:var(--red)}
+.tk span::after{content:"";width:5px;height:5px;border-radius:50%;background:var(--rule);margin-left:16px}
+
+/* dot nav */
+.dotnav{position:fixed;right:18px;top:50%;transform:translateY(-50%);z-index:55;display:grid;gap:10px}
+.dotnav a{position:relative;display:block;width:10px;height:10px;border-radius:50%;background:transparent;border:1.5px solid rgba(24,24,27,.35);transition:.25s}
+.dotnav a::after{content:attr(data-label);position:absolute;right:20px;top:50%;transform:translate(6px,-50%);white-space:nowrap;font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);background:#fff;border:1px solid var(--rule);border-radius:6px;padding:4px 8px;opacity:0;pointer-events:none;transition:.2s}
+.dotnav a:hover::after{opacity:1;transform:translate(0,-50%)}
+.dotnav a.on{background:var(--red);border-color:var(--red);transform:scale(1.25)}
+.dotnav.dark a{border-color:rgba(255,255,255,.5)}
+@media (max-width:980px){.dotnav{display:none}}
+
+/* watermark section numbers with parallax */
+section[data-num]{position:relative}
+section[data-num]::before{content:attr(data-num);position:absolute;right:-1%;top:-10px;font-family:"Fraunces",Georgia,serif;font-weight:600;font-size:clamp(160px,26vw,340px);line-height:1;letter-spacing:-.05em;color:transparent;-webkit-text-stroke:1px rgba(24,24,27,.09);pointer-events:none;transform:translateY(calc(var(--wy,0) * 1px));will-change:transform;z-index:0}
+section.dark[data-num]::before{-webkit-text-stroke:1px rgba(255,255,255,.09)}
+section[data-num]>.wrap{position:relative;z-index:1}
+.method.on::before{z-index:0}
+
+/* split headlines */
+h2.sec[data-split]{margin-bottom:12px}
+h2.sec .sw{display:inline-block;overflow:hidden;vertical-align:bottom;padding-bottom:.08em;margin-bottom:-.08em}
+h2.sec .sw i{display:inline-block;font-style:normal;transform:translateY(110%) rotate(2deg);transition:transform .7s cubic-bezier(.2,.7,.2,1)}
+h2.sec.in .sw i{transform:none}
+
+/* calculator: number bump */
+@keyframes bump{0%{transform:scale(1)}40%{transform:scale(1.08)}100%{transform:scale(1)}}
+.bump{animation:bump .35s cubic-bezier(.2,.7,.2,1)}
+.calc-top b{display:inline-block}
+
+/* story extras */
+.story-grid{position:sticky}
+.story-num{position:absolute;right:0;top:50%;transform:translateY(-58%);font-family:"Fraunces",Georgia,serif;font-weight:600;font-size:clamp(200px,30vw,420px);line-height:1;letter-spacing:-.06em;color:transparent;-webkit-text-stroke:1px rgba(24,24,27,.10);pointer-events:none;z-index:0;transition:opacity .35s,transform .35s}
+.story-num.swap{opacity:0;transform:translateY(-50%)}
+.story-steps{position:relative;z-index:1}
+.ba-after{transform-origin:50% 30%;will-change:transform}
+.story-chip.pop{animation:pop .5s cubic-bezier(.2,.9,.2,1.2)}
+@keyframes pop{0%{transform:translateY(14px) scale(.92);opacity:0}100%{transform:none;opacity:1}}
+
+/* method: cards come alive as they pass centre */
+.mcard{transition:transform .5s cubic-bezier(.2,.7,.2,1),box-shadow .5s}
+.mcard.live{box-shadow:0 34px 90px rgba(24,24,27,.14)}
+.mcard .ui-chat .me,.mcard .ui-chat .ai{opacity:0;transform:translateY(8px) scale(.96);transition:opacity .4s,transform .4s}
+.mcard.live .ui-chat .me{opacity:1;transform:none}
+.mcard.live .ui-chat .ai{opacity:1;transform:none;transition-delay:.35s}
+.mcard .ui-doc u{opacity:0;transform:translateX(-8px);transition:opacity .35s,transform .35s}
+.mcard.live .ui-doc u{opacity:1;transform:none}
+.mcard.live .ui-doc u:nth-of-type(2){transition-delay:.08s}.mcard.live .ui-doc u:nth-of-type(3){transition-delay:.16s}.mcard.live .ui-doc u:nth-of-type(4){transition-delay:.24s}
+.mcard .ui-stair span{transform:scaleY(0)}
+.mcard.live .ui-stair span{transform:none}
+.mcard .ui-calc div{opacity:0;transform:translateY(8px);transition:opacity .35s,transform .35s}
+.mcard.live .ui-calc div{opacity:1;transform:none}
+.mcard.live .ui-calc div:nth-child(2){transition-delay:.08s}.mcard.live .ui-calc div:nth-child(3){transition-delay:.16s}.mcard.live .ui-calc div:nth-child(4){transition-delay:.24s}
+@media (max-width:820px){.mcard .ui-chat .me,.mcard .ui-chat .ai,.mcard .ui-doc u,.mcard .ui-calc div{opacity:1;transform:none}.mcard .ui-stair span{transform:none}}
+
+/* meals: fly-in + done state */
+.fly{position:fixed;z-index:80;pointer-events:none;background:var(--ink);color:#fff;font-family:"JetBrains Mono",monospace;font-size:12px;padding:6px 10px;border-radius:99px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.meal-tot.done{box-shadow:0 30px 80px rgba(27,127,75,.35);outline:2px solid #3DBE74;outline-offset:2px}
+.meal-tot.done .k{color:#3DBE74}
+.meal[aria-pressed=true]{transform:scale(.985)}
+
+/* logger: typing dots + typewriter */
+.demo-log .ai.typing{min-width:56px}
+.demo-log .ai.typing i{display:inline-block;width:6px;height:6px;border-radius:50%;background:#9aa0a6;margin-right:4px;animation:dot 1s infinite}
+.demo-log .ai.typing i:nth-child(2){animation-delay:.15s}.demo-log .ai.typing i:nth-child(3){animation-delay:.3s}
+@keyframes dot{0%,80%,100%{opacity:.3;transform:translateY(0)}40%{opacity:1;transform:translateY(-3px)}}
+.demo-log .me{animation:pop .3s cubic-bezier(.2,.9,.2,1.2)}
+
+/* stair: scrubbed by scroll */
+#stairPath{transition:none}
+#stairDots circle{transition:opacity .25s,r .25s}
+
+/* manifesto: scale + blur + glow */
+.mani-line span{transform:translateY(calc((1 - var(--p,1)) * 40px)) scale(calc(.72 + var(--p,1) * .28));filter:blur(calc((1 - var(--p,1)) * 8px));transform-origin:left bottom}
+.mani-glow{position:absolute;left:50%;top:60%;width:70vw;height:70vw;max-width:900px;max-height:900px;margin:-35vw 0 0 -35vw;border-radius:50%;background:radial-gradient(circle, rgba(232,81,95,.18), rgba(232,81,95,0) 60%);pointer-events:none;will-change:transform}
+.manifesto .wrap{position:relative;z-index:1}
+
+/* ladder: staggered rise + shimmer on the hot card */
+.lad.rv{transform:translateY(34px) rotate(.6deg)}
+.lad.rv.in{transform:none}
+.lad.hot{position:relative;overflow:hidden}
+.lad.hot::before{content:"";position:absolute;inset:-40%;background:conic-gradient(from 0deg, transparent 0 70%, rgba(255,142,153,.35) 85%, transparent 100%);animation:spin 7s linear infinite;pointer-events:none;opacity:.9}
+.lad.hot::after{content:"";position:absolute;inset:1px;border-radius:19px;background:var(--ink);pointer-events:none}
+.lad.hot>*{position:relative;z-index:1}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* magnetic buttons */
+.btn.mag{transition:transform .18s cubic-bezier(.2,.7,.2,1),background .14s,border-color .14s,color .14s;will-change:transform}
+
+@media (prefers-reduced-motion:reduce){.chip{animation:none}.lad.hot::before{animation:none}.hx-glow{display:none}.mani-line span{filter:none;transform:none}.tk{transform:none!important}h2.sec .sw i{transform:none}.mcard .ui-chat .me,.mcard .ui-chat .ai,.mcard .ui-doc u,.mcard .ui-calc div{opacity:1;transform:none}.mcard .ui-stair span{transform:none}}
+section[data-num]{overflow:clip}
+.story .pin{overflow:clip}
 </style>
 </head>
 <body>
@@ -316,9 +425,11 @@
   <a class="btn dark" href="apply.html">Apply</a>
 </div></header>
 <div class="sprog" id="sprog" aria-hidden="true"></div>
+<nav class="dotnav" id="dotnav" aria-label="Sections"></nav>
 
 <!-- HERO: three layers — field (back), photo card (mid), log chips (front) -->
-<section class="hx" id="top">
+<section class="hx" id="top" data-nav="Top">
+  <div class="hx-glow" id="hxGlow" aria-hidden="true"></div>
   <div class="hx-field" data-speed="0.18" aria-hidden="true"></div>
   <div class="wrap hx-grid">
     <div class="hx-copy">
@@ -348,11 +459,14 @@
   </div>
 </section>
 
+<!-- TICKER: the log, moving with your scroll -->
+<div class="ticker" aria-hidden="true"><div class="tk" id="tk"></div></div>
+
 <!-- NUMBERS: live calculator + twelve-week projection -->
-<section class="band wash calc" id="numbers"><div class="wrap calc-grid">
+<section class="band wash calc" id="numbers" data-nav="Your numbers" data-num="01"><div class="wrap calc-grid">
   <div class="calc-in">
     <div class="eyebrow rv">the two numbers · ten seconds</div>
-    <h2 class="sec rv d1">Lean is a food problem. Here's your math.</h2>
+    <h2 class="sec" data-split>Lean is a food problem. Here's your math.</h2>
     <p class="lede rv d2">Calories decide whether the fat comes off. Protein decides whether the muscle stays. Move the slider; everything on this page updates to you.</p>
     <div class="calc-ctl rv d3">
       <label for="cBw">Bodyweight this morning</label>
@@ -382,7 +496,7 @@
 </div></section>
 
 <!-- STORY: scroll-driven before/after -->
-<section class="story" id="proof">
+<section class="story" id="proof" data-nav="The story">
   <div class="pin" id="storyPin">
     <div class="wrap story-grid">
       <div class="story-vis">
@@ -395,6 +509,7 @@
         </div>
         <div class="story-chip" id="storyChip"><span class="k">you</span><b>8oz ribeye and 3 eggs</b><em>855 kcal, 75 g protein</em></div>
       </div>
+      <div class="story-num" id="storyNum" aria-hidden="true">01</div>
       <ol class="story-steps" id="storySteps">
         <li class="on" data-chip-k="food log" data-chip-b="8oz ribeye and 3 eggs" data-chip-e="855 kcal, 75 g protein. Left: 1,145 kcal, 69 g."><span class="eyebrow">01</span><b>I counted every meal.</b><p>Not clean eating. Counting. Steak, eggs, rice, fruit, whatever I'd actually eat, totalled every day. It was the whole fat loss.</p></li>
         <li data-chip-k="training log" data-chip-b="pull 20x8,8" data-chip-e="Up. Both sets at 8. Next: 25 lb, target 5."><span class="eyebrow">02</span><b>Two lifts carried the muscle.</b><p>A weighted pull-up opens one day, a weighted dip opens the other. Two hard sets each. Everything after is support, and support can be sloppy.</p></li>
@@ -406,9 +521,9 @@
 </section>
 
 <!-- METHOD: pinned horizontal strip -->
-<section class="method" id="method">
+<section class="method" id="method" data-nav="The method" data-num="02">
   <div class="pin" id="methodPin">
-    <div class="method-head wrap"><div class="eyebrow">the whole method</div><h2 class="sec">Four moves. Every week. That's it.</h2></div>
+    <div class="method-head wrap"><div class="eyebrow">the whole method</div><h2 class="sec" data-split>Four moves. Every week. That's it.</h2></div>
     <div class="track" id="track">
       <article class="mcard"><div class="mk">01 · food</div><b>Count everything.</b><p>Every meal, every day. Roughly right every day beats exactly right for a week. The food-log prompt does the arithmetic.</p><div class="mui ui-chat"><div class="me">chipotle bowl, double chicken</div><div class="ai">~1,020 kcal, 78 g (est)<br>Left: 780 kcal, 66 g</div></div><a href="#logger">Get the food prompt →</a></article>
         <article class="mcard"><div class="mk">02 · bar</div><b>Two lifts carry your upper body.</b><p>Weighted pull-up, weighted dip. Two hard sets of five to eight, three to five minutes rest. Forty minutes door to door.</p><div class="mui ui-doc"><i>PULL DAY</i><u>Weighted pull-up · 2 hard sets × 5–8</u><u>A row or pulldown · 2 × 8–12</u><i>PUSH DAY</i><u>Weighted dip · 2 hard sets × 5–8</u><u>A press · 2 × 6–10</u></div><a href="plan.html">Open the two-day plan →</a></article>
@@ -420,10 +535,10 @@
 </section>
 
 <!-- MEALS: build a day against your targets -->
-<section class="band meals" id="meals"><div class="wrap">
+<section class="band meals" id="meals" data-nav="Build a day" data-num="03"><div class="wrap">
   <div class="sec-head">
     <div class="eyebrow rv">diet first · the meals I actually repeat</div>
-    <h2 class="sec rv d1">Build a day that hits your number.</h2>
+    <h2 class="sec" data-split>Build a day that hits your number.</h2>
     <p class="lede rv d2">Tap what you'd eat. It totals against the targets you set above. Portions are normal servings; the estimates are the same ones I use, and roughly right is the whole point.</p>
   </div>
   <div class="meal-grid rv d2">
@@ -441,10 +556,10 @@
 </div></section>
 
 <!-- LOGGER: the AI is your logger, live -->
-<section class="band dark logger" id="logger"><div class="wrap logger-grid">
+<section class="band dark logger" id="logger" data-nav="The logger" data-num="04"><div class="wrap logger-grid">
   <div>
     <div class="eyebrow rv">no app · two prompts</div>
-    <h2 class="sec rv d1">Your AI is your logger.</h2>
+    <h2 class="sec" data-split>Your AI is your logger.</h2>
     <p class="lede rv d2">Paste one prompt into ChatGPT and it keeps your training log, applies the progression rule, and tells you what to lift next. Paste the other and it counts your food. Four words in, a decision out. Try it on the right.</p>
     <div class="prompt-acts rv d3">
       <button class="btn solid" id="copyTrain" type="button">Copy the training prompt</button>
@@ -465,10 +580,10 @@
 </div></section>
 
 <!-- PROGRESSION — interactive staircase -->
-<section class="band" id="progress"><div class="wrap prog-grid">
+<section class="band" id="progress" data-nav="Your bar" data-num="05"><div class="wrap prog-grid">
   <div>
     <div class="eyebrow rv">progressive overload</div>
-    <h2 class="sec rv d1">Your bar isn't fixed.</h2>
+    <h2 class="sec" data-split>Your bar isn't fixed.</h2>
     <p class="lede rv d2">Repeating a weight isn't standing still. A hard five becoming a clean eight on the same load is the progress; the plate change is the receipt. Tell it where you are.</p>
     <div class="prog-in rv d3">
       <label for="puNow">Strict pull-ups you can do right now</label>
@@ -489,9 +604,10 @@
 </div></section>
 
 <!-- MANIFESTO — kinetic -->
-<section class="band dark manifesto" id="who"><div class="wrap">
+<section class="band dark manifesto" id="who" data-nav="Who it's for" data-num="06">
+  <div class="mani-glow" id="maniGlow" aria-hidden="true"></div><div class="wrap">
   <div class="eyebrow rv">a note on who this is for</div>
-  <h2 class="sec rv d1">This isn't for everyone.</h2>
+  <h2 class="sec" data-split>This isn't for everyone.</h2>
   <div class="mani-grid">
     <p class="rv d2">If you want to get huge, this isn't it. I'm not huge. If you want a six-day split and a reason to be at the gym for ninety minutes, this will bore you too. It's counting every meal, two lifts, two sets, and the same page filled in for a long time.</p>
     <p class="rv d3">If you want to be lean and strong with a job, a life, and about forty minutes two or three times a week, this is the most you can get from the least. It worked on me. It works on you if you count and you show up.</p>
@@ -500,10 +616,10 @@
 </div></section>
 
 <!-- WHAT'S FOR SALE -->
-<section class="band" id="sell"><div class="wrap">
+<section class="band" id="sell" data-nav="Work with me" data-num="07"><div class="wrap">
   <div class="sec-head">
     <div class="eyebrow rv">work with me</div>
-    <h2 class="sec rv d1">Free first. Then only if you want more.</h2>
+    <h2 class="sec" data-split>Free first. Then only if you want more.</h2>
     <p class="lede rv d2">Everything above is free and it works. What's below is for people who want their numbers set for them, the counting made automatic, and someone watching the log.</p>
   </div>
   <div class="ladder">
@@ -515,11 +631,11 @@
 </div></section>
 
 <!-- FINAL CTA — layered -->
-<section class="fin" id="go">
+<section class="fin" id="go" data-nav="Start">
   <div class="fin-field" data-speed="0.12" aria-hidden="true"></div>
   <div class="wrap fin-in">
     <div class="eyebrow rv">start this week</div>
-    <h2 class="sec rv d1">Count everything.<br>Lift twice. Write it down.</h2>
+    <h2 class="sec" data-split>Count everything. Lift twice. Write it down.</h2>
     <p class="lede rv d2">Your two numbers are set above. Copy the food prompt, do the first pull day this week, and weigh in every morning. That's the whole ask.</p>
     <div class="hx-ctas rv d3"><a class="btn solid big" href="plan.html">Get the free plan</a><a class="btn ghost-dark big" href="#logger">Copy the prompts</a></div>
   </div>
@@ -576,24 +692,37 @@ document.documentElement.classList.add("js");
 if(new URLSearchParams(location.search).get("subscribed")==="1"){var f=document.getElementById("subform"),o=document.getElementById("subok");if(f&&o){f.hidden=true;o.hidden=false;}history.replaceState(null,"",location.pathname+"#subscribe");}</script>
 <script>(function(){
   var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var fine = matchMedia("(pointer: fine)").matches && !("ontouchstart" in window);
   var $ = function(s, r){ return (r||document).querySelector(s); };
   var $$ = function(s, r){ return [].slice.call((r||document).querySelectorAll(s)); };
-  var clamp = function(v){ return Math.max(0, Math.min(1, v)); };
+  var clamp = function(v, a, b){ if (a === undefined) { a = 0; b = 1; } return Math.max(a, Math.min(b, v)); };
   var fmt = function(n){ return Math.round(n).toLocaleString("en-US"); };
   var desktop = function(){ return innerWidth > 820; };
+  var ease = function(t){ return 1 - Math.pow(1 - t, 3); };
 
-  // toast
+  // ---------- toast + clipboard ----------
   var toast = document.createElement("div"); toast.className = "toast"; document.body.appendChild(toast); var tt;
   function say(msg){ toast.textContent = msg; toast.classList.add("show"); clearTimeout(tt); tt = setTimeout(function(){ toast.classList.remove("show"); }, 1800); }
+  function fallback(text){ var ta = document.createElement("textarea"); ta.value = text; ta.style.position = "fixed"; ta.style.left = "-9999px"; document.body.appendChild(ta); ta.select(); try { document.execCommand("copy"); } catch(e){} document.body.removeChild(ta); }
   function copy(text, ok){ var done = function(){ say(ok || "Copied"); };
     if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, function(){ fallback(text); done(); }); else { fallback(text); done(); } }
-  function fallback(text){ var ta = document.createElement("textarea"); ta.value = text; ta.style.position = "fixed"; ta.style.left = "-9999px"; document.body.appendChild(ta); ta.select(); try { document.execCommand("copy"); } catch(e){} document.body.removeChild(ta); }
 
-  // headline words enter after first paint
+  // ---------- number tween (odometer feel) ----------
+  function tweenText(el, from, to, render, ms){ if (reduce || from === to) { el.textContent = render(to); return; } var t0 = null; ms = ms || 520;
+    var step = function(t){ if (!t0) t0 = t; var p = clamp((t - t0) / ms); el.textContent = render(from + (to - from) * ease(p)); if (p < 1) requestAnimationFrame(step); }; requestAnimationFrame(step); }
+  function bump(el){ el.classList.remove("bump"); void el.offsetWidth; el.classList.add("bump"); }
+
+  // ---------- headline: first paint ----------
   var h1 = $("#hxTitle"); if (h1) requestAnimationFrame(function(){ setTimeout(function(){ h1.classList.add("in"); }, 60); });
 
+  // ---------- split headlines (word by word on enter) ----------
+  $$("h2.sec[data-split]").forEach(function(h){ var words = h.textContent.trim().split(/\s+/); h.innerHTML = words.map(function(w, i){ return '<span class="sw"><i style="transition-delay:' + (i * 55) + 'ms">' + w + '</i></span>'; }).join(" "); });
+  var hIO = new IntersectionObserver(function(en){ en.forEach(function(x){ if (x.isIntersecting) { x.target.classList.add("in"); hIO.unobserve(x.target); } }); }, { threshold: .4 });
+  $$("h2.sec[data-split]").forEach(function(h){ hIO.observe(h); });
+  setTimeout(function(){ $$("h2.sec[data-split]").forEach(function(h){ if (h.getBoundingClientRect().top < innerHeight) h.classList.add("in"); }); }, 1800);
+
   // ---------- shared state: the two numbers ----------
-  var S = { bw: 180, goal: "cut" };
+  var S = { bw: 180, goal: "cut" }, last = { c0: 0, c1: 0, p: 0 };
   function calories(bw, g){ var r = function(n){ return Math.round(bw * n / 10) * 10; }; return g === "cut" ? [r(10), r(12)] : g === "hold" ? [r(12.5), r(13.5)] : [r(15), r(16)]; }
   function protein(bw){ return Math.round(bw * 0.8); }
   function goalWord(g){ return g === "cut" ? "lose fat while keeping muscle" : g === "hold" ? "hold my weight" : "build up"; }
@@ -602,33 +731,37 @@ if(new URLSearchParams(location.search).get("subscribed")==="1"){var f=document.
   function paintCalc(){
     var c = calories(S.bw, S.goal), p = protein(S.bw);
     cBwOut.textContent = S.bw;
-    cCal.textContent = fmt(c[0]) + "–" + fmt(c[1]);
-    cPro.innerHTML = p + " <small>g</small>";
+    tweenText(cCal, last.c0, c[0], function(v){ return fmt(v) + "–" + fmt(c[1] - (c[0] - v)); });
+    var proSmall = cPro.querySelector("small"); tweenText(cPro, last.p, p, function(v){ return Math.round(v) + " "; }); setTimeout(function(){ cPro.innerHTML = p + " <small>g</small>"; }, 560);
+    bump(cCal); bump(cPro);
+    last = { c0: c[0], c1: c[1], p: p };
     cLike.innerHTML = '<span><b>' + (Math.round(p/52*10)/10) + '</b> × 6 oz chicken</span><span>or <b>' + (Math.round(p/19*10)/10) + '</b> × 3 eggs</span><span>or <b>' + (Math.round(p/25*10)/10) + '</b> scoops whey</span>';
     paintProj(c); paintMeals(); buildPrompts();
   }
-  cBw.addEventListener("input", function(){ S.bw = +cBw.value; paintCalc(); });
+  cBw.addEventListener("input", function(){ S.bw = +cBw.value; bump(cBwOut); paintCalc(); });
   $("#cGoal").addEventListener("click", function(e){ var b = e.target.closest("button"); if (!b) return; $$("button", this).forEach(function(x){ x.setAttribute("aria-pressed", String(x === b)); }); S.goal = b.getAttribute("data-v"); paintCalc(); });
   $("#cCopy").addEventListener("click", function(){ var c = calories(S.bw, S.goal); copy("Bodyweight " + S.bw + " lb. Goal: " + goalWord(S.goal) + ". Eat " + c[0] + "-" + c[1] + " calories and " + protein(S.bw) + " g protein a day. Judge the 7-day average, never one morning.", "Your numbers are copied"); });
 
-  // twelve-week projection (weekly averages; pace band from the plan: cut 0.5–1%/wk, hold ±1%, build 0.25–0.5%/wk)
-  var pjBand = $("#pjBand"), pjMid = $("#pjMid"), pjDots = $("#pjDots"), pjTop = $("#pjTop"), pjBot = $("#pjBot"), pjEnd = $("#pjEnd"), pjNote = $("#pjNote");
-  function paintProj(c){
-    var lo = [], hi = [], mid = [], bw = S.bw, g = S.goal;
-    for (var w = 0; w <= 12; w++){
-      var a = g === "cut" ? bw * Math.pow(1 - .010, w) : g === "hold" ? bw * (1 - .01) : bw * Math.pow(1 + .0025, w);
-      var b = g === "cut" ? bw * Math.pow(1 - .005, w) : g === "hold" ? bw * (1 + .01) : bw * Math.pow(1 + .005, w);
-      lo.push(Math.min(a, b)); hi.push(Math.max(a, b)); mid.push((a + b) / 2);
-    }
-    var ymin = Math.min.apply(null, lo) - 1, ymax = Math.max.apply(null, hi) + 1;
+  // twelve-week projection (cut 0.5–1%/wk, hold ±1%, build 0.25–0.5%/wk), animated between states
+  var pjBand = $("#pjBand"), pjMid = $("#pjMid"), pjDots = $("#pjDots"), pjTop = $("#pjTop"), pjBot = $("#pjBot"), pjEnd = $("#pjEnd"), pjNote = $("#pjNote"), pjPrev = null;
+  function projPts(bw, g){ var lo = [], hi = [], mid = [];
+    for (var w = 0; w <= 12; w++){ var a = g === "cut" ? bw * Math.pow(.99, w) : g === "hold" ? bw * .99 : bw * Math.pow(1.0025, w); var b = g === "cut" ? bw * Math.pow(.995, w) : g === "hold" ? bw * 1.01 : bw * Math.pow(1.005, w); lo.push(Math.min(a, b)); hi.push(Math.max(a, b)); mid.push((a + b) / 2); }
+    return { lo: lo, hi: hi, mid: mid }; }
+  function drawProj(P){ var ymin = Math.min.apply(null, P.lo) - 1, ymax = Math.max.apply(null, P.hi) + 1;
     var X = function(i){ return 40 + i / 12 * 470; }, Y = function(v){ return 30 + (ymax - v) / (ymax - ymin) * 150; };
-    var top = hi.map(function(v, i){ return X(i).toFixed(1) + "," + Y(v).toFixed(1); }), bot = lo.map(function(v, i){ return X(i).toFixed(1) + "," + Y(v).toFixed(1); }).reverse();
+    var top = P.hi.map(function(v, i){ return X(i).toFixed(1) + "," + Y(v).toFixed(1); }), bot = P.lo.map(function(v, i){ return X(i).toFixed(1) + "," + Y(v).toFixed(1); }).reverse();
     pjBand.setAttribute("d", "M" + top.join(" L") + " L" + bot.join(" L") + " Z");
-    pjMid.setAttribute("d", "M" + mid.map(function(v, i){ return X(i).toFixed(1) + "," + Y(v).toFixed(1); }).join(" L"));
-    pjDots.innerHTML = mid.map(function(v, i){ return i % 4 === 0 ? '<circle cx="' + X(i).toFixed(1) + '" cy="' + Y(v).toFixed(1) + '" r="4"/>' : ""; }).join("");
-    pjTop.textContent = Math.round(ymax) + " lb"; pjBot.textContent = Math.round(ymin) + " lb";
-    var e1 = Math.round(lo[12]), e2 = Math.round(hi[12]);
-    pjEnd.textContent = "week 12: " + (g === "hold" ? "about " + bw : e1 + "–" + e2) + " lb";
+    pjMid.setAttribute("d", "M" + P.mid.map(function(v, i){ return X(i).toFixed(1) + "," + Y(v).toFixed(1); }).join(" L"));
+    pjDots.innerHTML = P.mid.map(function(v, i){ return i % 4 === 0 ? '<circle cx="' + X(i).toFixed(1) + '" cy="' + Y(v).toFixed(1) + '" r="4"/>' : ""; }).join("");
+    pjTop.textContent = Math.round(ymax) + " lb"; pjBot.textContent = Math.round(ymin) + " lb"; }
+  function paintProj(){
+    var P = projPts(S.bw, S.goal), g = S.goal;
+    if (pjPrev && !reduce) { var from = pjPrev, t0 = null; (function step(t){ if (!t0) t0 = t; var k = ease(clamp((t - t0) / 450));
+      drawProj({ lo: P.lo.map(function(v, i){ return from.lo[i] + (v - from.lo[i]) * k; }), hi: P.hi.map(function(v, i){ return from.hi[i] + (v - from.hi[i]) * k; }), mid: P.mid.map(function(v, i){ return from.mid[i] + (v - from.mid[i]) * k; }) }); if (k < 1) requestAnimationFrame(step); })(performance.now()); }
+    else drawProj(P);
+    pjPrev = P;
+    var e1 = Math.round(P.lo[12]), e2 = Math.round(P.hi[12]);
+    pjEnd.textContent = "week 12: " + (g === "hold" ? "about " + S.bw : e1 + "–" + e2) + " lb";
     pjNote.textContent = g === "cut" ? "Half a percent to one percent of bodyweight a week. Faster than that two weeks running, eat more; you're losing muscle with the fat. Nothing moving two weeks running, eat less."
       : g === "hold" ? "The weekly average should sit inside the band. Drifting past it two weeks running, adjust by about 100 calories." : "A quarter to half a percent a week. Faster than that, ease off; most of the extra isn't muscle.";
   }
@@ -640,24 +773,29 @@ if(new URLSearchParams(location.search).get("subscribed")==="1"){var f=document.
     ["6 oz 93% ground beef + rice", "one cup rice", 505, 40], ["Cottage cheese, 1 cup", "the quiet protein", 180, 25], ["Oats, ½ cup dry + banana", "in water or milk", 255, 6],
     ["Chipotle bowl, double chicken", "white rice, salsa, no cheese", 880, 76], ["Apple + peanut butter, 2 tbsp", "the snack that stops the snacking", 285, 8], ["Protein bar", "typical 60 g bar", 220, 20]
   ];
-  var picked = {}, mealList = $("#mealList");
+  var picked = {}, mealList = $("#mealList"), mealTot = $(".meal-tot"), shown = { cal: 0, pro: 0 };
   mealList.innerHTML = MEALS.map(function(m, i){ return '<button class="meal" type="button" aria-pressed="false" data-i="' + i + '"><span><b>' + m[0] + '</b><small>' + m[1] + '</small></span><span class="mp">' + m[2] + ' kcal · ' + m[3] + ' g</span></button>'; }).join("");
-  mealList.addEventListener("click", function(e){ var b = e.target.closest(".meal"); if (!b) return; var i = b.getAttribute("data-i"); picked[i] = !picked[i]; b.setAttribute("aria-pressed", String(!!picked[i])); paintMeals(); });
+  function fly(fromEl, text){ if (reduce || !fromEl.animate) return; var a = fromEl.getBoundingClientRect(), b = $("#mtCal").getBoundingClientRect();
+    var d = document.createElement("div"); d.className = "fly"; d.textContent = text; document.body.appendChild(d);
+    d.style.left = a.left + a.width * .6 + "px"; d.style.top = a.top + a.height / 2 - 12 + "px";
+    var dx = (b.left + b.width / 2) - (a.left + a.width * .6), dy = (b.top + b.height / 2) - (a.top + a.height / 2);
+    d.animate([{ transform: "translate(0,0) scale(1)", opacity: 1 }, { transform: "translate(" + dx * .5 + "px," + (dy * .5 - 40) + "px) scale(1.05)", opacity: 1, offset: .6 }, { transform: "translate(" + dx + "px," + dy + "px) scale(.4)", opacity: 0 }], { duration: 620, easing: "cubic-bezier(.2,.7,.2,1)" }).onfinish = function(){ d.remove(); }; }
+  mealList.addEventListener("click", function(e){ var b = e.target.closest(".meal"); if (!b) return; var i = b.getAttribute("data-i"); picked[i] = !picked[i]; b.setAttribute("aria-pressed", String(!!picked[i])); if (picked[i]) fly(b, "+" + MEALS[i][2] + " kcal · " + MEALS[i][3] + " g"); paintMeals(); });
   $("#mtClear").addEventListener("click", function(){ picked = {}; $$(".meal", mealList).forEach(function(b){ b.setAttribute("aria-pressed", "false"); }); paintMeals(); });
   $("#mtCopy").addEventListener("click", function(){ var t = totals(); if (!t.n) { say("Pick a meal first"); return; } copy(Object.keys(picked).filter(function(k){ return picked[k]; }).map(function(k){ var m = MEALS[k]; return m[0] + " — " + m[2] + " kcal, " + m[3] + " g"; }).join("\n") + "\nTotal: " + t.cal + " kcal, " + t.pro + " g protein", "Your day is copied"); });
   function totals(){ var cal = 0, pro = 0, n = 0; Object.keys(picked).forEach(function(k){ if (picked[k]) { cal += MEALS[k][2]; pro += MEALS[k][3]; n++; } }); return { cal: cal, pro: pro, n: n }; }
   function paintMeals(){
     var t = totals(), c = calories(S.bw, S.goal), p = protein(S.bw);
-    $("#mtCal").textContent = fmt(t.cal); $("#mtCalT").textContent = "/ " + fmt(c[0]) + "–" + fmt(c[1]);
-    $("#mtPro").textContent = t.pro + " g"; $("#mtProT").textContent = "/ " + p + " g";
+    tweenText($("#mtCal"), shown.cal, t.cal, function(v){ return fmt(v); }); tweenText($("#mtPro"), shown.pro, t.pro, function(v){ return Math.round(v) + " g"; }); shown = { cal: t.cal, pro: t.pro };
+    $("#mtCalT").textContent = "/ " + fmt(c[0]) + "–" + fmt(c[1]); $("#mtProT").textContent = "/ " + p + " g";
     var top = c[1] * 1.15;
     var cb = $("#mtCalBar"); cb.style.width = clamp(t.cal / top) * 100 + "%"; cb.className = t.cal > c[1] ? "over" : t.cal >= c[0] ? "ok" : "";
     var band = $("#mtCalBand"); band.style.left = clamp(c[0] / top) * 100 + "%"; band.style.width = clamp((c[1] - c[0]) / top) * 100 + "%";
     var pb = $("#mtProBar"); pb.style.width = clamp(t.pro / (p * 1.15)) * 100 + "%"; pb.className = t.pro >= p ? "ok" : "";
-    var v = $("#mtVerdict");
+    var v = $("#mtVerdict"), done = t.pro >= p && t.cal >= c[0] && t.cal <= c[1]; mealTot.classList.toggle("done", done);
     if (!t.n) v.innerHTML = "Nothing yet. Start with the protein.";
     else if (t.cal > c[1]) v.innerHTML = "<b>Over by " + fmt(t.cal - c[1]) + " kcal.</b> " + (t.pro >= p ? "Protein's done, so drop the thing with the least protein per calorie." : "And protein isn't there yet. Swap a carb-heavy pick for a lean protein.");
-    else if (t.pro >= p && t.cal >= c[0]) v.innerHTML = "<b>That's a day.</b> Protein hit, calories inside the band. Repeat it tomorrow.";
+    else if (done) v.innerHTML = "<b>That's a day.</b> Protein hit, calories inside the band. Repeat it tomorrow.";
     else if (t.pro >= p) v.innerHTML = "<b>Protein hit.</b> " + fmt(c[0] - t.cal) + " kcal still to eat before you're in the band. Rice, potato, fruit.";
     else v.innerHTML = "<b>" + (p - t.pro) + " g protein to go</b> with " + fmt(c[1] - t.cal) + " kcal of room. Chicken, eggs, yogurt, whey.";
   }
@@ -665,24 +803,19 @@ if(new URLSearchParams(location.search).get("subscribed")==="1"){var f=document.
   // ---------- prompts ----------
   var P = { train: "", food: "" };
   function buildPrompts(){
-    var bw = S.bw, c = calories(bw, S.goal), p = protein(bw), g = S.goal;
-    var goalLine = g === "cut" ? "lose fat while keeping muscle" : g === "hold" ? "hold my weight" : "build up";
-    var pace = g === "cut" ? "- I want to lose 0.5 to 1% of bodyweight a week. Faster than that two weeks running, tell me to eat more. Slower than that two weeks running, tell me to eat less.\n"
-      : g === "gain" ? "- I want to gain 0.25 to 0.5% of bodyweight a week. Faster than that two weeks running, tell me to eat a little less.\n"
-      : "- My weekly average should stay flat. Moving more than 1% either way two weeks running, tell me to adjust.\n";
-    P.train =
-"You are my training log. You are not a coach and not a cheerleader. You keep records, apply my rules, and give me the next action in one line.\n\nMY SETUP\n- Bodyweight " + bw + " lb. Goal: " + goalLine + ".\n- Eating " + c[0] + "-" + c[1] + " calories and " + p + " g protein a day.\n- Training 2 days a week.\n- Pull day opens with the weighted pull-up. Push day opens with the weighted dip. Those two are the lifts that matter. Everything else is support and does not need careful progression.\n- Current working loads: not set yet. I will tell you after my first session.\n- Two hard sets of the opening lift, 5 to 8 reps, three to five minutes rest.\n\nHOW I WILL TALK TO YOU\nShort lines. Read them like this:\n  pull 20x8,7   = weighted pull-up, 20 lb, 8 reps then 7 reps\n  dip 30x6,5    = weighted dip, 30 lb, 6 then 5\n  bw 177.2      = this morning's bodyweight\n  skipped       = I meant to train and did not\nIf a line is ambiguous, ask one short question. Never guess.\n\nTHE PROGRESSION RULE\nWhen BOTH sets of an opening lift reach 8 clean reps, add 5 lb next session and reset to 5 reps. Any other result, repeat the same weight. Never add weight to fix a stall.\n\nEVERY TIME I SEND A SESSION\n1. Reprint the whole training log as one table: date, lift, weight, set 1, set 2. Oldest first. Never truncate it or summarise it away.\n2. One line comparing this session to the last time I did that lift: up, held, or down.\n3. One line with the exact weight and rep target for that lift next session.\nNothing else. No encouragement.\n\nTHINGS TO TELL ME WITHOUT BEING ASKED\n- Same weight and same reps three sessions running: say so, and ask three questions — how I'm sleeping, whether I'm in a calorie deficit, and whether anything aches. Do not tell me to add weight.\n- I mention any pain anywhere: hold the weight, stop each set one rep earlier, and do not progress me until I say it is quiet.\n- Two missed sessions in a row: say so in one line. One missed session: say nothing.\n- I come back after two weeks or more off: tell me to test one heavy set, then drop to about half that and do the work there for a week. Do not restart me where I left off.\n\nBODYWEIGHT\n- Keep a second table: date and bodyweight. Judge it on the 7-day average, never a single morning.\n" + pace + "- Every Sunday give me four lines: this week's average weight, the change from last week's average, how many sessions I trained, and whether my opening lifts went up.\n\nHARD RULES\n- Never invent a number I did not give you. If one is missing, ask for it.\n- One line of feedback, never a paragraph. No motivation, no exclamation marks, no emoji.\n- Pounds, not kilos.\n- If I ask to change the program, repeat the progression rule back to me and ask what problem I am trying to solve.\n\nReply with \"log ready\" and then wait for my first session.";
-    P.food =
-"You are my food log. You estimate, you total, and you tell me what is left. You do not comment on my food choices.\n\nMY NUMBERS\n- Bodyweight " + bw + " lb. Goal: " + goalLine + ".\n- Target " + c[0] + "-" + c[1] + " calories and " + p + " g protein a day.\n- Protein is the number I care most about hitting. Calories are the number that decides the fat loss.\n\nHOW I WILL TALK TO YOU\nPlain English, as I eat it. \"8oz ribeye and 3 eggs\". \"Protein shake\". \"Chipotle bowl, double chicken, white rice, cheese\".\n- Estimate calories and protein yourself. Use normal portion sizes unless I give you a weight.\n- For restaurant food or anything you are unsure about, estimate calories on the high side and protein on the low side, and mark it (est).\n- If something is too vague to estimate, ask ONE short question, then estimate anyway.\n\nEVERY TIME I SEND FOOD\nReply in exactly this shape and nothing more:\n  [item] - [kcal] kcal, [protein] g\n  Today: [running total] kcal, [running total] g protein\n  Left: [remaining] kcal, [remaining] g protein\nIf I am over on calories, say the number I am over by. No comment on it.\n\nCLOSING A DAY\nWhen I say \"done\", or when I send the first food of a new day, close the previous day: add a row to a table with date, calories, protein, and whether I hit my protein target. Reprint the last 7 days of that table every time you close a day.\n\nEVERY SUNDAY\nFour lines only: average daily calories, average daily protein, how many days out of seven I hit protein, and one sentence on whether my intake matches my target.\n\nHARD RULES\n- Never comment on whether a food is healthy, clean, or a good choice. Not once. Macros over food choices.\n- Never invent a number I gave you, and never quietly round my targets.\n- One line per item. No paragraphs, no motivation, no emoji.\n- If I ask what to eat, give me two or three options that fit the calories and protein I have left. Nothing about how I should feel.\n- Grams and pounds.\n\nReply with \"food log ready\" and then wait for my first meal.";
+    var bw = S.bw, c = calories(bw, S.goal), p = protein(bw), g = S.goal, goalLine = goalWord(g);
+    var pace = g === "cut" ? "- I want to lose 0.5 to 1% of bodyweight a week. Faster than that two weeks running, tell me to eat more. Slower than that two weeks running, tell me to eat less.\n" : g === "gain" ? "- I want to gain 0.25 to 0.5% of bodyweight a week. Faster than that two weeks running, tell me to eat a little less.\n" : "- My weekly average should stay flat. Moving more than 1% either way two weeks running, tell me to adjust.\n";
+    P.train = "You are my training log. You are not a coach and not a cheerleader. You keep records, apply my rules, and give me the next action in one line.\n\nMY SETUP\n- Bodyweight " + bw + " lb. Goal: " + goalLine + ".\n- Eating " + c[0] + "-" + c[1] + " calories and " + p + " g protein a day.\n- Training 2 days a week.\n- Pull day opens with the weighted pull-up. Push day opens with the weighted dip. Those two are the lifts that matter. Everything else is support and does not need careful progression.\n- Current working loads: not set yet. I will tell you after my first session.\n- Two hard sets of the opening lift, 5 to 8 reps, three to five minutes rest.\n\nHOW I WILL TALK TO YOU\nShort lines. Read them like this:\n  pull 20x8,7   = weighted pull-up, 20 lb, 8 reps then 7 reps\n  dip 30x6,5    = weighted dip, 30 lb, 6 then 5\n  bw 177.2      = this morning's bodyweight\n  skipped       = I meant to train and did not\nIf a line is ambiguous, ask one short question. Never guess.\n\nTHE PROGRESSION RULE\nWhen BOTH sets of an opening lift reach 8 clean reps, add 5 lb next session and reset to 5 reps. Any other result, repeat the same weight. Never add weight to fix a stall.\n\nEVERY TIME I SEND A SESSION\n1. Reprint the whole training log as one table: date, lift, weight, set 1, set 2. Oldest first. Never truncate it or summarise it away.\n2. One line comparing this session to the last time I did that lift: up, held, or down.\n3. One line with the exact weight and rep target for that lift next session.\nNothing else. No encouragement.\n\nTHINGS TO TELL ME WITHOUT BEING ASKED\n- Same weight and same reps three sessions running: say so, and ask three questions — how I'm sleeping, whether I'm in a calorie deficit, and whether anything aches. Do not tell me to add weight.\n- I mention any pain anywhere: hold the weight, stop each set one rep earlier, and do not progress me until I say it is quiet.\n- Two missed sessions in a row: say so in one line. One missed session: say nothing.\n- I come back after two weeks or more off: tell me to test one heavy set, then drop to about half that and do the work there for a week. Do not restart me where I left off.\n\nBODYWEIGHT\n- Keep a second table: date and bodyweight. Judge it on the 7-day average, never a single morning.\n" + pace + "- Every Sunday give me four lines: this week's average weight, the change from last week's average, how many sessions I trained, and whether my opening lifts went up.\n\nHARD RULES\n- Never invent a number I did not give you. If one is missing, ask for it.\n- One line of feedback, never a paragraph. No motivation, no exclamation marks, no emoji.\n- Pounds, not kilos.\n- If I ask to change the program, repeat the progression rule back to me and ask what problem I am trying to solve.\n\nReply with \"log ready\" and then wait for my first session.";
+    P.food = "You are my food log. You estimate, you total, and you tell me what is left. You do not comment on my food choices.\n\nMY NUMBERS\n- Bodyweight " + bw + " lb. Goal: " + goalLine + ".\n- Target " + c[0] + "-" + c[1] + " calories and " + p + " g protein a day.\n- Protein is the number I care most about hitting. Calories are the number that decides the fat loss.\n\nHOW I WILL TALK TO YOU\nPlain English, as I eat it. \"8oz ribeye and 3 eggs\". \"Protein shake\". \"Chipotle bowl, double chicken, white rice, cheese\".\n- Estimate calories and protein yourself. Use normal portion sizes unless I give you a weight.\n- For restaurant food or anything you are unsure about, estimate calories on the high side and protein on the low side, and mark it (est).\n- If something is too vague to estimate, ask ONE short question, then estimate anyway.\n\nEVERY TIME I SEND FOOD\nReply in exactly this shape and nothing more:\n  [item] - [kcal] kcal, [protein] g\n  Today: [running total] kcal, [running total] g protein\n  Left: [remaining] kcal, [remaining] g protein\nIf I am over on calories, say the number I am over by. No comment on it.\n\nCLOSING A DAY\nWhen I say \"done\", or when I send the first food of a new day, close the previous day: add a row to a table with date, calories, protein, and whether I hit my protein target. Reprint the last 7 days of that table every time you close a day.\n\nEVERY SUNDAY\nFour lines only: average daily calories, average daily protein, how many days out of seven I hit protein, and one sentence on whether my intake matches my target.\n\nHARD RULES\n- Never comment on whether a food is healthy, clean, or a good choice. Not once. Macros over food choices.\n- Never invent a number I gave you, and never quietly round my targets.\n- One line per item. No paragraphs, no motivation, no emoji.\n- If I ask what to eat, give me two or three options that fit the calories and protein I have left. Nothing about how I should feel.\n- Grams and pounds.\n\nReply with \"food log ready\" and then wait for my first meal.";
     $("#promptNote").textContent = "Both prompts carry your numbers: " + bw + " lb, " + c[0] + "–" + c[1] + " kcal, " + p + " g protein. Paste each into its own chat.";
   }
   $("#copyTrain").addEventListener("click", function(){ copy(P.train, "Training prompt copied. Paste it into a new chat."); });
   $("#copyFood").addEventListener("click", function(){ copy(P.food, "Food prompt copied. Paste it into a new chat."); });
 
-  // ---------- logger demo: the same rules, running locally ----------
-  var log = $("#demoLog"), loads = {}, eaten = { cal: 0, pro: 0 }, bws = [];
+  // ---------- logger demo: the same rules, running locally, with a typewriter ----------
+  var log = $("#demoLog"), loads = {}, eaten = { cal: 0, pro: 0 }, bws = [], busy = false, queue = [], auto = true;
   var FOOD = [[/ribeye/, "8oz ribeye and 3 eggs", 855, 75], [/yogurt/, "greek yogurt and a banana", 315, 25], [/chipotle/, "chipotle bowl, double chicken", 1020, 78], [/chicken/, "chicken and rice", 485, 56], [/shake|whey/, "whey shake", 120, 25], [/eggs?/, "3 eggs", 215, 19], [/salmon/, "salmon and potato", 500, 40], [/oats|oatmeal/, "oats and banana", 255, 6], [/burger/, "burger and fries", 1100, 40], [/pizza/, "2 slices pizza", 570, 24], [/steak/, "8 oz steak", 640, 56], [/rice/, "1 cup rice", 205, 4], [/banana|apple/, "fruit", 105, 1]];
-  function add(cls, html){ var d = document.createElement("div"); d.className = cls; d.innerHTML = html; log.appendChild(d); log.scrollTop = log.scrollHeight; }
+  function add(cls, html){ var d = document.createElement("div"); d.className = cls; d.innerHTML = html; log.appendChild(d); log.scrollTop = log.scrollHeight; return d; }
   function reply(line){
     var t = line.trim(), c = calories(S.bw, S.goal), p = protein(S.bw), m;
     if ((m = t.match(/^(pull|dip)\s*(\d+)\s*x\s*(\d+)\s*,\s*(\d+)$/i))){
@@ -696,72 +829,118 @@ if(new URLSearchParams(location.search).get("subscribed")==="1"){var f=document.
       return "bw " + m[1] + " logged. " + (bws.length < 7 ? bws.length + " of 7 mornings for a real average." : "7-day average: " + avg.toFixed(1) + " lb.") + " Judge the average, not today."; }
     if (/^skipped$/i.test(t)) return "Noted. One missed session costs nothing. Two in a row and I'll say so.";
     if (/^done$/i.test(t)){ var hit = eaten.pro >= p; var out = "Day closed: " + fmt(eaten.cal) + " kcal, " + eaten.pro + " g protein · protein " + (hit ? "<b>hit</b>" : "missed by " + (p - eaten.pro) + " g"); eaten = { cal: 0, pro: 0 }; return out; }
-    for (var i = 0; i < FOOD.length; i++){ if (FOOD[i][0].test(t)){ var f = FOOD[i]; eaten.cal += f[2]; eaten.pro += f[3];
-      var left = c[1] - eaten.cal; return f[1] + " - " + f[2] + " kcal, " + f[3] + " g (est)\nToday: " + fmt(eaten.cal) + " kcal, " + eaten.pro + " g protein\n" + (left >= 0 ? "Left: " + fmt(left) + " kcal, " + Math.max(0, p - eaten.pro) + " g protein" : "Over by " + fmt(-left) + " kcal."); } }
+    for (var i = 0; i < FOOD.length; i++){ if (FOOD[i][0].test(t)){ var f = FOOD[i]; eaten.cal += f[2]; eaten.pro += f[3]; var left = c[1] - eaten.cal;
+      return f[1] + " - " + f[2] + " kcal, " + f[3] + " g (est)\nToday: " + fmt(eaten.cal) + " kcal, " + eaten.pro + " g protein\n" + (left >= 0 ? "Left: " + fmt(left) + " kcal, " + Math.max(0, p - eaten.pro) + " g protein" : "Over by " + fmt(-left) + " kcal."); } }
     return "One short question: is that a set (like \"pull 20x8,8\"), a weigh-in (\"bw 177.2\"), or food? Type it the way you'd say it.";
   }
-  function send(text){ if (!text) return; add("me", text.replace(/</g, "&lt;")); setTimeout(function(){ add("ai", reply(text)); }, 260); }
-  $("#demoQuick").addEventListener("click", function(e){ var b = e.target.closest("button"); if (b) send(b.textContent); });
-  $("#demoForm").addEventListener("submit", function(e){ e.preventDefault(); var i = $("#demoInput"); send(i.value); i.value = ""; });
+  function typeOut(el, html, done){ if (reduce) { el.innerHTML = html; done(); return; } var i = 0, t = null;
+    var tick = function(){ i = Math.min(html.length, i + 2); var cut = html.slice(0, i); var lt = cut.lastIndexOf("<"), gt = cut.lastIndexOf(">"); if (lt > gt) cut = cut.slice(0, lt); el.innerHTML = cut; log.scrollTop = log.scrollHeight; if (i < html.length) t = setTimeout(tick, 14); else done(); }; tick(); }
+  function send(text){ if (!text) return; queue.push(text); if (!busy) next(); }
+  function next(){ if (!queue.length) { busy = false; return; } busy = true; var text = queue.shift(); add("me", text.replace(/</g, "&lt;"));
+    var typing = add("ai typing", "<i></i><i></i><i></i>");
+    setTimeout(function(){ typing.className = "ai"; typeOut(typing, reply(text), function(){ setTimeout(next, 120); }); }, 520); }
+  $("#demoQuick").addEventListener("click", function(e){ var b = e.target.closest("button"); if (b) { auto = false; send(b.textContent); } });
+  $("#demoForm").addEventListener("submit", function(e){ e.preventDefault(); auto = false; var i = $("#demoInput"); send(i.value); i.value = ""; });
+  $("#demoInput").addEventListener("focus", function(){ auto = false; });
+  // plays itself once when it comes into view; any touch from the visitor takes over
+  var demoIO = new IntersectionObserver(function(en){ en.forEach(function(x){ if (!x.isIntersecting) return; demoIO.disconnect();
+    var script = ["pull 20x8,8", "8oz ribeye and 3 eggs", "bw 177.2"], k = 0;
+    (function run(){ if (!auto || k >= script.length) return; send(script[k++]); setTimeout(run, 2600); })(); }); }, { threshold: .5 });
+  demoIO.observe($(".demo"));
 
   // ---------- before / after slider ----------
-  var ba = $("#ba"), range = $("#baRange"), before = $("#baBefore"), handle = $("#baHandle"), baUser = false;
-  function setBA(v){ before.style.width = v + "%"; handle.style.left = v + "%"; range.value = v; }
+  var ba = $("#ba"), range = $("#baRange"), before = $("#baBefore"), handle = $("#baHandle"), after = $(".ba-after"), baUser = false;
+  function setBA(v){ before.style.width = v + "%"; handle.style.left = v + "%"; range.value = v; if (!reduce) after.style.transform = "scale(" + (1 + v / 100 * .06) + ")"; }
   if (ba) { setBA(8); range.addEventListener("input", function(){ baUser = true; setBA(+range.value); });
     var drag = false;
-    var move = function(e){ if (!drag) return; var r = ba.getBoundingClientRect(); var x = (e.touches ? e.touches[0].clientX : e.clientX) - r.left; setBA(Math.max(0, Math.min(100, x / r.width * 100))); };
+    var move = function(e){ if (!drag) return; var r = ba.getBoundingClientRect(); var x = (e.touches ? e.touches[0].clientX : e.clientX) - r.left; setBA(clamp(x / r.width * 100, 0, 100)); };
     ba.addEventListener("pointerdown", function(e){ drag = true; baUser = true; move(e); }); addEventListener("pointerup", function(){ drag = false; }); ba.addEventListener("pointermove", move);
   }
-  // story steps + chip
-  var steps = $$("#storySteps li"), chip = $("#storyChip"), curStep = -1;
+  var steps = $$("#storySteps li"), chip = $("#storyChip"), storyNum = $("#storyNum"), curStep = -1;
   function setStep(i){ if (i === curStep) return; curStep = i; steps.forEach(function(li, k){ li.classList.toggle("on", k === i); });
-    var li = steps[i]; chip.classList.add("swap"); setTimeout(function(){ chip.innerHTML = '<span class="k">' + li.getAttribute("data-chip-k") + '</span><b>' + li.getAttribute("data-chip-b") + '</b><em>' + li.getAttribute("data-chip-e") + '</em>'; chip.classList.remove("swap"); }, 180); }
+    var li = steps[i]; chip.classList.add("swap"); storyNum.classList.add("swap");
+    setTimeout(function(){ chip.innerHTML = '<span class="k">' + li.getAttribute("data-chip-k") + '</span><b>' + li.getAttribute("data-chip-b") + '</b><em>' + li.getAttribute("data-chip-e") + '</em>'; chip.classList.remove("swap"); chip.classList.remove("pop"); void chip.offsetWidth; chip.classList.add("pop"); storyNum.textContent = "0" + (i + 1); storyNum.classList.remove("swap"); }, 180); }
   setStep(0);
 
-  // ---------- stair ----------
-  var drawIO = new IntersectionObserver(function(en){ en.forEach(function(x){ if (x.isIntersecting) { x.target.classList.add("in"); drawIO.unobserve(x.target); } }); }, { threshold: .3 });
-  $$(".stair, .calc-out").forEach(function(e){ drawIO.observe(e); });
-  var methodIO = new IntersectionObserver(function(en){ en.forEach(function(x){ if (x.isIntersecting) { $("#method").classList.add("on"); methodIO.disconnect(); } }); }, { threshold: .1 });
-  methodIO.observe($("#track"));
-  var dots = $("#stairDots"); if (dots) { [[100,200],[160,180],[220,160],[280,140],[340,120],[400,100]].forEach(function(p,i){ var c = document.createElementNS("http://www.w3.org/2000/svg","circle"); c.setAttribute("cx",p[0]); c.setAttribute("cy",p[1]); c.setAttribute("r","5"); c.style.transitionDelay = (0.3 + i*0.3) + "s"; dots.appendChild(c); }); }
+  // ---------- ticker ----------
+  var tk = $("#tk"), tkX = 0, tkHalf = 0;
+  var LINES = ['<b>pull 20x8,8</b> <i>up</i> next 25 lb', '<b>bw 177.2</b> 7-day avg 177.9', '<b>8oz ribeye and 3 eggs</b> 855 kcal · 75 g', '<b>dip 30x6,5</b> held · same weight', '<b>both sets at 8</b> <i>+5 lb, reset to 5</i>', '<b>sunday</b> avg 177.9 · −0.8 · 2 sessions · lifts up', '<b>chipotle bowl</b> ~1,020 kcal · 78 g (est)', '<b>skipped</b> one costs nothing', '<b>+205 lb dip</b> for one', '<b>22 strict pull-ups</b> dead hang, chin over'];
+  if (tk) { var html = LINES.map(function(l){ return "<span>" + l + "</span>"; }).join(""); tk.innerHTML = html + html; }
+
+  // ---------- staircase (scrubbed) ----------
+  var stair = $("#stair"), stairPath = $("#stairPath"), dots = $("#stairDots");
+  if (dots) { [[100,200],[160,180],[220,160],[280,140],[340,120],[400,100]].forEach(function(p){ var c = document.createElementNS("http://www.w3.org/2000/svg","circle"); c.setAttribute("cx",p[0]); c.setAttribute("cy",p[1]); c.setAttribute("r","5"); dots.appendChild(c); }); }
   var pu = $("#puNow"), puOut = $("#puOut"), puRes = $("#puRes");
   function puStart(n){ if (n < 8) return null; if (n <= 10) return 10; if (n <= 14) return 20; if (n <= 19) return 35; return 45; }
-  function puPaint(){ var n = +pu.value; puOut.textContent = n; var w = puStart(n);
+  function puPaint(){ var n = +pu.value; puOut.textContent = n; var w = puStart(n); bump(puOut);
     puRes.innerHTML = w === null ? "Under eight strict reps: <b>no belt yet</b>. Get to eight clean, dead-hang reps first — that's the program for now." : "Start the belt at <b>+" + w + " lb</b>. Two hard sets of 5–8. Both sets hit 8 → <b>+" + (w+5) + " lb</b> next time, back to 5 reps.";
     var base = w === null ? 0 : w; [["#axA", base], ["#axB", base + 15], ["#axC", base + 30], ["#axD", base + 45]].forEach(function(a){ $(a[0]).textContent = "+" + a[1]; }); }
   if (pu) { pu.addEventListener("input", puPaint); puPaint(); }
 
-  // ---------- scroll engine ----------
-  var layers = $$("[data-speed]"), chips = $$(".chip[data-depth]"), mx = 0, my = 0, ticking = false;
-  var sprog = $("#sprog"), storyPin = $("#storyPin"), methodPin = $("#methodPin"), track = $("#track"), methodBar = $("#methodBar"), mani = $("#maniLine");
-  function paint(){
-    ticking = false;
-    var y = window.scrollY || 0, vh = innerHeight, docH = document.documentElement.scrollHeight - vh;
-    if (sprog) sprog.style.transform = "scaleX(" + clamp(y / docH) + ")";
-    if (!reduce) layers.forEach(function(el){
-      var r = el.getBoundingClientRect(); if (r.bottom < -200 || r.top > vh + 200) return;
-      var sp = parseFloat(el.getAttribute("data-speed")) || 0, dx = 0, dy = 0;
-      if (el.hasAttribute("data-depth")) { var d = parseFloat(el.getAttribute("data-depth")); dx = mx * d; dy = my * d; }
-      var rot = el.classList.contains("hx-photo") ? " rotate(-2.5deg)" : "";
-      el.style.transform = "translate3d(" + dx.toFixed(1) + "px," + (y * sp + dy).toFixed(1) + "px,0)" + rot;
-    });
+  // ---------- method cards live state ----------
+  var mcards = $$(".mcard"), methodEl = $("#method");
+  var methodIO = new IntersectionObserver(function(en){ en.forEach(function(x){ if (x.isIntersecting) { methodEl.classList.add("on"); if (!desktop()) mcards.forEach(function(c){ c.classList.add("live"); }); methodIO.disconnect(); } }); }, { threshold: .05 });
+  methodIO.observe($("#track"));
+
+  // ---------- dot nav ----------
+  var navEl = $("#dotnav"), navSecs = $$("section[data-nav]");
+  if (navEl) { navEl.innerHTML = navSecs.map(function(s){ return '<a href="#' + s.id + '" data-label="' + s.getAttribute("data-nav") + '" aria-label="' + s.getAttribute("data-nav") + '"></a>'; }).join("");
+    navEl.addEventListener("click", function(e){ var a = e.target.closest("a"); if (!a) return; e.preventDefault(); var s = $(a.getAttribute("href")); if (s) { smoothTo(s.getBoundingClientRect().top + scrollY); } }); }
+
+  // ---------- magnetic buttons ----------
+  if (fine && !reduce) $$(".btn.big, .lad .btn, #cCopy, #copyTrain, #copyFood, #mtCopy").forEach(function(b){ b.classList.add("mag");
+    b.addEventListener("pointermove", function(e){ var r = b.getBoundingClientRect(); var dx = (e.clientX - (r.left + r.width / 2)) / r.width, dy = (e.clientY - (r.top + r.height / 2)) / r.height; b.style.transform = "translate(" + (dx * 10).toFixed(1) + "px," + (dy * 8).toFixed(1) + "px)"; });
+    b.addEventListener("pointerleave", function(){ b.style.transform = ""; }); });
+
+  // ---------- eased wheel scrolling ----------
+  var smooth = fine && !reduce, target = scrollY, cur = scrollY, animating = false;
+  function maxScroll(){ return document.documentElement.scrollHeight - innerHeight; }
+  function smoothTo(y){ if (!smooth) { window.scrollTo({ top: y, behavior: "smooth" }); return; } target = clamp(y, 0, maxScroll()); if (!animating) { animating = true; requestAnimationFrame(tick); } }
+  function tick(){ cur += (target - cur) * .11; if (Math.abs(target - cur) < .5) { cur = target; animating = false; } window.scrollTo(0, cur); if (animating) requestAnimationFrame(tick); }
+  if (smooth) { document.documentElement.classList.add("smooth");
+    addEventListener("wheel", function(e){ if (e.ctrlKey || e.metaKey) return; var sc = e.target.closest && e.target.closest(".demo-log"); if (sc && sc.scrollHeight > sc.clientHeight) return;
+      e.preventDefault(); var d = e.deltaY * (e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? innerHeight : 1); if (!animating) { cur = scrollY; target = cur; } target = clamp(target + d, 0, maxScroll()); if (!animating) { animating = true; requestAnimationFrame(tick); } }, { passive: false });
+    addEventListener("scroll", function(){ if (!animating) { target = cur = scrollY; } }, { passive: true });
+    $$('a[href^="#"]').forEach(function(a){ a.addEventListener("click", function(e){ var s = a.getAttribute("href").length > 1 && $(a.getAttribute("href")); if (!s) return; e.preventDefault(); smoothTo(s.getBoundingClientRect().top + scrollY - 8); history.replaceState(null, "", a.getAttribute("href")); }); }); }
+
+  // ---------- the frame loop ----------
+  var layers = $$("[data-speed]"), mx = 0, my = 0, gx = 0, gy = 0, tiltX = 0, tiltY = 0;
+  var sprog = $("#sprog"), storyPin = $("#storyPin"), methodPin = $("#methodPin"), track = $("#track"), methodBar = $("#methodBar"), mani = $("#maniLine"), maniGlow = $("#maniGlow"), hx = $("#top"), glow = $("#hxGlow"), photo = $(".hx-photo");
+  var numSecs = $$("section[data-num]"), lastY = scrollY, vel = 0, lastT = performance.now(), navIdx = -1;
+  function frame(t){
+    var y = window.scrollY || 0, vh = innerHeight, dt = Math.min(50, t - lastT) / 1000 || .016; lastT = t;
+    vel += ((y - lastY) / (dt * 60) - vel) * .12; lastY = y;
+    if (sprog) sprog.style.transform = "scaleX(" + clamp(y / maxScroll()) + ")";
+    // hero: parallax + pointer tilt + glow
+    if (!reduce) { tiltX += ((my * -10) - tiltX) * .08; tiltY += ((mx * 12) - tiltY) * .08; gx += (mx - gx) * .08; gy += (my - gy) * .08;
+      layers.forEach(function(el){ var r = el.getBoundingClientRect(); if (r.bottom < -200 || r.top > vh + 200) return; var sp = parseFloat(el.getAttribute("data-speed")) || 0, dx = 0, dy = 0;
+        if (el.hasAttribute("data-depth")) { var d = parseFloat(el.getAttribute("data-depth")); dx = gx * d; dy = gy * d; }
+        var extra = el === photo ? " rotateX(" + tiltX.toFixed(2) + "deg) rotateY(" + tiltY.toFixed(2) + "deg) rotate(-2.5deg)" : "";
+        el.style.transform = "translate3d(" + dx.toFixed(1) + "px," + (y * sp + dy).toFixed(1) + "px,0)" + extra; });
+      if (glow && hx) { var hr = hx.getBoundingClientRect(); glow.style.transform = "translate3d(" + ((gx + .5) * hr.width).toFixed(0) + "px," + ((gy + .5) * Math.min(hr.height, vh)).toFixed(0) + "px,0)"; } }
+    // ticker: base drift plus scroll velocity
+    if (tk && !reduce) { if (!tkHalf) tkHalf = tk.scrollWidth / 2; tkX -= (28 + Math.min(900, Math.abs(vel) * 9)) * dt; if (tkX <= -tkHalf) tkX += tkHalf; if (tkX > 0) tkX -= tkHalf; tk.style.transform = "translate3d(" + tkX.toFixed(1) + "px,0,0)"; }
+    // watermark numbers drift
+    numSecs.forEach(function(s){ var r = s.getBoundingClientRect(); if (r.bottom < 0 || r.top > vh) return; s.style.setProperty("--wy", ((r.top - vh * .5) * -.12).toFixed(1)); });
     if (desktop() && !reduce) {
-      // story: pinned progress drives the slider and the steps
       var sr = storyPin.getBoundingClientRect(), sp2 = clamp(-sr.top / (sr.height - vh));
       if (sr.top < vh && sr.bottom > 0) { if (!baUser) setBA(8 + sp2 * 84); setStep(Math.min(3, Math.floor(sp2 * 4))); if (sp2 >= 1) baUser = false; }
-      // method: pinned progress slides the track
-      var mr = methodPin.getBoundingClientRect(), mp = clamp((clamp(-mr.top / (mr.height - vh)) - .10) / .82); // hold the first card for a beat, land the last one early
-      if (mr.top < vh && mr.bottom > 0) { var maxX = Math.max(0, track.scrollWidth - innerWidth + 22); track.style.transform = "translate3d(" + (-mp * maxX).toFixed(1) + "px,0,0)"; methodBar.style.width = (mp * 100) + "%"; }
-    } else { track.style.transform = ""; }
-    // manifesto words
-    if (mani && !reduce) { var r2 = mani.getBoundingClientRect(), p = clamp((vh - r2.top) / (vh * .6)); mani.style.setProperty("--p", clamp(p * 1.6)); mani.style.setProperty("--p2", clamp(p * 1.6 - .2)); mani.style.setProperty("--p3", clamp(p * 1.6 - .4)); mani.style.setProperty("--p4", clamp(p * 1.6 - .6)); }
+      var mr = methodPin.getBoundingClientRect(), mp = clamp((clamp(-mr.top / (mr.height - vh)) - .10) / .82);
+      if (mr.top < vh && mr.bottom > 0) { var maxX = Math.max(0, track.scrollWidth - innerWidth + 22); track.style.transform = "translate3d(" + (-mp * maxX).toFixed(1) + "px,0,0) skewX(" + clamp(-vel * .06, -4, 4).toFixed(2) + "deg)"; methodBar.style.width = (mp * 100) + "%";
+        mcards.forEach(function(c){ var cr = c.getBoundingClientRect(); c.classList.toggle("live", cr.left < innerWidth * .78 && cr.right > innerWidth * .12); }); }
+    } else if (track.style.transform) { track.style.transform = ""; }
+    // staircase scrub
+    if (stair) { var stR = stair.getBoundingClientRect(), stp = clamp((vh - stR.top) / (vh * .75)); if (stR.top < vh && stR.bottom > 0) { stairPath.style.strokeDashoffset = 1200 * (1 - (reduce ? 1 : stp)); $$("circle", dots).forEach(function(c, i){ c.style.opacity = stp > (i + 1) / 7 ? 1 : 0; }); } }
+    // manifesto words + glow
+    if (mani && !reduce) { var r2 = mani.getBoundingClientRect(), p = clamp((vh - r2.top) / (vh * .6)); mani.style.setProperty("--p", clamp(p * 1.6)); mani.style.setProperty("--p2", clamp(p * 1.6 - .2)); mani.style.setProperty("--p3", clamp(p * 1.6 - .4)); mani.style.setProperty("--p4", clamp(p * 1.6 - .6));
+      if (maniGlow) { var wr = maniGlow.parentNode.getBoundingClientRect(); maniGlow.style.transform = "translate3d(" + ((gx) * 120).toFixed(0) + "px," + ((wr.top) * -.25).toFixed(0) + "px,0)"; } }
+    // dot nav
+    if (navEl) { var idx = 0; for (var i = 0; i < navSecs.length; i++) { if (navSecs[i].getBoundingClientRect().top <= vh * .45) idx = i; } if (idx !== navIdx) { navIdx = idx; $$("a", navEl).forEach(function(a, k){ a.classList.toggle("on", k === idx); }); navEl.classList.toggle("dark", navSecs[idx].classList.contains("dark")); } }
+    requestAnimationFrame(frame);
   }
-  function req(){ if (!ticking) { ticking = true; requestAnimationFrame(paint); } }
-  addEventListener("scroll", req, { passive: true }); addEventListener("resize", req);
-  if (!reduce) addEventListener("pointermove", function(e){ mx = (e.clientX / innerWidth - .5); my = (e.clientY / innerHeight - .5); req(); }, { passive: true });
-  // mobile story: steps light up as they pass
+  if (!reduce) addEventListener("pointermove", function(e){ mx = e.clientX / innerWidth - .5; my = e.clientY / innerHeight - .5; }, { passive: true });
   if (!desktop()) { var sIO = new IntersectionObserver(function(en){ en.forEach(function(x){ if (x.isIntersecting) setStep(steps.indexOf(x.target)); }); }, { threshold: .6 }); steps.forEach(function(li){ sIO.observe(li); }); setBA(50); }
-  paint();
+  requestAnimationFrame(frame);
 
   // ---------- first paint + reserve thank-you ----------
   paintCalc();
