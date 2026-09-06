@@ -36,6 +36,13 @@ ul.o li:before{content:"";position:absolute;left:0;top:9px;width:5px;height:5px;
 .check li:before{content:"";width:17px;height:17px;border:1.5px solid var(--ink3);border-radius:4px;margin-top:3px}.check li b{color:var(--ink)}
 .strip{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}
 .strip figure img{aspect-ratio:4/3;object-fit:cover;border-radius:10px}
+.mine{margin-top:22px;border:1px solid var(--ink);border-radius:14px;padding:18px 20px;background:#fff}
+.mine>.k{color:var(--red)}
+.mine-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:10px}
+.mine-grid span{display:block}
+.mine-grid b{display:block;font-family:"Fraunces",Georgia,serif;font-weight:600;font-size:clamp(22px,3vw,30px);letter-spacing:-.02em;line-height:1.1;margin-top:3px;font-variant-numeric:tabular-nums}
+.mine-note{margin-top:10px;font-size:14px;color:var(--ink2)}
+@media (max-width:640px){.mine-grid{grid-template-columns:1fr 1fr}}
 @media print{.hdr,footer,.noprint,.sub{display:none!important}.plan-pre>*,.day,.card,.rule-box,table,blockquote{break-inside:avoid}.printfoot{display:block!important;margin-top:28px;padding-top:10px;border-top:1px solid #ccc;font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#6B7280}body{font-size:12.5px}.band{padding:0!important}.rv{opacity:1!important;transform:none!important}.two{grid-template-columns:1fr 1fr}.strip{display:none}a{color:inherit;text-decoration:none}}
 @media (max-width:600px){.two,.strip{grid-template-columns:1fr}}
 </style>
@@ -52,7 +59,18 @@ ul.o li:before{content:"";position:absolute;left:0;top:9px;width:5px;height:5px;
   <div class="eyebrow rv">the free plan</div>
   <h1 class="hero rv d1" style="font-size:clamp(34px,6vw,56px);margin-top:12px">Two days. Two hard sets. Write it down.</h1>
   <p class="lede rv d2" style="margin-top:14px">This is the structure I train with, written so you can start Monday. Print it, or download the PDF, and keep it where you train. Change nothing for eight weeks.</p>
-  <div class="noprint rv d3" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px"><a class="btn dark" href="plan.pdf" download="max-love-fitness-two-day-plan.pdf">Download the PDF</a><button class="btn ghost" onclick="window.print()">Print</button><a class="btn ghost" href="tools.html#food">Get my numbers first</a></div>
+  <div class="noprint rv d3" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px"><a class="btn dark" href="plan.pdf" download="max-love-fitness-two-day-plan.pdf">Download the PDF</a><button class="btn ghost" onclick="window.print()">Print</button><a class="btn ghost" href="index.html#numbers">Set my numbers</a></div>
+
+  <div class="mine" id="mine" hidden>
+    <div class="k">your copy of this plan</div>
+    <div class="mine-grid">
+      <div><span class="k">calories a day</span><b id="mCal">—</b></div>
+      <div><span class="k">protein a day</span><b id="mPro">—</b></div>
+      <div><span class="k">pull-up belt</span><b id="mPull">—</b></div>
+      <div><span class="k">dip belt</span><b id="mDip">—</b></div>
+    </div>
+    <p class="mine-note" id="mNote"></p>
+  </div>
 
   <h3 class="rv">1 · Diet: the part that gets you lean</h3>
   <ul class="o rv">
@@ -184,6 +202,27 @@ document.documentElement.classList.add("js");
 })();
 
 if(new URLSearchParams(location.search).get("subscribed")==="1"){var f=document.getElementById("subform"),o=document.getElementById("subok");if(f&&o){f.hidden=true;o.hidden=false;}history.replaceState(null,"",location.pathname+"#subscribe");}</script>
-
+<script>
+(function(){
+  var sv=null, pu=0;
+  try{ sv=JSON.parse(localStorage.getItem("mlf_numbers")||"null"); pu=+localStorage.getItem("mlf_pu")||0; }catch(e){}
+  if(!sv||!sv.bw) return;
+  var bw=sv.bw, g=sv.goal||"cut";
+  var r=function(n){return Math.round(bw*n/10)*10}, c=g==="cut"?[r(10),r(12)]:g==="hold"?[r(12.5),r(13.5)]:[r(15),r(16)];
+  var p=Math.round(bw*0.8);
+  var start=function(n){ return n<8?null:n<=10?10:n<=14?20:n<=19?35:45; };
+  var w=start(pu);
+  var $=function(i){return document.getElementById(i)};
+  $("mCal").textContent=c[0].toLocaleString()+"–"+c[1].toLocaleString();
+  $("mPro").textContent=p+" g";
+  $("mPull").textContent = w===null ? "none yet" : "+"+w+" lb";
+  $("mDip").textContent  = w===null ? "none yet" : "+"+(w+10)+" lb";
+  $("mNote").innerHTML = "At "+bw+" lb, "+(g==="cut"?"losing fat":g==="hold"?"holding":"building")+". "+
+    (w===null ? "Under eight strict pull-ups, so no belt yet — get to eight clean reps first and the rest of this page still applies."
+              : "Both sets of the opening lift at eight clean reps → add five pounds next session and start again at five.")+
+    " Print this and the numbers come with it.";
+  $("mine").hidden=false;
+})();
+</script>
 </body>
 </html>
