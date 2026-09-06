@@ -15,7 +15,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Manrope:wght@400;500;600;700;800&family=EB+Garamond:ital@1&family=JetBrains+Mono:wght@400;600&display=swap">
 <meta name="theme-color" content="#FFFFFF">
-<link rel="stylesheet" href="site.css?v=772a0690">
+<link rel="stylesheet" href="site.css?v=8e133f68">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Max Love","url":"https://maxlovefitness.com/","image":"https://maxlovefitness.com/hero.jpg","jobTitle":"Weighted calisthenics coach","sameAs":["https://www.instagram.com/maxlovefitness/","https://www.youtube.com/@maxlovefitness"],"knowsAbout":["weighted calisthenics","progressive overload","fat loss","protein intake"]}</script>
 <link rel="preload" as="image" href="hero.jpg" fetchpriority="high">
 <style>/* ===== HOME v3 (2026-09-05) — white ground, serif display, scroll-driven ===== */
@@ -447,6 +447,16 @@ section[data-num]{overflow:clip}
 .gal{padding:0 72px;transform:translate3d(calc((var(--gp,.5) - .5) * -110px),0,0)}
 @media (max-width:820px){.gal{padding:0 22px;transform:none}}
 .story-chip{z-index:6}
+
+/* ===== v6 quality of life ===== */
+.mbar{position:fixed;left:12px;right:12px;bottom:12px;z-index:58;display:none;gap:8px;padding:8px;background:rgba(255,255,255,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--rule);border-radius:16px;box-shadow:0 18px 50px rgba(24,24,27,.22);transform:translateY(130%);transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+.mbar .btn{flex:1;padding:13px 10px;font-size:15px}
+.mbar.show{transform:none}
+@media (max-width:820px){.mbar{display:flex}.lad{width:100%;margin:0 auto}.ladder{justify-items:center}}
+.tdots{display:none;justify-content:center;gap:8px;padding:6px 0 22px}
+.tdots i{width:7px;height:7px;border-radius:50%;background:var(--rule);transition:.25s}
+.tdots i.on{background:var(--red);transform:scale(1.3)}
+@media (max-width:820px){.tdots{display:flex}}
 </style>
 </head>
 <body>
@@ -474,7 +484,7 @@ section[data-num]{overflow:clip}
       <p class="hx-note rv d3">No account, no email. Your calorie and protein targets in ten seconds, a meal builder that hits them, and the prompts that turn ChatGPT into your log.</p>
     </div>
     <div class="hx-visual">
-      <figure class="hx-photo" data-speed="0.06"><img src="hero.jpg" alt="Max Love" width="940" height="1800" fetchpriority="high"></figure>
+      <figure class="hx-photo" data-speed="0.06"><img src="hero.jpg" srcset="sm/hero.jpg 600w, hero.jpg 940w" sizes="(max-width:820px) 70vw, 340px" alt="Max Love" width="940" height="1800" fetchpriority="high"></figure>
       <div class="chip c1" data-depth="26" data-speed="-0.10"><span class="k">you</span><b>8oz ribeye and 3 eggs</b><span class="k it">it</span><em>855 kcal, 75 g protein. Left today: 1,145 kcal, 69 g.</em></div>
       <div class="chip c2" data-depth="14" data-speed="0.14"><span class="k">weigh-in</span><b>177.2 lb</b><em>7-day average 177.9, down 0.8 from last week. On pace.</em></div>
       <div class="chip c3" data-depth="38" data-speed="-0.04"><span class="k">weighted dip</span><b class="big">+205 <small>lb</small></b><em>on the belt, for one</em></div>
@@ -532,8 +542,8 @@ section[data-num]{overflow:clip}
     <div class="wrap story-grid">
       <div class="story-vis">
         <div class="ba" id="ba">
-          <div class="ba-pane ba-after-pane"><img src="max-lean.jpg" alt="Max, after, in the same mirror" width="1000" height="1334" loading="lazy"></div>
-          <div class="ba-pane ba-before-pane" id="baBefore"><img src="before-mirror.jpg" alt="Max, before, in a mirror" width="1000" height="1250" loading="lazy"></div>
+          <div class="ba-pane ba-after-pane"><img src="max-lean.jpg" srcset="sm/max-lean.jpg 600w, max-lean.jpg 1020w" sizes="(max-width:820px) 92vw, 48vw" alt="Max, after, in the same mirror" width="1020" height="1334" loading="lazy" decoding="async"></div>
+          <div class="ba-pane ba-before-pane" id="baBefore"><img src="before-mirror.jpg" srcset="sm/before-mirror.jpg 600w, before-mirror.jpg 1000w" sizes="(max-width:820px) 92vw, 48vw" alt="Max, before, in a mirror" width="1000" height="1250" loading="lazy" decoding="async"></div>
           <div class="ba-scrim" aria-hidden="true"></div>
           <div class="ba-lost" aria-live="off"><b><span id="lostN">0</span> lb</b><span>lost. same guy, same mirror.</span></div>
           <div class="ba-handle" id="baHandle" aria-hidden="true"><span></span></div>
@@ -557,11 +567,11 @@ section[data-num]{overflow:clip}
 <section class="gal-band" id="gallery" data-nav="The after">
   <div class="wrap gal-head"><div class="eyebrow rv">the after · from every angle</div><h2 class="sec" data-split>Same guy. Five angles.</h2></div>
   <div class="gal" id="gal">
-    <figure style="--k:-70"><img src="hero.jpg" alt="Max, studio" width="940" height="1800" loading="lazy"><figcaption>studio</figcaption></figure>
-    <figure style="--k:50"><img src="thumbs/pool-lean.jpg" alt="Max, pool" width="941" height="2000" loading="lazy"><figcaption>pool</figcaption></figure>
-    <figure style="--k:-40"><img src="gym.jpg" alt="Max, gym" width="1100" height="1466" loading="lazy"><figcaption>gym</figcaption></figure>
-    <figure style="--k:60"><img src="coach.jpg" alt="Max, pool" width="800" height="1244" loading="lazy"><figcaption>pool, again</figcaption></figure>
-    <figure style="--k:-55"><img src="about.jpg" alt="Max, outdoors" width="940" height="1750" loading="lazy"><figcaption>the park</figcaption></figure>
+    <figure style="--k:-70"><img src="hero.jpg" srcset="sm/hero.jpg 600w, hero.jpg 940w" sizes="(max-width:820px) 46vw, 200px" alt="Max, studio" width="940" height="1800" loading="lazy" decoding="async"><figcaption>studio</figcaption></figure>
+    <figure style="--k:50"><img src="thumbs/pool-lean.jpg" srcset="sm/pool-lean.jpg 600w, thumbs/pool-lean.jpg 941w" sizes="(max-width:820px) 46vw, 200px" alt="Max, pool" width="941" height="2000" loading="lazy" decoding="async"><figcaption>pool</figcaption></figure>
+    <figure style="--k:-40"><img src="gym.jpg" srcset="sm/gym.jpg 600w, gym.jpg 1100w" sizes="(max-width:820px) 46vw, 200px" alt="Max, gym" width="1100" height="1466" loading="lazy" decoding="async"><figcaption>gym</figcaption></figure>
+    <figure style="--k:60"><img src="coach.jpg" srcset="sm/coach.jpg 600w, coach.jpg 800w" sizes="(max-width:820px) 46vw, 200px" alt="Max, pool" width="800" height="1244" loading="lazy" decoding="async"><figcaption>pool, again</figcaption></figure>
+    <figure style="--k:-55"><img src="about.jpg" srcset="sm/about.jpg 600w, about.jpg 940w" sizes="(max-width:820px) 92vw, 200px" alt="Max, outdoors" width="940" height="1750" loading="lazy" decoding="async"><figcaption>the park</figcaption></figure>
   </div>
 </section>
 
@@ -576,6 +586,7 @@ section[data-num]{overflow:clip}
         <article class="mcard"><div class="mk">04 · page</div><b>Write it down.</b><p>Lift, weight, both sets, bodyweight. Eleven seconds. It is the only thing separating people who change from people who attend.</p><div class="mui ui-calc"><div><span>this week</span><b>177.9</b></div><div><span>last week</span><b>178.7</b></div><div class="out"><span>change</span><b>−0.8</b></div><div class="out"><span>verdict</span><b>on pace</b></div></div><a href="tools.html#week">Track your weekly average →</a></article>
     </div>
     <div class="method-bar wrap"><i id="methodBar"></i></div>
+    <div class="tdots" id="tdots" aria-hidden="true"></div>
   </div>
 </section>
 
@@ -686,6 +697,8 @@ section[data-num]{overflow:clip}
   </div>
 </section>
 
+<div class="mbar" id="mbar"><a class="btn solid" href="#numbers">My two numbers</a><a class="btn dark" href="apply.html">Apply</a></div>
+
 <p class="printfoot" style="display:none">maxlovefitness.com · fewer sets, heavier bar.</p>
 <section class="sub" id="subscribe"><div class="wrap">
   <div>
@@ -719,6 +732,8 @@ section[data-num]{overflow:clip}
 document.documentElement.classList.add("js");
 (function(){
   var h=document.querySelector(".hdr"); if(h){ var f=function(){h.classList.toggle("stuck",window.scrollY>8)}; f(); addEventListener("scroll",f,{passive:true}); }
+  // inner pages: the headline enters word by word
+  [].slice.call(document.querySelectorAll("h1.hero")).forEach(function(h){ if(h.children.length) return; h.classList.remove("rv"); h.innerHTML=h.textContent.trim().split(/\s+/).map(function(w,i){return '<span class="w" style="transition-delay:'+(i*45)+'ms">'+w+'</span>'}).join(" "); requestAnimationFrame(function(){ setTimeout(function(){ h.classList.add("in"); }, 40); }); });
   var els=[].slice.call(document.querySelectorAll(".rv"));
   if(!("IntersectionObserver" in window)){ els.forEach(function(e){e.classList.add("in")}); return; }
   var io=new IntersectionObserver(function(en){ en.forEach(function(x){ if(x.isIntersecting){ x.target.classList.add("in"); io.unobserve(x.target); } }); },{rootMargin:"0px 0px -8% 0px",threshold:.08});
@@ -927,6 +942,11 @@ if(new URLSearchParams(location.search).get("subscribed")==="1"){var f=document.
   var methodIO = new IntersectionObserver(function(en){ en.forEach(function(x){ if (x.isIntersecting) { methodEl.classList.add("on"); if (!desktop()) mcards.forEach(function(c){ c.classList.add("live"); }); methodIO.disconnect(); } }); }, { threshold: .05 });
   methodIO.observe($("#track"));
 
+  // ---------- phone strip dots ----------
+  var tdots = $("#tdots");
+  if (tdots) { tdots.innerHTML = mcards.map(function(){ return "<i></i>"; }).join(""); var tds = $$("i", tdots);
+    var tr = $("#track"); tr.addEventListener("scroll", function(){ var w = mcards[0].getBoundingClientRect().width + 18, i = Math.round(tr.scrollLeft / w); tds.forEach(function(d, k){ d.classList.toggle("on", k === i); }); }, { passive: true }); tds[0].classList.add("on"); }
+
   // ---------- dot nav ----------
   var navEl = $("#dotnav"), navSecs = $$("section[data-nav]");
   if (navEl) { navEl.innerHTML = navSecs.map(function(s){ return '<a href="#' + s.id + '" data-label="' + s.getAttribute("data-nav") + '" aria-label="' + s.getAttribute("data-nav") + '"></a>'; }).join("");
@@ -951,7 +971,7 @@ if(new URLSearchParams(location.search).get("subscribed")==="1"){var f=document.
   // ---------- the frame loop ----------
   var layers = $$("[data-speed]"), mx = 0, my = 0, gx = 0, gy = 0, tiltX = 0, tiltY = 0;
   var sprog = $("#sprog"), storyPin = $("#storyPin"), methodPin = $("#methodPin"), track = $("#track"), methodBar = $("#methodBar"), mani = $("#maniLine"), maniGlow = $("#maniGlow"), hx = $("#top"), glow = $("#hxGlow"), photo = $(".hx-photo");
-  var numSecs = $$("section[data-num]"), gal = $("#gal"), lastY = scrollY, vel = 0, lastT = performance.now(), navIdx = -1;
+  var numSecs = $$("section[data-num]"), gal = $("#gal"), mbar = $("#mbar"), lastY = scrollY, vel = 0, lastT = performance.now(), navIdx = -1;
   function frame(t){
     var y = window.scrollY || 0, vh = innerHeight, dt = Math.min(50, t - lastT) / 1000 || .016; lastT = t;
     vel += ((y - lastY) / (dt * 60) - vel) * .12; lastY = y;
@@ -974,6 +994,7 @@ if(new URLSearchParams(location.search).get("subscribed")==="1"){var f=document.
       if (mr.top < vh && mr.bottom > 0) { var maxX = Math.max(0, track.scrollWidth - innerWidth + 22); track.style.transform = "translate3d(" + (-mp * maxX).toFixed(1) + "px,0,0) skewX(" + clamp(-vel * .06, -4, 4).toFixed(2) + "deg)"; methodBar.style.width = (mp * 100) + "%";
         mcards.forEach(function(c){ var cr = c.getBoundingClientRect(); c.classList.toggle("live", cr.left < innerWidth * .78 && cr.right > innerWidth * .12); }); }
     } else if (track.style.transform) { track.style.transform = ""; }
+    if (mbar) mbar.classList.toggle("show", y > vh * .9 && y < maxScroll() - vh * 1.1);
     // gallery drift
     if (gal) { var gr = gal.getBoundingClientRect(); if (gr.bottom > -100 && gr.top < vh + 100) gal.style.setProperty("--gp", clamp((vh - gr.top) / (vh + gr.height)).toFixed(3)); }
     // staircase scrub

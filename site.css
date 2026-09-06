@@ -43,6 +43,9 @@ img{max-width:100%;display:block}
 /* type */
 .eyebrow{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3)}
 h1.hero{font-family:"Fraunces",Georgia,serif;font-weight:600;font-size:clamp(38px,7vw,72px);letter-spacing:-.03em;line-height:.98;text-wrap:balance;font-variation-settings:"opsz" 144}
+h1.hero .w{display:inline-block;opacity:0;transform:translateY(22px) rotate(1deg);filter:blur(3px);transition:opacity .6s cubic-bezier(.2,.7,.2,1),transform .6s cubic-bezier(.2,.7,.2,1),filter .6s}
+h1.hero.in .w{opacity:1;transform:none;filter:none}
+@media (prefers-reduced-motion:reduce){h1.hero .w{opacity:1;transform:none;filter:none;transition:none}}
 h2.sec{font-family:"Fraunces",Georgia,serif;font-weight:600;font-size:clamp(28px,4.2vw,42px);letter-spacing:-.02em;line-height:1.08;text-wrap:balance;margin-bottom:12px}
 .lede{font-size:18px;color:var(--ink2);max-width:54ch}
 .note{font-family:"EB Garamond",Georgia,serif;font-style:italic;color:var(--ink3);font-size:15.5px}
