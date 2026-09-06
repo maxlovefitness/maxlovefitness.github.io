@@ -526,6 +526,8 @@ html.js .hx-field{animation:fieldin 1.2s ease-out both}
 @keyframes mealpop{0%{scale:1}40%{scale:1.04}100%{scale:1}}
 .meal[aria-pressed=true]{animation:mealpop .3s cubic-bezier(.2,.7,.2,1)}
 @media (prefers-reduced-motion:reduce){html.js .hx-photo,html.js .chip,html.js .hx-field{animation:none}.meal[aria-pressed=true]{animation:none}}
+.prompt-note a{color:#fff;font-weight:700}
+.hx-note b{color:var(--ink)}
 </style>
 </head>
 <body>
@@ -1013,8 +1015,9 @@ if(new URLSearchParams(location.search).get("subscribed")==="1"){var f=document.
     P.food = "You are my food log. You estimate, you total, and you tell me what is left. You do not comment on my food choices.\n\nMY NUMBERS\n- Bodyweight " + bw + " lb. Goal: " + goalLine + ".\n- Target " + c[0] + "-" + c[1] + " calories and " + p + " g protein a day.\n- Protein is the number I care most about hitting. Calories are the number that decides the fat loss.\n\nHOW I WILL TALK TO YOU\nPlain English, as I eat it. \"8oz ribeye and 3 eggs\". \"Protein shake\". \"Chipotle bowl, double chicken, white rice, cheese\".\n- Estimate calories and protein yourself. Use normal portion sizes unless I give you a weight.\n- For restaurant food or anything you are unsure about, estimate calories on the high side and protein on the low side, and mark it (est).\n- If something is too vague to estimate, ask ONE short question, then estimate anyway.\n\nEVERY TIME I SEND FOOD\nReply in exactly this shape and nothing more:\n  [item] - [kcal] kcal, [protein] g\n  Today: [running total] kcal, [running total] g protein\n  Left: [remaining] kcal, [remaining] g protein\nIf I am over on calories, say the number I am over by. No comment on it.\n\nCLOSING A DAY\nWhen I say \"done\", or when I send the first food of a new day, close the previous day: add a row to a table with date, calories, protein, and whether I hit my protein target. Reprint the last 7 days of that table every time you close a day.\n\nEVERY SUNDAY\nFour lines only: average daily calories, average daily protein, how many days out of seven I hit protein, and one sentence on whether my intake matches my target.\n\nHARD RULES\n- Never comment on whether a food is healthy, clean, or a good choice. Not once. Macros over food choices.\n- Never invent a number I gave you, and never quietly round my targets.\n- One line per item. No paragraphs, no motivation, no emoji.\n- If I ask what to eat, give me two or three options that fit the calories and protein I have left. Nothing about how I should feel.\n- Grams and pounds.\n\nReply with \"food log ready\" and then wait for my first meal.";
     $("#promptNote").textContent = "Both prompts carry your numbers: " + bw + " lb, " + c[0] + "–" + c[1] + " kcal, " + p + " g protein. Paste each into its own chat.";
   }
-  $("#copyTrain").addEventListener("click", function(){ copy(P.train, "Training prompt copied. Paste it into a new chat."); });
-  $("#copyFood").addEventListener("click", function(){ copy(P.food, "Food prompt copied. Paste it into a new chat."); });
+  function afterCopy(which){ var n = $("#promptNote"); n.innerHTML = which + " prompt copied. <a href=\"https://chatgpt.com/\" target=\"_blank\" rel=\"noopener\">Open ChatGPT →</a> or <a href=\"https://claude.ai/new\" target=\"_blank\" rel=\"noopener\">Claude →</a>, start a new chat, paste, send. It replies \"" + (which === "Training" ? "log ready" : "food log ready") + "\"."; }
+  $("#copyTrain").addEventListener("click", function(){ copy(P.train, "Training prompt copied"); afterCopy("Training"); });
+  $("#copyFood").addEventListener("click", function(){ copy(P.food, "Food prompt copied"); afterCopy("Food"); });
 
   // ---------- logger demo: the same rules, running locally, with a typewriter ----------
   var log = $("#demoLog"), loads = {}, eaten = { cal: 0, pro: 0 }, bws = [], busy = false, queue = [], auto = true;
@@ -1157,13 +1160,15 @@ if(new URLSearchParams(location.search).get("subscribed")==="1"){var f=document.
     requestAnimationFrame(frame);
   }
   if (!reduce) addEventListener("pointermove", function(e){ mx = e.clientX / innerWidth - .5; my = e.clientY / innerHeight - .5; }, { passive: true });
-  if (!desktop()) { var sIO = new IntersectionObserver(function(en){ en.forEach(function(x){ if (x.isIntersecting) setStep(steps.indexOf(x.target)); }); }, { threshold: .6 }); steps.forEach(function(li){ sIO.observe(li); }); setBA(50); }
+  if (!desktop()) { var sIO = new IntersectionObserver(function(en){ en.forEach(function(x){ if (x.isIntersecting) setStep(steps.indexOf(x.target)); }); }, { threshold: .6 }); steps.forEach(function(li){ sIO.observe(li); }); setBA(92);
+    var swept = false, baIO = new IntersectionObserver(function(en){ en.forEach(function(x){ if (!x.isIntersecting || swept) return; swept = true; baIO.disconnect(); if (reduce) { setBA(50); return; } var t0 = null; (function sweep(t){ if (baUser) return; if (!t0) t0 = t; var p = ease(clamp((t - t0) / 2600)); setBA(92 - p * 84); if (p < 1) requestAnimationFrame(sweep); else setTimeout(function(){ if (!baUser) { var t1 = null; (function back(t){ if (baUser) return; if (!t1) t1 = t; var q = ease(clamp((t - t1) / 900)); setBA(8 + q * 42); if (q < 1) requestAnimationFrame(back); })(performance.now()); } }, 900); })(performance.now()); }); }, { threshold: .55 }); if (ba) baIO.observe(ba); }
   requestAnimationFrame(frame);
 
   // ---------- first paint + reserve thank-you ----------
   cBw.value = S.bw; $$("#cGoal button").forEach(function(x){ x.setAttribute("aria-pressed", String(x.getAttribute("data-v") === S.goal)); });
   try { var sm = JSON.parse(localStorage.getItem("mlf_meals") || "null"); if (sm) { picked = sm; $$(".meal", mealList).forEach(function(b){ b.setAttribute("aria-pressed", String(!!picked[b.getAttribute("data-i")])); }); } } catch(e){}
   (function(){ var c = calories(S.bw, S.goal); last = { c0: c[0], c1: c[1], p: protein(S.bw) }; })(); paintCalc();
+  try { if (localStorage.getItem("mlf_numbers")) { var cc = calories(S.bw, S.goal), note = $(".hx-note"); if (note) note.innerHTML = "Welcome back. Your numbers are saved: <b>" + fmt(cc[0]) + "–" + fmt(cc[1]) + " kcal, " + protein(S.bw) + " g protein</b> at " + S.bw + " lb. Everything below already uses them."; } } catch(e){}
   var q = new URLSearchParams(location.search); var msg = $("#reservedMsg");
   if (msg && q.get("reserved")) { msg.hidden = false; msg.scrollIntoView({ block: "center" }); }
 })();
