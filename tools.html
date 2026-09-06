@@ -15,7 +15,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Manrope:wght@400;500;600;700;800&family=EB+Garamond:ital@1&family=JetBrains+Mono:wght@400;600&display=swap">
 <meta name="theme-color" content="#FFFFFF">
-<link rel="stylesheet" href="site.css?v=becd8eaf">
+<link rel="stylesheet" href="site.css?v=4fee6496">
 
 <style>
 .tool{border:1px solid var(--rule);border-radius:16px;padding:26px;margin-top:22px;scroll-margin-top:80px;background:#fff}
@@ -193,6 +193,12 @@ document.documentElement.classList.add("js");
     var ra=[].slice.call(rail.querySelectorAll("a")), secs=links.map(function(l){ return document.querySelector(l.getAttribute("href")); });
     var paint=function(){ var idx=0; secs.forEach(function(s,i){ if(s && s.getBoundingClientRect().top<=innerHeight*.35) idx=i; }); ra.forEach(function(a,i){ a.classList.toggle("on",i===idx); }); };
     addEventListener("scroll",paint,{passive:true}); paint(); })();
+  // inner pages: plain-text h2s assemble word by word as they enter
+  (function(){ if(document.querySelector("h2.sec[data-split]")) return; var hs=[].slice.call(document.querySelectorAll("main h2, .plan h2, .about h2")).filter(function(h){ return !h.children.length && h.textContent.trim().split(/\s+/).length<=9; }); if(!hs.length) return;
+    hs.forEach(function(h){ var t=h.textContent.trim(); h.setAttribute("aria-label",t); h.classList.add("split"); h.classList.remove("rv"); h.innerHTML=t.split(/\s+/).map(function(w,i){ return '<span class="sw"><i style="transition-delay:'+(i*50)+'ms">'+w+'</i></span>'; }).join(" "); });
+    if(!("IntersectionObserver" in window)){ hs.forEach(function(h){h.classList.add("in")}); return; }
+    var io=new IntersectionObserver(function(en){ en.forEach(function(x){ if(x.isIntersecting){ x.target.classList.add("in"); io.unobserve(x.target); } }); },{threshold:.4}); hs.forEach(function(h){ io.observe(h); });
+    setTimeout(function(){ hs.forEach(function(h){ if(h.getBoundingClientRect().top<innerHeight) h.classList.add("in"); }); },1800); })();
   var els=[].slice.call(document.querySelectorAll(".rv"));
   if(!("IntersectionObserver" in window)){ els.forEach(function(e){e.classList.add("in")}); return; }
   var io=new IntersectionObserver(function(en){ en.forEach(function(x){ if(x.isIntersecting){ x.target.classList.add("in"); io.unobserve(x.target); } }); },{rootMargin:"0px 0px -8% 0px",threshold:.08});

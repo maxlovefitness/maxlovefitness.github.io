@@ -15,7 +15,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Manrope:wght@400;500;600;700;800&family=EB+Garamond:ital@1&family=JetBrains+Mono:wght@400;600&display=swap">
 <meta name="theme-color" content="#FFFFFF">
-<link rel="stylesheet" href="site.css?v=becd8eaf">
+<link rel="stylesheet" href="site.css?v=4fee6496">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Max Love","url":"https://maxlovefitness.com/","image":"https://maxlovefitness.com/hero.jpg","jobTitle":"Weighted calisthenics coach","sameAs":["https://www.instagram.com/maxlovefitness/","https://www.youtube.com/@maxlovefitness"],"knowsAbout":["weighted calisthenics","progressive overload","fat loss","protein intake"]}</script>
 <link rel="preload" as="image" href="hero.jpg" fetchpriority="high">
 <style>/* ===== HOME v3 (2026-09-05) — white ground, serif display, scroll-driven ===== */
@@ -757,6 +757,12 @@ document.documentElement.classList.add("js");
     var ra=[].slice.call(rail.querySelectorAll("a")), secs=links.map(function(l){ return document.querySelector(l.getAttribute("href")); });
     var paint=function(){ var idx=0; secs.forEach(function(s,i){ if(s && s.getBoundingClientRect().top<=innerHeight*.35) idx=i; }); ra.forEach(function(a,i){ a.classList.toggle("on",i===idx); }); };
     addEventListener("scroll",paint,{passive:true}); paint(); })();
+  // inner pages: plain-text h2s assemble word by word as they enter
+  (function(){ if(document.querySelector("h2.sec[data-split]")) return; var hs=[].slice.call(document.querySelectorAll("main h2, .plan h2, .about h2")).filter(function(h){ return !h.children.length && h.textContent.trim().split(/\s+/).length<=9; }); if(!hs.length) return;
+    hs.forEach(function(h){ var t=h.textContent.trim(); h.setAttribute("aria-label",t); h.classList.add("split"); h.classList.remove("rv"); h.innerHTML=t.split(/\s+/).map(function(w,i){ return '<span class="sw"><i style="transition-delay:'+(i*50)+'ms">'+w+'</i></span>'; }).join(" "); });
+    if(!("IntersectionObserver" in window)){ hs.forEach(function(h){h.classList.add("in")}); return; }
+    var io=new IntersectionObserver(function(en){ en.forEach(function(x){ if(x.isIntersecting){ x.target.classList.add("in"); io.unobserve(x.target); } }); },{threshold:.4}); hs.forEach(function(h){ io.observe(h); });
+    setTimeout(function(){ hs.forEach(function(h){ if(h.getBoundingClientRect().top<innerHeight) h.classList.add("in"); }); },1800); })();
   var els=[].slice.call(document.querySelectorAll(".rv"));
   if(!("IntersectionObserver" in window)){ els.forEach(function(e){e.classList.add("in")}); return; }
   var io=new IntersectionObserver(function(en){ en.forEach(function(x){ if(x.isIntersecting){ x.target.classList.add("in"); io.unobserve(x.target); } }); },{rootMargin:"0px 0px -8% 0px",threshold:.08});
@@ -799,13 +805,15 @@ if(new URLSearchParams(location.search).get("subscribed")==="1"){var f=document.
   var h1 = $("#hxTitle"); if (h1) requestAnimationFrame(function(){ setTimeout(function(){ h1.classList.add("in"); }, 60); });
 
   // ---------- split headlines (word by word on enter) ----------
-  $$("h2.sec[data-split]").forEach(function(h){ var words = h.textContent.trim().split(/\s+/); h.innerHTML = words.map(function(w, i){ return '<span class="sw"><i style="transition-delay:' + (i * 55) + 'ms">' + w + '</i></span>'; }).join(" "); });
+  $$("h2.sec[data-split]").forEach(function(h){ var words = h.textContent.trim().split(/\s+/); h.setAttribute("aria-label", h.textContent.trim()); h.innerHTML = words.map(function(w, i){ return '<span class="sw"><i style="transition-delay:' + (i * 55) + 'ms">' + w + '</i></span>'; }).join(" "); });
   var hIO = new IntersectionObserver(function(en){ en.forEach(function(x){ if (x.isIntersecting) { x.target.classList.add("in"); hIO.unobserve(x.target); } }); }, { threshold: .4 });
   $$("h2.sec[data-split]").forEach(function(h){ hIO.observe(h); });
   setTimeout(function(){ $$("h2.sec[data-split]").forEach(function(h){ if (h.getBoundingClientRect().top < innerHeight) h.classList.add("in"); }); }, 1800);
 
   // ---------- shared state: the two numbers ----------
   var S = { bw: 180, goal: "cut" }, last = { c0: 0, c1: 0, p: 0 };
+  try { var sv = JSON.parse(localStorage.getItem("mlf_numbers") || "null"); if (sv && sv.bw >= 100 && sv.bw <= 320) { S.bw = sv.bw; S.goal = sv.goal || "cut"; } } catch(e){}
+  function remember(){ try { localStorage.setItem("mlf_numbers", JSON.stringify(S)); } catch(e){} }
   function calories(bw, g){ var r = function(n){ return Math.round(bw * n / 10) * 10; }; return g === "cut" ? [r(10), r(12)] : g === "hold" ? [r(12.5), r(13.5)] : [r(15), r(16)]; }
   function protein(bw){ return Math.round(bw * 0.8); }
   function goalWord(g){ return g === "cut" ? "lose fat while keeping muscle" : g === "hold" ? "hold my weight" : "build up"; }
@@ -819,7 +827,7 @@ if(new URLSearchParams(location.search).get("subscribed")==="1"){var f=document.
     bump(cCal); bump(cPro);
     last = { c0: c[0], c1: c[1], p: p };
     cLike.innerHTML = '<span><b>' + (Math.round(p/52*10)/10) + '</b> × 6 oz chicken</span><span>or <b>' + (Math.round(p/19*10)/10) + '</b> × 3 eggs</span><span>or <b>' + (Math.round(p/25*10)/10) + '</b> scoops whey</span>';
-    paintProj(c); paintMeals(); buildPrompts();
+    paintProj(c); paintMeals(); buildPrompts(); remember();
   }
   cBw.addEventListener("input", function(){ S.bw = +cBw.value; bump(cBwOut); paintCalc(); });
   $("#cGoal").addEventListener("click", function(e){ var b = e.target.closest("button"); if (!b) return; $$("button", this).forEach(function(x){ x.setAttribute("aria-pressed", String(x === b)); }); S.goal = b.getAttribute("data-v"); paintCalc(); });
@@ -875,7 +883,7 @@ if(new URLSearchParams(location.search).get("subscribed")==="1"){var f=document.
   $("#mtCopy").addEventListener("click", function(){ var t = totals(); if (!t.n) { say("Pick a meal first"); return; } copy(Object.keys(picked).filter(function(k){ return picked[k]; }).map(function(k){ var m = MEALS[k]; return m[0] + " — " + m[2] + " kcal, " + m[3] + " g"; }).join("\n") + "\nTotal: " + t.cal + " kcal, " + t.pro + " g protein", "Your day is copied"); });
   function totals(){ var cal = 0, pro = 0, n = 0; Object.keys(picked).forEach(function(k){ if (picked[k]) { cal += MEALS[k][2]; pro += MEALS[k][3]; n++; } }); return { cal: cal, pro: pro, n: n }; }
   function paintMeals(){
-    var t = totals(), c = calories(S.bw, S.goal), p = protein(S.bw);
+    var t = totals(), c = calories(S.bw, S.goal), p = protein(S.bw); try { localStorage.setItem("mlf_meals", JSON.stringify(picked)); } catch(e){}
     tweenText($("#mtCal"), shown.cal, t.cal, function(v){ return fmt(v); }); tweenText($("#mtPro"), shown.pro, t.pro, function(v){ return Math.round(v) + " g"; }); shown = { cal: t.cal, pro: t.pro };
     $("#mtCalT").textContent = "/ " + fmt(c[0]) + "–" + fmt(c[1]); $("#mtProT").textContent = "/ " + p + " g";
     var top = c[1] * 1.15;
@@ -1041,6 +1049,8 @@ if(new URLSearchParams(location.search).get("subscribed")==="1"){var f=document.
   requestAnimationFrame(frame);
 
   // ---------- first paint + reserve thank-you ----------
+  cBw.value = S.bw; $$("#cGoal button").forEach(function(x){ x.setAttribute("aria-pressed", String(x.getAttribute("data-v") === S.goal)); });
+  try { var sm = JSON.parse(localStorage.getItem("mlf_meals") || "null"); if (sm) { picked = sm; $$(".meal", mealList).forEach(function(b){ b.setAttribute("aria-pressed", String(!!picked[b.getAttribute("data-i")])); }); } } catch(e){}
   paintCalc();
   var q = new URLSearchParams(location.search); var msg = $("#reservedMsg");
   if (msg && q.get("reserved")) { msg.hidden = false; msg.scrollIntoView({ block: "center" }); }

@@ -15,7 +15,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Manrope:wght@400;500;600;700;800&family=EB+Garamond:ital@1&family=JetBrains+Mono:wght@400;600&display=swap">
 <meta name="theme-color" content="#FFFFFF">
-<link rel="stylesheet" href="site.css?v=becd8eaf">
+<link rel="stylesheet" href="site.css?v=4fee6496">
 
 <style>
 .hub{display:grid;gap:12px;margin-top:26px}
@@ -26,6 +26,11 @@
 .hub .card.apply{background:var(--ink);border-color:var(--ink);color:#fff}
 .hub .card.apply span{color:#C7CBD0}
 .hub .card.apply:hover{background:#000}
+.tx{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-top:22px;border-radius:14px;overflow:hidden;text-decoration:none;color:#fff;aspect-ratio:2/1.15}
+.tx img{width:100%;height:100%;object-fit:cover;object-position:50% 12%}
+.tx img:first-child{filter:saturate(.8) brightness(.9)}
+.tx span{position:absolute;left:0;right:0;bottom:0;padding:34px 14px 12px;font-size:14px;background:linear-gradient(180deg,rgba(0,0,0,0),rgba(0,0,0,.7))}
+.tx span b{font-family:"Fraunces",Georgia,serif;font-size:22px;font-weight:600;margin-right:6px}
 @media (max-width:640px){.hub{margin-top:18px}.hub .card{padding:15px 16px}}
 </style>
 </head>
@@ -40,6 +45,7 @@
   <div class="eyebrow rv" style="text-transform:none;letter-spacing:.08em;font-size:13px">God First ✝️</div>
   <h1 class="hero rv d1" style="font-size:clamp(34px,6vw,52px);margin-top:10px">Fewer sets. Heavier bar.</h1>
   <p class="lede rv d2" style="margin-top:10px">Weighted calisthenics, two or three days a week. Everything from the videos, free.</p>
+  <a class="tx rv d2" href="index.html#proof" aria-label="Seventy pounds, same guy: the transformation"><img src="sm/before-mirror.jpg" alt="Before" width="600" height="750" loading="lazy"><img src="sm/max-lean.jpg" alt="After" width="600" height="784" loading="lazy"><span><b>70 lb.</b> Same guy, same mirror. See how →</span></a>
   <div class="hub rv d3">
     <a class="card" href="plan.html"><b>The free two-day plan</b><span>The whole program on one page. Printable, with a PDF.</span></a>
     <a class="card" href="start.html"><b>Start here</b><span>Your starting numbers, what counts as a rep, and the two prompts that turn ChatGPT into your log.</span></a>
@@ -94,6 +100,12 @@ document.documentElement.classList.add("js");
     var ra=[].slice.call(rail.querySelectorAll("a")), secs=links.map(function(l){ return document.querySelector(l.getAttribute("href")); });
     var paint=function(){ var idx=0; secs.forEach(function(s,i){ if(s && s.getBoundingClientRect().top<=innerHeight*.35) idx=i; }); ra.forEach(function(a,i){ a.classList.toggle("on",i===idx); }); };
     addEventListener("scroll",paint,{passive:true}); paint(); })();
+  // inner pages: plain-text h2s assemble word by word as they enter
+  (function(){ if(document.querySelector("h2.sec[data-split]")) return; var hs=[].slice.call(document.querySelectorAll("main h2, .plan h2, .about h2")).filter(function(h){ return !h.children.length && h.textContent.trim().split(/\s+/).length<=9; }); if(!hs.length) return;
+    hs.forEach(function(h){ var t=h.textContent.trim(); h.setAttribute("aria-label",t); h.classList.add("split"); h.classList.remove("rv"); h.innerHTML=t.split(/\s+/).map(function(w,i){ return '<span class="sw"><i style="transition-delay:'+(i*50)+'ms">'+w+'</i></span>'; }).join(" "); });
+    if(!("IntersectionObserver" in window)){ hs.forEach(function(h){h.classList.add("in")}); return; }
+    var io=new IntersectionObserver(function(en){ en.forEach(function(x){ if(x.isIntersecting){ x.target.classList.add("in"); io.unobserve(x.target); } }); },{threshold:.4}); hs.forEach(function(h){ io.observe(h); });
+    setTimeout(function(){ hs.forEach(function(h){ if(h.getBoundingClientRect().top<innerHeight) h.classList.add("in"); }); },1800); })();
   var els=[].slice.call(document.querySelectorAll(".rv"));
   if(!("IntersectionObserver" in window)){ els.forEach(function(e){e.classList.add("in")}); return; }
   var io=new IntersectionObserver(function(en){ en.forEach(function(x){ if(x.isIntersecting){ x.target.classList.add("in"); io.unobserve(x.target); } }); },{rootMargin:"0px 0px -8% 0px",threshold:.08});
