@@ -470,6 +470,17 @@ section[data-num]{overflow:clip}
 #pjHB{fill:var(--ink)}
 #pjHT{font-family:"JetBrains Mono",monospace;font-size:11px;fill:#fff}
 #pj{touch-action:pan-y}
+
+/* ===== v8: target timeline + story card ===== */
+.target{margin-top:14px;border-top:1px solid var(--rule);padding-top:12px}
+.target label{font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3)}
+.target-row{display:flex;align-items:center;gap:10px;margin-top:8px;flex-wrap:wrap}
+.target-row input{width:110px;font-family:"JetBrains Mono",monospace;font-size:18px;font-weight:600;color:var(--ink);background:var(--wash);border:1px solid var(--rule);border-radius:10px;padding:10px 12px}
+.target-row input:focus{outline:2px solid var(--red);outline-offset:1px;background:#fff}
+.target-row .unit{font-weight:700;color:var(--ink3)}
+.target-row output{flex:1 1 220px;font-size:14px;color:var(--ink2)}
+.target-row output b{color:var(--ink)}
+.target-row input{width:132px}
 </style>
 </head>
 <body>
@@ -545,8 +556,9 @@ section[data-num]{overflow:clip}
         <text id="pjTop" x="8" y="34" class="ax"></text><text id="pjBot" x="8" y="184" class="ax"></text>
       </svg>
       <p class="proj-note" id="pjNote"></p>
+      <div class="target" id="target"><label for="tgt">Target weight</label><div class="target-row"><input type="number" id="tgt" inputmode="numeric" min="80" max="400" placeholder="e.g. 165"><span class="unit">lb</span><output id="tgtOut">Type a target and I'll tell you the honest timeline.</output></div></div>
     </div>
-    <div class="calc-acts"><button class="btn dark" id="cCopy" type="button">Copy my numbers</button><a class="btn ghost" href="#meals">Build a day that hits them ↓</a></div>
+    <div class="calc-acts"><button class="btn dark" id="cCopy" type="button">Copy my numbers</button><button class="btn ghost" id="cShare" type="button">Make a story card</button><a class="btn ghost" href="#meals">Build a day ↓</a></div>
   </div>
 </div></section>
 
@@ -827,10 +839,35 @@ if(new URLSearchParams(location.search).get("subscribed")==="1"){var f=document.
     bump(cCal); bump(cPro);
     last = { c0: c[0], c1: c[1], p: p };
     cLike.innerHTML = '<span><b>' + (Math.round(p/52*10)/10) + '</b> × 6 oz chicken</span><span>or <b>' + (Math.round(p/19*10)/10) + '</b> × 3 eggs</span><span>or <b>' + (Math.round(p/25*10)/10) + '</b> scoops whey</span>';
-    paintProj(c); paintMeals(); buildPrompts(); remember();
+    paintProj(c); paintMeals(); buildPrompts(); remember(); paintTarget();
   }
   cBw.addEventListener("input", function(){ S.bw = +cBw.value; bump(cBwOut); paintCalc(); });
   $("#cGoal").addEventListener("click", function(e){ var b = e.target.closest("button"); if (!b) return; $$("button", this).forEach(function(x){ x.setAttribute("aria-pressed", String(x === b)); }); S.goal = b.getAttribute("data-v"); paintCalc(); });
+  // target weight → honest timeline at the plan's pace
+  var tgt = $("#tgt"), tgtOut = $("#tgtOut");
+  function paintTarget(){ if (!tgt) return; var t = +tgt.value; if (!t || t < 80 || t > 400) { tgtOut.innerHTML = "Type a target and I'll tell you the honest timeline."; return; }
+    var bw = S.bw, d = t - bw;
+    if (Math.abs(d) < 1) { tgtOut.innerHTML = "You're there. That's a <b>hold</b>: set the goal above to Hold and judge the weekly average."; return; }
+    if (d < 0) { var wf = Math.ceil(Math.log(t / bw) / Math.log(.99)), ws = Math.ceil(Math.log(t / bw) / Math.log(.995)); tgtOut.innerHTML = "<b>" + Math.abs(Math.round(d)) + " lb to lose.</b> At half a percent to one percent a week that's <b>" + wf + "–" + ws + " weeks</b>. Not faster; faster costs muscle." + (S.goal !== "cut" ? " Set the goal above to Lose fat." : ""); }
+    else { var gf = Math.ceil(Math.log(t / bw) / Math.log(1.005)), gs = Math.ceil(Math.log(t / bw) / Math.log(1.0025)); tgtOut.innerHTML = "<b>" + Math.round(d) + " lb to build.</b> At a quarter to half a percent a week that's <b>" + gf + "–" + gs + " weeks</b>, and most of it only stays if the bar keeps climbing." + (S.goal !== "gain" ? " Set the goal above to Build." : ""); } }
+  if (tgt) tgt.addEventListener("input", paintTarget);
+  // a story card with your numbers on it (1080×1920)
+  function storyCard(){ var c = calories(S.bw, S.goal), p = protein(S.bw), cv = document.createElement("canvas"); cv.width = 1080; cv.height = 1920; var x = cv.getContext("2d");
+    x.fillStyle = "#FFFFFF"; x.fillRect(0, 0, 1080, 1920);
+    var g = x.createRadialGradient(860, 300, 40, 860, 300, 700); g.addColorStop(0, "rgba(180,37,58,.16)"); g.addColorStop(1, "rgba(180,37,58,0)"); x.fillStyle = g; x.fillRect(0, 0, 1080, 1920);
+    x.strokeStyle = "rgba(24,24,27,.06)"; x.lineWidth = 2; for (var i = 0; i < 1080; i += 90) { x.beginPath(); x.moveTo(i, 0); x.lineTo(i, 1920); x.stroke(); } for (var k = 0; k < 1920; k += 90) { x.beginPath(); x.moveTo(0, k); x.lineTo(1080, k); x.stroke(); }
+    x.fillStyle = "#6B7280"; x.font = "600 26px 'JetBrains Mono', Menlo, monospace"; x.fillText("MY TWO NUMBERS · " + (S.goal === "cut" ? "LOSING FAT" : S.goal === "hold" ? "HOLDING" : "BUILDING"), 90, 300);
+    x.fillStyle = "#16181C"; x.font = "600 150px Fraunces, Georgia, serif"; x.fillText(fmt(c[0]) + "–" + fmt(c[1]), 84, 480);
+    x.fillStyle = "#41474E"; x.font = "600 40px Manrope, system-ui, sans-serif"; x.fillText("calories a day", 90, 545);
+    x.fillStyle = "#B4253A"; x.font = "600 150px Fraunces, Georgia, serif"; x.fillText(p + " g", 84, 760);
+    x.fillStyle = "#41474E"; x.font = "600 40px Manrope, system-ui, sans-serif"; x.fillText("protein a day, every day", 90, 825);
+    x.fillStyle = "#16181C"; x.font = "600 64px Fraunces, Georgia, serif"; x.fillText("Ripped is a diet.", 90, 1080); x.fillStyle = "#B4253A"; x.fillText("Strong is two sets.", 90, 1160);
+    x.fillStyle = "#41474E"; x.font = "500 34px Manrope, system-ui, sans-serif"; ["Count every meal. Two lifts, two hard sets,", "two or three days a week. Judge the weekly", "average, never one morning."].forEach(function(l, i){ x.fillText(l, 90, 1260 + i * 48); });
+    x.fillStyle = "#16181C"; x.fillRect(90, 1700, 900, 4); x.font = "600 30px 'JetBrains Mono', Menlo, monospace"; x.fillText("MAXLOVEFITNESS.COM  ·  FREE PLAN, FREE TOOLS", 90, 1770);
+    x.fillStyle = "#6B7280"; x.font = "500 26px Manrope, system-ui, sans-serif"; x.fillText("bodyweight " + S.bw + " lb · the numbers are yours, the method is free", 90, 1820);
+    return cv; }
+  $("#cShare").addEventListener("click", function(){ var run = function(){ var cv = storyCard(); cv.toBlob(function(blob){ var url = URL.createObjectURL(blob); var a = document.createElement("a"); a.href = url; a.download = "my-two-numbers.png"; if (/iPhone|iPad|Android/i.test(navigator.userAgent)) { window.open(url, "_blank"); say("Long-press the image to save it"); } else { document.body.appendChild(a); a.click(); a.remove(); say("Story card saved"); } setTimeout(function(){ URL.revokeObjectURL(url); }, 30000); }, "image/png"); };
+    if (document.fonts && document.fonts.load) Promise.all([document.fonts.load("600 150px Fraunces"), document.fonts.load("600 40px Manrope"), document.fonts.load("600 26px 'JetBrains Mono'")]).then(run, run); else run(); });
   $("#cCopy").addEventListener("click", function(){ var c = calories(S.bw, S.goal); copy("Bodyweight " + S.bw + " lb. Goal: " + goalWord(S.goal) + ". Eat " + c[0] + "-" + c[1] + " calories and " + protein(S.bw) + " g protein a day. Judge the 7-day average, never one morning.", "Your numbers are copied"); });
 
   // twelve-week projection (cut 0.5–1%/wk, hold ±1%, build 0.25–0.5%/wk), animated between states
