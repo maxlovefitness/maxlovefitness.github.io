@@ -8,14 +8,14 @@
 <link rel="canonical" href="https://maxlovefitness.com/">
 <meta property="og:type" content="website"><meta property="og:site_name" content="Max Love Fitness">
 <meta property="og:title" content="Max Love Fitness — fewer sets, heavier bar"><meta property="og:description" content="Weighted calisthenics for people with a job: two lifts, two hard sets, two or three days a week. Free plan, free calculators, and 1-on-1 coaching."><meta property="og:url" content="https://maxlovefitness.com/">
-<meta property="og:image" content="https://maxlovefitness.com/og.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:image" content="https://maxlovefitness.com/og.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Max Love, before and after: 70 lb lost, same guy, same mirror">
 <meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://maxlovefitness.com/og.jpg">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Manrope:wght@400;500;600;700;800&family=EB+Garamond:ital@1&family=JetBrains+Mono:wght@400;600&display=swap">
 <meta name="theme-color" content="#FFFFFF">
-<link rel="stylesheet" href="site.css?v=4fee6496">
+<link rel="stylesheet" href="site.css?v=70a1766e">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Max Love","url":"https://maxlovefitness.com/","image":"https://maxlovefitness.com/hero.jpg","jobTitle":"Weighted calisthenics coach","sameAs":["https://www.instagram.com/maxlovefitness/","https://www.youtube.com/@maxlovefitness"],"knowsAbout":["weighted calisthenics","progressive overload","fat loss","protein intake"]}</script>
 <link rel="preload" as="image" href="hero.jpg" fetchpriority="high">
 <style>/* ===== HOME v3 (2026-09-05) — white ground, serif display, scroll-driven ===== */
@@ -481,6 +481,26 @@ section[data-num]{overflow:clip}
 .target-row output{flex:1 1 220px;font-size:14px;color:var(--ink2)}
 .target-row output b{color:var(--ink)}
 .target-row input{width:132px}
+
+/* ===== v9: custom meals + lightbox ===== */
+.meal-add{display:grid;grid-template-columns:1fr 92px 92px auto;gap:8px;align-items:center;margin-top:12px;background:var(--wash);border-radius:14px;padding:10px 12px}
+.meal-add .k{grid-column:1/-1}
+.meal-add input{min-width:0;font:inherit;font-size:14px;padding:10px 11px;border:1px solid var(--rule);border-radius:10px;background:#fff}
+.meal-add input[type=number]{font-family:"JetBrains Mono",monospace}
+.meal-add input:focus{outline:2px solid var(--red);outline-offset:1px}
+.meal-add .btn{padding:10px 14px}
+.meal.custom small{color:var(--red)}
+.meal.custom[aria-pressed=true] small{color:#FF8E99}
+@media (max-width:560px){.meal-add{grid-template-columns:1fr 1fr}.meal-add input[type=text]{grid-column:1/-1}}
+.gal figure{cursor:zoom-in}
+.lb{border:0;padding:0;background:transparent;max-width:none;max-height:none;width:100vw;height:100vh;height:100dvh}
+.lb::backdrop{background:rgba(10,10,12,.92);backdrop-filter:blur(6px)}
+.lb img{position:absolute;inset:0;margin:auto;max-width:min(94vw,900px);max-height:86vh;border-radius:14px;box-shadow:0 40px 100px rgba(0,0,0,.6);animation:lbin .3s cubic-bezier(.2,.7,.2,1)}
+@keyframes lbin{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
+.lb button{position:absolute;z-index:2;color:#fff;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:50%;width:46px;height:46px;font:400 26px/1 Manrope,sans-serif;cursor:pointer;display:grid;place-items:center}
+.lb button:hover{background:rgba(255,255,255,.22)}
+.lb-x{top:16px;right:16px}.lb-p{left:14px;top:50%;margin-top:-23px}.lb-n{right:14px;top:50%;margin-top:-23px}
+.lb-cap{position:absolute;left:0;right:0;bottom:22px;text-align:center;color:#C7CBD0;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase}
 </style>
 </head>
 <body>
@@ -599,6 +619,7 @@ section[data-num]{overflow:clip}
     <figure style="--k:60"><img src="coach.jpg" srcset="sm/coach.jpg 600w, coach.jpg 800w" sizes="(max-width:820px) 46vw, 200px" alt="Max, pool" width="800" height="1244" loading="lazy" decoding="async"><figcaption>pool, again</figcaption></figure>
     <figure style="--k:-55"><img src="about.jpg" srcset="sm/about.jpg 600w, about.jpg 940w" sizes="(max-width:820px) 92vw, 200px" alt="Max, outdoors" width="940" height="1750" loading="lazy" decoding="async"><figcaption>the park</figcaption></figure>
   </div>
+  <dialog class="lb" id="lb" aria-label="Photo"><button class="lb-x" id="lbX" type="button" aria-label="Close">×</button><button class="lb-p" id="lbP" type="button" aria-label="Previous">‹</button><img id="lbImg" alt=""><button class="lb-n" id="lbN" type="button" aria-label="Next">›</button><div class="lb-cap" id="lbCap"></div></dialog>
 </section>
 
 <!-- METHOD: pinned horizontal strip -->
@@ -624,7 +645,10 @@ section[data-num]{overflow:clip}
     <p class="lede rv d2">Tap what you'd eat. It totals against the targets you set above. Portions are normal servings; the estimates are the same ones I use, and roughly right is the whole point.</p>
   </div>
   <div class="meal-grid rv d2">
-    <div class="meal-list" id="mealList"></div>
+    <div>
+      <div class="meal-list" id="mealList"></div>
+      <form class="meal-add" id="mealAdd" autocomplete="off"><span class="k">add your own</span><input type="text" id="maName" placeholder="what you ate" maxlength="40" aria-label="Meal name" required><input type="number" id="maCal" placeholder="kcal" min="0" max="3000" inputmode="numeric" aria-label="Calories" required><input type="number" id="maPro" placeholder="g protein" min="0" max="300" inputmode="numeric" aria-label="Protein grams" required><button class="btn dark" type="submit">Add</button></form>
+    </div>
     <div class="meal-tot">
       <div class="k">your day so far</div>
       <div class="mt-row"><span>calories</span><b id="mtCal">0</b><small id="mtCalT">/ 1,800–2,160</small></div>
@@ -909,7 +933,14 @@ if(new URLSearchParams(location.search).get("subscribed")==="1"){var f=document.
     ["Chipotle bowl, double chicken", "white rice, salsa, no cheese", 880, 76], ["Apple + peanut butter, 2 tbsp", "the snack that stops the snacking", 285, 8], ["Protein bar", "typical 60 g bar", 220, 20]
   ];
   var picked = {}, mealList = $("#mealList"), mealTot = $(".meal-tot"), shown = { cal: 0, pro: 0 };
-  mealList.innerHTML = MEALS.map(function(m, i){ return '<button class="meal" type="button" aria-pressed="false" data-i="' + i + '"><span><b>' + m[0] + '</b><small>' + m[1] + '</small></span><span class="mp">' + m[2] + ' kcal · ' + m[3] + ' g</span></button>'; }).join("");
+  try { (JSON.parse(localStorage.getItem("mlf_custom_meals") || "[]")).forEach(function(m){ if (m && m[0]) MEALS.push([String(m[0]).slice(0, 40), "yours", +m[2] || 0, +m[3] || 0, 1]); }); } catch(e){}
+  function esc(t){ return String(t).replace(/[&<>"]/g, function(c){ return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  function paintMealList(){ mealList.innerHTML = MEALS.map(function(m, i){ return '<button class="meal' + (m[4] ? " custom" : "") + '" type="button" aria-pressed="' + (picked[i] ? "true" : "false") + '" data-i="' + i + '"><span><b>' + esc(m[0]) + '</b><small>' + esc(m[1]) + '</small></span><span class="mp">' + m[2] + ' kcal · ' + m[3] + ' g</span></button>'; }).join(""); }
+  paintMealList();
+  $("#mealAdd").addEventListener("submit", function(e){ e.preventDefault(); var n = $("#maName").value.trim(), c = +$("#maCal").value, p = +$("#maPro").value; if (!n || !(c >= 0) || !(p >= 0)) return;
+    MEALS.push([n.slice(0, 40), "yours", Math.round(c), Math.round(p), 1]); picked[MEALS.length - 1] = true; paintMealList(); paintMeals();
+    try { localStorage.setItem("mlf_custom_meals", JSON.stringify(MEALS.filter(function(m){ return m[4]; }))); } catch(e){}
+    $("#maName").value = ""; $("#maCal").value = ""; $("#maPro").value = ""; say("Added to your day"); });
   function fly(fromEl, text){ if (reduce || !fromEl.animate) return; var a = fromEl.getBoundingClientRect(), b = $("#mtCal").getBoundingClientRect();
     var d = document.createElement("div"); d.className = "fly"; d.textContent = text; document.body.appendChild(d);
     d.style.left = a.left + a.width * .6 + "px"; d.style.top = a.top + a.height / 2 - 12 + "px";
@@ -934,6 +965,15 @@ if(new URLSearchParams(location.search).get("subscribed")==="1"){var f=document.
     else if (t.pro >= p) v.innerHTML = "<b>Protein hit.</b> " + fmt(c[0] - t.cal) + " kcal still to eat before you're in the band. Rice, potato, fruit.";
     else v.innerHTML = "<b>" + (p - t.pro) + " g protein to go</b> with " + fmt(c[1] - t.cal) + " kcal of room. Chicken, eggs, yogurt, whey.";
   }
+
+  // ---------- gallery lightbox ----------
+  var lb = $("#lb"), lbImg = $("#lbImg"), lbCap = $("#lbCap"), galFigs = $$("#gal figure"), lbI = 0;
+  function lbShow(i){ lbI = (i + galFigs.length) % galFigs.length; var im = $("img", galFigs[lbI]); lbImg.src = im.currentSrc && im.currentSrc.indexOf("/sm/") < 0 ? im.currentSrc : im.getAttribute("src"); lbImg.alt = im.alt; lbCap.textContent = $("figcaption", galFigs[lbI]).textContent + " · " + (lbI + 1) + " / " + galFigs.length; }
+  if (lb && lb.showModal) { galFigs.forEach(function(f, i){ f.addEventListener("click", function(){ lbShow(i); lb.showModal(); }); });
+    $("#lbX").addEventListener("click", function(){ lb.close(); }); $("#lbP").addEventListener("click", function(){ lbShow(lbI - 1); }); $("#lbN").addEventListener("click", function(){ lbShow(lbI + 1); });
+    lb.addEventListener("click", function(e){ if (e.target === lb) lb.close(); });
+    lb.addEventListener("keydown", function(e){ if (e.key === "ArrowRight") lbShow(lbI + 1); if (e.key === "ArrowLeft") lbShow(lbI - 1); });
+    var tx0 = null; lb.addEventListener("touchstart", function(e){ tx0 = e.touches[0].clientX; }, { passive: true }); lb.addEventListener("touchend", function(e){ if (tx0 === null) return; var dx = e.changedTouches[0].clientX - tx0; if (Math.abs(dx) > 40) lbShow(lbI + (dx < 0 ? 1 : -1)); tx0 = null; }); }
 
   // ---------- prompts ----------
   var P = { train: "", food: "" };
@@ -1010,7 +1050,7 @@ if(new URLSearchParams(location.search).get("subscribed")==="1"){var f=document.
   function puPaint(){ var n = +pu.value; puOut.textContent = n; var w = puStart(n); bump(puOut);
     puRes.innerHTML = w === null ? "Under eight strict reps: <b>no belt yet</b>. Get to eight clean, dead-hang reps first — that's the program for now." : "Start the belt at <b>+" + w + " lb</b>. Two hard sets of 5–8. Both sets hit 8 → <b>+" + (w+5) + " lb</b> next time, back to 5 reps.";
     var base = w === null ? 0 : w; [["#axA", base], ["#axB", base + 15], ["#axC", base + 30], ["#axD", base + 45]].forEach(function(a){ $(a[0]).textContent = "+" + a[1]; }); }
-  if (pu) { pu.addEventListener("input", puPaint); puPaint(); }
+  if (pu) { try { var spu = +localStorage.getItem("mlf_pu"); if (spu > 0) pu.value = spu; } catch(e){} pu.addEventListener("input", function(){ puPaint(); try { localStorage.setItem("mlf_pu", pu.value); } catch(e){} }); puPaint(); }
 
   // ---------- method cards live state ----------
   var mcards = $$(".mcard"), methodEl = $("#method");
