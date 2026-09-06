@@ -56,6 +56,12 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
 .toc{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
 .toc a{font-size:13.5px;font-weight:600;color:var(--ink2);text-decoration:none;border:1px solid var(--rule);border-radius:99px;padding:7px 12px}
 .toc a:hover{border-color:var(--ink);color:var(--ink)}
+.a2hs{display:none;align-items:flex-start;gap:12px;margin-top:18px;border:1px solid var(--rule);border-left:3px solid var(--ink);border-radius:0 12px 12px 0;background:var(--wash);padding:14px 16px}
+.a2hs.on{display:flex}
+.a2hs p{font-size:14.5px;color:var(--ink2);margin:0}
+.a2hs b{color:var(--ink)}
+.a2hs button{flex:none;font:inherit;font-size:13px;font-weight:700;color:var(--ink3);background:none;border:0;cursor:pointer;padding:2px 4px}
+.a2hs button:hover{color:var(--ink)}
 @media (max-width:640px){.week{grid-template-columns:repeat(4,1fr)}}
 </style>
 </head>
@@ -71,6 +77,7 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appear
   <div class="eyebrow rv">free tools</div>
   <h1 class="hero rv d1" style="font-size:clamp(34px,6vw,56px);margin-top:12px">Your numbers, done for you.</h1>
   <p class="lede rv d2" style="margin-top:14px">Nothing here needs an account. Type in what's true today. The weekly tracker and the session counter save on this device only.</p>
+  <div class="a2hs" id="a2hs"><p id="a2hsText"></p><button type="button" id="a2hsX" aria-label="Dismiss">Dismiss</button></div>
   <div class="toc rv d3">
     <a href="#food">Calories &amp; protein</a><a href="#start">Starting weight</a><a href="#max">Estimated max</a><a href="#plates">Plate math</a><a href="#week">Weekly average</a><a href="#count">24 sessions</a><a href="#rest">Rest timer</a>
   </div>
@@ -288,6 +295,19 @@ const stop=()=>{if(tick){clearInterval(tick);tick=null;}$("tStart").textContent=
 $("tStart").addEventListener("click",()=>{if(tick){stop();return;}if(left===0)left=total;$("tStart").textContent="Pause";tick=setInterval(()=>{left=Math.max(0,left-1);paint();if(left===0){stop();try{navigator.vibrate&&navigator.vibrate([200,80,200])}catch(e){}}},1000);});
 $("tReset").addEventListener("click",()=>{stop();left=total;paint();});
 document.querySelectorAll("[data-secs]").forEach(b=>b.addEventListener("click",()=>{stop();total=+b.dataset.secs;left=total;paint();}));paint();
+
+/* this page works with no signal once it is on the home screen — say so, once, on phones */
+try{
+  var standalone = matchMedia("(display-mode: standalone)").matches || navigator.standalone;
+  if(!standalone && innerWidth<=820 && localStorage.getItem("mlf_a2hs")!=="off"){
+    var ios=/iPhone|iPad|iPod/i.test(navigator.userAgent);
+    $("a2hsText").innerHTML = ios
+      ? "<b>Keep this at the bar.</b> Share \u2192 Add to Home Screen, and the rest timer and every calculator here keep working with no signal."
+      : "<b>Keep this at the bar.</b> Menu \u2192 Add to Home screen, and the rest timer and every calculator here keep working with no signal.";
+    $("a2hs").classList.add("on");
+    $("a2hsX").addEventListener("click",function(){ $("a2hs").classList.remove("on"); try{localStorage.setItem("mlf_a2hs","off")}catch(e){} });
+  }
+}catch(e){}
 
 /* carry the visitor's numbers over from the home page */
 try{const sv=JSON.parse(localStorage.getItem("mlf_numbers")||"null");if(sv&&sv.bw){$("f-bw").value=sv.bw;$("m-bw").value=sv.bw;const g=document.querySelector('#f-goal button[data-v="'+sv.goal+'"]');if(g)g.click();const w=document.querySelector('#w-goal button[data-v="'+sv.goal+'"]');if(w)w.click();food();emax();}const pu=+localStorage.getItem("mlf_pu");if(pu>0){$("s-pu").value=pu;start();}}catch(e){}
