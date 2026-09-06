@@ -15,7 +15,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Manrope:wght@400;500;600;700;800&family=EB+Garamond:ital@1&family=JetBrains+Mono:wght@400;600&display=swap">
 <meta name="theme-color" content="#FFFFFF">
-<link rel="stylesheet" href="site.css?v=70a1766e">
+<link rel="stylesheet" href="site.css?v=83989c0b">
 
 <style>
   :root{--paper:#fff;--ink:#16181C;--ink2:#41474E;--ink3:#6B7280;--rule:#E6E8EB;--wash:#F7F8F9;--red:#B4253A;--red-wash:#FDF2F3;--go:#1B7F4B;--go-wash:#F1F8F3}
@@ -32,6 +32,10 @@
   h3{font-size:19px;letter-spacing:-.016em;margin-bottom:8px}
   p{margin-bottom:12px;max-width:58ch}
   .note{font-family:"EB Garamond",Georgia,serif;font-style:italic;color:var(--ink3);font-size:15.5px}
+  .gist{list-style:none;display:grid;gap:8px;margin:18px 0 6px;padding:14px 16px;border:1px solid var(--rule);border-radius:12px;background:var(--wash)}
+  .gist li{font-size:14.5px;color:var(--ink2);padding-left:14px;position:relative}
+  .gist li::before{content:"";position:absolute;left:0;top:9px;width:5px;height:5px;border-radius:50%;background:var(--red)}
+  .gist b{color:var(--ink)}
 
   .who{border:1px solid var(--rule);border-radius:14px;padding:18px;margin:26px 0 14px;background:#fff}
   .who .ba{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
@@ -117,17 +121,19 @@
 </style>
 </head>
 <body>
+<a class="skip" href="#content">Skip to content</a>
 <header class="hdr"><div class="wrap">
   <a class="brand" href="index.html">Max Love <span>Fitness</span></a>
   <nav class="nav" aria-label="Site"><a href="index.html">Home</a><a href="start.html">Start here</a><a href="plan.html">Free plan</a><a href="tools.html">Tools</a><a href="about.html">About</a></nav>
   <a class="btn dark" href="apply.html">Apply</a>
 </div></header>
-<main>
+<div id="content"><main>
   <div class="crumb"><a href="start.html">← start here</a></div>
   <h1>Twelve weeks, one on one. Your numbers, your two days, and someone actually watching.</h1>
   <p class="lede">Everything on the start-here page is free and it works. This is for people who want their numbers set for them, the week-to-week decisions made with them, and a reason to show up on the days they wouldn't have.</p>
 
   <div id="formwrap">
+    <ul class="gist"><li><b>Twelve weeks, one on one.</b> Your calories and protein set and adjusted as your weight moves.</li><li><b>Your two days, written for your equipment.</b> Weekly check-ins on the log and the photos; me in your DMs daily.</li><li><b>$149 every four weeks, or $399 up front.</b> Five founding spots. Nothing is charged from this form.</li></ul>
     <h2 style="margin-top:22px">Apply · five short steps, nothing charged</h2>
     <form id="app" action="https://formsubmit.co/maxhlove@gmail.com" method="POST" novalidate>
       <input type="hidden" name="_subject" value="Coaching application" id="subj">
@@ -309,7 +315,7 @@
 
 
   </div>
-</main>
+</main></div>
 <p class="printfoot" style="display:none">maxlovefitness.com · fewer sets, heavier bar.</p>
 <section class="sub" id="subscribe"><div class="wrap">
   <div>

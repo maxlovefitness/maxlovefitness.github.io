@@ -15,7 +15,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Manrope:wght@400;500;600;700;800&family=EB+Garamond:ital@1&family=JetBrains+Mono:wght@400;600&display=swap">
 <meta name="theme-color" content="#FFFFFF">
-<link rel="stylesheet" href="site.css?v=70a1766e">
+<link rel="stylesheet" href="site.css?v=83989c0b">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Max Love","url":"https://maxlovefitness.com/","image":"https://maxlovefitness.com/hero.jpg","jobTitle":"Weighted calisthenics coach","sameAs":["https://www.instagram.com/maxlovefitness/","https://www.youtube.com/@maxlovefitness"],"knowsAbout":["weighted calisthenics","progressive overload","fat loss","protein intake"]}</script>
 <link rel="preload" as="image" href="hero.jpg" fetchpriority="high">
 <style>/* ===== HOME v3 (2026-09-05) — white ground, serif display, scroll-driven ===== */
@@ -501,15 +501,23 @@ section[data-num]{overflow:clip}
 .lb button:hover{background:rgba(255,255,255,.22)}
 .lb-x{top:16px;right:16px}.lb-p{left:14px;top:50%;margin-top:-23px}.lb-n{right:14px;top:50%;margin-top:-23px}
 .lb-cap{position:absolute;left:0;right:0;bottom:22px;text-align:center;color:#C7CBD0;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+
+/* ===== v10: pointer spotlight on cards ===== */
+.spot{position:relative}
+.spot::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .35s;background:radial-gradient(240px circle at var(--mx,50%) var(--my,50%), rgba(180,37,58,.13), transparent 60%)}
+.spot:hover::after{opacity:1}
+.lad.hot.spot::after{background:radial-gradient(240px circle at var(--mx,50%) var(--my,50%), rgba(255,142,153,.16), transparent 60%);z-index:1}
+@media (hover:none){.spot::after{display:none}}
 </style>
 </head>
 <body>
+<a class="skip" href="#content">Skip to content</a>
 <header class="hdr"><div class="wrap">
   <a class="brand" href="index.html">Max Love <span>Fitness</span></a>
   <nav class="nav" aria-label="Site"><a href="index.html" class="on">Home</a><a href="start.html">Start here</a><a href="plan.html">Free plan</a><a href="tools.html">Tools</a><a href="about.html">About</a></nav>
   <a class="btn dark" href="apply.html">Apply</a>
 </div></header>
-<div class="sprog" id="sprog" aria-hidden="true"></div>
+<div id="content"><div class="sprog" id="sprog" aria-hidden="true"></div>
 <nav class="dotnav" id="dotnav" aria-label="Sections"></nav>
 
 <!-- HERO: three layers — field (back), photo card (mid), log chips (front) -->
@@ -748,7 +756,7 @@ section[data-num]{overflow:clip}
 </section>
 
 <div class="mbar" id="mbar"><a class="btn solid" href="#numbers">My two numbers</a><a class="btn dark" href="apply.html">Apply</a></div>
-
+</div>
 <p class="printfoot" style="display:none">maxlovefitness.com · fewer sets, heavier bar.</p>
 <section class="sub" id="subscribe"><div class="wrap">
   <div>
@@ -1066,6 +1074,9 @@ if(new URLSearchParams(location.search).get("subscribed")==="1"){var f=document.
   var navEl = $("#dotnav"), navSecs = $$("section[data-nav]");
   if (navEl) { navEl.innerHTML = navSecs.map(function(s){ return '<a href="#' + s.id + '" data-label="' + s.getAttribute("data-nav") + '" aria-label="' + s.getAttribute("data-nav") + '"></a>'; }).join("");
     navEl.addEventListener("click", function(e){ var a = e.target.closest("a"); if (!a) return; e.preventDefault(); var s = $(a.getAttribute("href")); if (s) { smoothTo(s.getBoundingClientRect().top + scrollY); } }); }
+
+  // ---------- pointer spotlight on cards ----------
+  if (fine && !reduce) $$(".mcard, .lad, .calc-out, .meal-tot, .demo").forEach(function(c){ c.classList.add("spot"); c.addEventListener("pointermove", function(e){ var r = c.getBoundingClientRect(); c.style.setProperty("--mx", ((e.clientX - r.left) / r.width * 100).toFixed(1) + "%"); c.style.setProperty("--my", ((e.clientY - r.top) / r.height * 100).toFixed(1) + "%"); }); });
 
   // ---------- magnetic buttons ----------
   if (fine && !reduce) $$(".btn.big, .lad .btn, #cCopy, #copyTrain, #copyFood, #mtCopy").forEach(function(b){ b.classList.add("mag");
