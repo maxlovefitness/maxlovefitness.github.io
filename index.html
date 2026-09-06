@@ -15,7 +15,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Manrope:wght@400;500;600;700;800&family=EB+Garamond:ital@1&family=JetBrains+Mono:wght@400;600&display=swap">
 <meta name="theme-color" content="#FFFFFF">
-<link rel="stylesheet" href="site.css?v=8e133f68">
+<link rel="stylesheet" href="site.css?v=becd8eaf">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Max Love","url":"https://maxlovefitness.com/","image":"https://maxlovefitness.com/hero.jpg","jobTitle":"Weighted calisthenics coach","sameAs":["https://www.instagram.com/maxlovefitness/","https://www.youtube.com/@maxlovefitness"],"knowsAbout":["weighted calisthenics","progressive overload","fat loss","protein intake"]}</script>
 <link rel="preload" as="image" href="hero.jpg" fetchpriority="high">
 <style>/* ===== HOME v3 (2026-09-05) — white ground, serif display, scroll-driven ===== */
@@ -457,6 +457,19 @@ section[data-num]{overflow:clip}
 .tdots i{width:7px;height:7px;border-radius:50%;background:var(--rule);transition:.25s}
 .tdots i.on{background:var(--red);transform:scale(1.3)}
 @media (max-width:820px){.tdots{display:flex}}
+
+/* ===== v7 ===== */
+.cue{display:none;width:34px;height:52px;border:1.5px solid rgba(24,24,27,.25);border-radius:20px;margin:18px auto 0;position:relative}
+.cue span{position:absolute;left:50%;top:9px;width:5px;height:9px;margin-left:-2.5px;border-radius:3px;background:var(--red);animation:cue 1.6s ease-in-out infinite}
+@keyframes cue{0%{transform:translateY(0);opacity:1}70%{transform:translateY(18px);opacity:0}100%{transform:translateY(0);opacity:0}}
+@media (max-width:820px){.cue{display:block}}
+.mbar{bottom:calc(12px + env(safe-area-inset-bottom,0px))}
+#pjHover{transition:opacity .2s;pointer-events:none}
+#pjHL{stroke:var(--ink3);stroke-width:1;stroke-dasharray:3 3}
+#pjHC{fill:var(--red);stroke:#fff;stroke-width:2}
+#pjHB{fill:var(--ink)}
+#pjHT{font-family:"JetBrains Mono",monospace;font-size:11px;fill:#fff}
+#pj{touch-action:pan-y}
 </style>
 </head>
 <body>
@@ -482,6 +495,7 @@ section[data-num]{overflow:clip}
         <a class="btn ghost-dark big" href="plan.html">The free plan</a>
       </div>
       <p class="hx-note rv d3">No account, no email. Your calorie and protein targets in ten seconds, a meal builder that hits them, and the prompts that turn ChatGPT into your log.</p>
+      <a class="cue rv d3" href="#numbers" aria-label="Scroll to your numbers"><span></span></a>
     </div>
     <div class="hx-visual">
       <figure class="hx-photo" data-speed="0.06"><img src="hero.jpg" srcset="sm/hero.jpg 600w, hero.jpg 940w" sizes="(max-width:820px) 70vw, 340px" alt="Max Love" width="940" height="1800" fetchpriority="high"></figure>
@@ -526,7 +540,7 @@ section[data-num]{overflow:clip}
       <div class="proj-head"><span class="k">the next twelve weeks, weekly average</span><span class="k" id="pjEnd"></span></div>
       <svg viewBox="0 0 520 200" id="pj" aria-label="Projected weekly average bodyweight over twelve weeks">
         <g class="grid"><line x1="40" x2="510" y1="30" y2="30"/><line x1="40" x2="510" y1="80" y2="80"/><line x1="40" x2="510" y1="130" y2="130"/><line x1="40" x2="510" y1="180" y2="180"/></g>
-        <path id="pjBand"/><path id="pjMid"/><g id="pjDots"></g>
+        <path id="pjBand"/><path id="pjMid"/><g id="pjDots"></g><g id="pjHover" style="opacity:0"><line id="pjHL" x1="0" x2="0" y1="30" y2="180"/><circle id="pjHC" r="5"/><rect id="pjHB" rx="6" width="118" height="24"/><text id="pjHT" text-anchor="middle"></text></g>
         <text x="40" y="196" class="ax">now</text><text x="510" y="196" class="ax" text-anchor="end">week 12</text>
         <text id="pjTop" x="8" y="34" class="ax"></text><text id="pjBot" x="8" y="184" class="ax"></text>
       </svg>
@@ -734,6 +748,15 @@ document.documentElement.classList.add("js");
   var h=document.querySelector(".hdr"); if(h){ var f=function(){h.classList.toggle("stuck",window.scrollY>8)}; f(); addEventListener("scroll",f,{passive:true}); }
   // inner pages: the headline enters word by word
   [].slice.call(document.querySelectorAll("h1.hero")).forEach(function(h){ if(h.children.length) return; h.classList.remove("rv"); h.innerHTML=h.textContent.trim().split(/\s+/).map(function(w,i){return '<span class="w" style="transition-delay:'+(i*45)+'ms">'+w+'</span>'}).join(" "); requestAnimationFrame(function(){ setTimeout(function(){ h.classList.add("in"); }, 40); }); });
+  // phone: tuck the nav row on the way down, bring it back on the way up; paint range fills
+  (function(){ var last=scrollY, hd=document.querySelector(".hdr"); addEventListener("scroll",function(){ var y=scrollY; if(innerWidth<=640&&hd){ if(y>last+6&&y>120) hd.classList.add("tuck"); else if(y<last-6) hd.classList.remove("tuck"); } last=y; },{passive:true}); })();
+  (function(){ var rs=[].slice.call(document.querySelectorAll("input[type=range]")); var paint=function(r){ var mn=+r.min||0,mx=+r.max||100; r.style.setProperty("--fill",((+r.value-mn)/(mx-mn)*100)+"%"); }; rs.forEach(function(r){ paint(r); r.addEventListener("input",function(){paint(r)}); }); })();
+  // long pages: mirror the contents list into a fixed rail that tracks the section in view
+  (function(){ var toc=document.querySelector("nav.toc"); if(!toc||innerWidth<1180) return; var links=[].slice.call(toc.querySelectorAll("a[href^='#']")); if(links.length<4) return;
+    var rail=document.createElement("nav"); rail.className="rail"; rail.setAttribute("aria-label","On this page"); rail.innerHTML=links.map(function(l){ return '<a href="'+l.getAttribute("href")+'">'+l.textContent.replace(/^\s*\d+\s*/,"")+'</a>'; }).join(""); document.body.appendChild(rail);
+    var ra=[].slice.call(rail.querySelectorAll("a")), secs=links.map(function(l){ return document.querySelector(l.getAttribute("href")); });
+    var paint=function(){ var idx=0; secs.forEach(function(s,i){ if(s && s.getBoundingClientRect().top<=innerHeight*.35) idx=i; }); ra.forEach(function(a,i){ a.classList.toggle("on",i===idx); }); };
+    addEventListener("scroll",paint,{passive:true}); paint(); })();
   var els=[].slice.call(document.querySelectorAll(".rv"));
   if(!("IntersectionObserver" in window)){ els.forEach(function(e){e.classList.add("in")}); return; }
   var io=new IntersectionObserver(function(en){ en.forEach(function(x){ if(x.isIntersecting){ x.target.classList.add("in"); io.unobserve(x.target); } }); },{rootMargin:"0px 0px -8% 0px",threshold:.08});
@@ -814,12 +837,19 @@ if(new URLSearchParams(location.search).get("subscribed")==="1"){var f=document.
     pjMid.setAttribute("d", "M" + P.mid.map(function(v, i){ return X(i).toFixed(1) + "," + Y(v).toFixed(1); }).join(" L"));
     pjDots.innerHTML = P.mid.map(function(v, i){ return i % 4 === 0 ? '<circle cx="' + X(i).toFixed(1) + '" cy="' + Y(v).toFixed(1) + '" r="4"/>' : ""; }).join("");
     pjTop.textContent = Math.round(ymax) + " lb"; pjBot.textContent = Math.round(ymin) + " lb"; }
+  var pjSvg = $("#pj"), pjH = $("#pjHover"), pjCur = null;
+  function pjShow(clientX){ if (!pjCur) return; var r = pjSvg.getBoundingClientRect(); var fx = (clientX - r.left) / r.width * 520; var i = Math.round(clamp((fx - 40) / 470) * 12);
+    var ymin = Math.min.apply(null, pjCur.lo) - 1, ymax = Math.max.apply(null, pjCur.hi) + 1; var x = 40 + i / 12 * 470, y = 30 + (ymax - pjCur.mid[i]) / (ymax - ymin) * 150;
+    $("#pjHL").setAttribute("x1", x); $("#pjHL").setAttribute("x2", x); $("#pjHC").setAttribute("cx", x); $("#pjHC").setAttribute("cy", y);
+    var bx = clamp(x - 59, 40, 392); $("#pjHB").setAttribute("x", bx); $("#pjHB").setAttribute("y", Math.max(4, y - 40)); $("#pjHT").setAttribute("x", bx + 59); $("#pjHT").setAttribute("y", Math.max(4, y - 40) + 16);
+    $("#pjHT").textContent = (i === 0 ? "now" : "wk " + i) + " · " + Math.round(pjCur.lo[i]) + "–" + Math.round(pjCur.hi[i]) + " lb"; pjH.style.opacity = 1; }
+  if (pjSvg) { pjSvg.addEventListener("pointermove", function(e){ pjShow(e.clientX); }); pjSvg.addEventListener("pointerleave", function(){ pjH.style.opacity = 0; }); pjSvg.addEventListener("touchmove", function(e){ pjShow(e.touches[0].clientX); }, { passive: true }); }
   function paintProj(){
     var P = projPts(S.bw, S.goal), g = S.goal;
     if (pjPrev && !reduce) { var from = pjPrev, t0 = null; (function step(t){ if (!t0) t0 = t; var k = ease(clamp((t - t0) / 450));
       drawProj({ lo: P.lo.map(function(v, i){ return from.lo[i] + (v - from.lo[i]) * k; }), hi: P.hi.map(function(v, i){ return from.hi[i] + (v - from.hi[i]) * k; }), mid: P.mid.map(function(v, i){ return from.mid[i] + (v - from.mid[i]) * k; }) }); if (k < 1) requestAnimationFrame(step); })(performance.now()); }
     else drawProj(P);
-    pjPrev = P;
+    pjPrev = P; pjCur = P;
     var e1 = Math.round(P.lo[12]), e2 = Math.round(P.hi[12]);
     pjEnd.textContent = "week 12: " + (g === "hold" ? "about " + S.bw : e1 + "–" + e2) + " lb";
     pjNote.textContent = g === "cut" ? "Half a percent to one percent of bodyweight a week. Faster than that two weeks running, eat more; you're losing muscle with the fat. Nothing moving two weeks running, eat less."
