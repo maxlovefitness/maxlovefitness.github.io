@@ -416,6 +416,37 @@ h2.sec.in .sw i{transform:none}
 @media (prefers-reduced-motion:reduce){.chip{animation:none}.lad.hot::before{animation:none}.hx-glow{display:none}.mani-line span{filter:none;transform:none}.tk{transform:none!important}h2.sec .sw i{transform:none}.mcard .ui-chat .me,.mcard .ui-chat .ai,.mcard .ui-doc u,.mcard .ui-calc div{opacity:1;transform:none}.mcard .ui-stair span{transform:none}}
 section[data-num]{overflow:clip}
 .story .pin{overflow:clip}
+
+/* ===== v5: transformation showcase ===== */
+.story-grid{grid-template-columns:1.08fr .92fr}
+.ba{max-height:84vh}
+.ba-pane{position:absolute;inset:0;overflow:hidden}
+.ba-before-pane{width:50%;z-index:1}
+.ba .ba-pane img{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover;object-position:50% 14%;filter:none}
+.ba .ba-before-pane img{filter:saturate(.78) brightness(.9) contrast(.96)}
+.ba .ba-after-pane img{transform-origin:50% 30%;will-change:transform}
+.ba-scrim{position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(180deg,rgba(0,0,0,.42),rgba(0,0,0,0) 34%)}
+.ba-lost{position:absolute;left:18px;top:16px;z-index:3;color:#fff;pointer-events:none;text-shadow:0 2px 18px rgba(0,0,0,.45)}
+.ba-lost b{display:block;font-family:"Fraunces",Georgia,serif;font-weight:600;font-size:clamp(44px,5vw,72px);line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.ba-lost>span{display:block;font-size:12.5px;font-weight:600;letter-spacing:.02em;margin-top:4px;opacity:.9}
+.ba-handle{z-index:3}.ba-range{z-index:4}.ba-tag{z-index:3}
+.ba-handle span::before{content:"◂ ▸"}
+
+/* gallery */
+.gal-band{padding:76px 0 88px;overflow:clip;background:#fff}
+.gal-head{margin-bottom:28px}
+.gal{display:flex;gap:16px;padding:0 22px;transform:translate3d(calc((var(--gp,.5) - .5) * -180px),0,0);will-change:transform}
+.gal figure{flex:1 1 0;min-width:0;position:relative;border-radius:18px;overflow:hidden;aspect-ratio:3/4;transform:translateY(calc((var(--gp,.5) - .5) * var(--k,0) * 1px));box-shadow:0 24px 60px rgba(24,24,27,.14);background:var(--wash);will-change:transform}
+.gal figure img{width:100%;height:100%;object-fit:cover;object-position:50% 12%;transition:transform .7s cubic-bezier(.2,.7,.2,1)}
+.gal figure:hover img{transform:scale(1.06)}
+.gal figcaption{position:absolute;left:12px;bottom:12px;font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:rgba(0,0,0,.45);padding:5px 9px;border-radius:7px}
+@media (max-width:820px){.gal{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;transform:none}.gal figure{transform:none;aspect-ratio:4/5}.gal figure:nth-child(5){grid-column:1/-1;aspect-ratio:4/3}.gal figure:nth-child(5) img{object-position:50% 20%}.ba-lost b{font-size:40px}}
+@media (prefers-reduced-motion:reduce){.gal,.gal figure{transform:none}}
+
+@media (max-width:820px){.story-grid{grid-template-columns:1fr}.ba{max-height:none}}
+.gal{padding:0 72px;transform:translate3d(calc((var(--gp,.5) - .5) * -110px),0,0)}
+@media (max-width:820px){.gal{padding:0 22px;transform:none}}
+.story-chip{z-index:6}
 </style>
 </head>
 <body>
@@ -496,13 +527,15 @@ section[data-num]{overflow:clip}
 </div></section>
 
 <!-- STORY: scroll-driven before/after -->
-<section class="story" id="proof" data-nav="The story">
+<section class="story" id="proof" data-nav="The transformation">
   <div class="pin" id="storyPin">
     <div class="wrap story-grid">
       <div class="story-vis">
         <div class="ba" id="ba">
-          <img class="ba-after" src="after.jpg" alt="Max, after" width="922" height="1640" loading="lazy">
-          <div class="ba-before" id="baBefore"><img src="before.jpg" alt="Max, before" width="1000" height="1116" loading="lazy"></div>
+          <div class="ba-pane ba-after-pane"><img src="max-lean.jpg" alt="Max, after, in the same mirror" width="1000" height="1334" loading="lazy"></div>
+          <div class="ba-pane ba-before-pane" id="baBefore"><img src="before-mirror.jpg" alt="Max, before, in a mirror" width="1000" height="1250" loading="lazy"></div>
+          <div class="ba-scrim" aria-hidden="true"></div>
+          <div class="ba-lost" aria-live="off"><b><span id="lostN">0</span> lb</b><span>lost. same guy, same mirror.</span></div>
           <div class="ba-handle" id="baHandle" aria-hidden="true"><span></span></div>
           <label class="ba-range"><span class="sr">Compare before and after</span><input type="range" id="baRange" min="0" max="100" value="8"></label>
           <span class="ba-tag l">before</span><span class="ba-tag r">after</span>
@@ -517,6 +550,18 @@ section[data-num]{overflow:clip}
         <li data-chip-k="today" data-chip-b="+205 lb dip · 22 pull-ups" data-chip-e="Seventy pounds lighter. Same person."><span class="eyebrow">04</span><b>Seventy pounds. Same person.</b><p>No app, no six-day split, no supplements you can't pronounce. A bar, a belt, a notebook, and the counting. Drag the handle yourself.</p></li>
       </ol>
     </div>
+  </div>
+</section>
+
+<!-- GALLERY: the after, from every angle -->
+<section class="gal-band" id="gallery" data-nav="The after">
+  <div class="wrap gal-head"><div class="eyebrow rv">the after · from every angle</div><h2 class="sec" data-split>Same guy. Five angles.</h2></div>
+  <div class="gal" id="gal">
+    <figure style="--k:-70"><img src="hero.jpg" alt="Max, studio" width="940" height="1800" loading="lazy"><figcaption>studio</figcaption></figure>
+    <figure style="--k:50"><img src="thumbs/pool-lean.jpg" alt="Max, pool" width="941" height="2000" loading="lazy"><figcaption>pool</figcaption></figure>
+    <figure style="--k:-40"><img src="gym.jpg" alt="Max, gym" width="1100" height="1466" loading="lazy"><figcaption>gym</figcaption></figure>
+    <figure style="--k:60"><img src="coach.jpg" alt="Max, pool" width="800" height="1244" loading="lazy"><figcaption>pool, again</figcaption></figure>
+    <figure style="--k:-55"><img src="about.jpg" alt="Max, outdoors" width="940" height="1750" loading="lazy"><figcaption>the park</figcaption></figure>
   </div>
 </section>
 
@@ -849,9 +894,9 @@ if(new URLSearchParams(location.search).get("subscribed")==="1"){var f=document.
   demoIO.observe($(".demo"));
 
   // ---------- before / after slider ----------
-  var ba = $("#ba"), range = $("#baRange"), before = $("#baBefore"), handle = $("#baHandle"), after = $(".ba-after"), baUser = false;
-  function setBA(v){ before.style.width = v + "%"; handle.style.left = v + "%"; range.value = v; if (!reduce) after.style.transform = "scale(" + (1 + v / 100 * .06) + ")"; }
-  if (ba) { setBA(8); range.addEventListener("input", function(){ baUser = true; setBA(+range.value); });
+  var ba = $("#ba"), range = $("#baRange"), before = $("#baBefore"), handle = $("#baHandle"), after = $(".ba-after-pane img"), lostN = $("#lostN"), baUser = false;
+  function setBA(v){ before.style.width = v + "%"; handle.style.left = v + "%"; range.value = v; if (!reduce && after) after.style.transform = "scale(" + (1 + v / 100 * .05) + ")"; if (lostN) { var n = Math.round(clamp((92 - v) / 84) * 70); if (lostN.textContent !== String(n)) lostN.textContent = n; } }
+  if (ba) { setBA(92); range.addEventListener("input", function(){ baUser = true; setBA(+range.value); });
     var drag = false;
     var move = function(e){ if (!drag) return; var r = ba.getBoundingClientRect(); var x = (e.touches ? e.touches[0].clientX : e.clientX) - r.left; setBA(clamp(x / r.width * 100, 0, 100)); };
     ba.addEventListener("pointerdown", function(e){ drag = true; baUser = true; move(e); }); addEventListener("pointerup", function(){ drag = false; }); ba.addEventListener("pointermove", move);
@@ -906,7 +951,7 @@ if(new URLSearchParams(location.search).get("subscribed")==="1"){var f=document.
   // ---------- the frame loop ----------
   var layers = $$("[data-speed]"), mx = 0, my = 0, gx = 0, gy = 0, tiltX = 0, tiltY = 0;
   var sprog = $("#sprog"), storyPin = $("#storyPin"), methodPin = $("#methodPin"), track = $("#track"), methodBar = $("#methodBar"), mani = $("#maniLine"), maniGlow = $("#maniGlow"), hx = $("#top"), glow = $("#hxGlow"), photo = $(".hx-photo");
-  var numSecs = $$("section[data-num]"), lastY = scrollY, vel = 0, lastT = performance.now(), navIdx = -1;
+  var numSecs = $$("section[data-num]"), gal = $("#gal"), lastY = scrollY, vel = 0, lastT = performance.now(), navIdx = -1;
   function frame(t){
     var y = window.scrollY || 0, vh = innerHeight, dt = Math.min(50, t - lastT) / 1000 || .016; lastT = t;
     vel += ((y - lastY) / (dt * 60) - vel) * .12; lastY = y;
@@ -924,11 +969,13 @@ if(new URLSearchParams(location.search).get("subscribed")==="1"){var f=document.
     numSecs.forEach(function(s){ var r = s.getBoundingClientRect(); if (r.bottom < 0 || r.top > vh) return; s.style.setProperty("--wy", ((r.top - vh * .5) * -.12).toFixed(1)); });
     if (desktop() && !reduce) {
       var sr = storyPin.getBoundingClientRect(), sp2 = clamp(-sr.top / (sr.height - vh));
-      if (sr.top < vh && sr.bottom > 0) { if (!baUser) setBA(8 + sp2 * 84); setStep(Math.min(3, Math.floor(sp2 * 4))); if (sp2 >= 1) baUser = false; }
+      if (sr.top < vh && sr.bottom > 0) { if (!baUser) setBA(92 - sp2 * 84); setStep(Math.min(3, Math.floor(sp2 * 4))); if (sp2 >= 1) baUser = false; }
       var mr = methodPin.getBoundingClientRect(), mp = clamp((clamp(-mr.top / (mr.height - vh)) - .10) / .82);
       if (mr.top < vh && mr.bottom > 0) { var maxX = Math.max(0, track.scrollWidth - innerWidth + 22); track.style.transform = "translate3d(" + (-mp * maxX).toFixed(1) + "px,0,0) skewX(" + clamp(-vel * .06, -4, 4).toFixed(2) + "deg)"; methodBar.style.width = (mp * 100) + "%";
         mcards.forEach(function(c){ var cr = c.getBoundingClientRect(); c.classList.toggle("live", cr.left < innerWidth * .78 && cr.right > innerWidth * .12); }); }
     } else if (track.style.transform) { track.style.transform = ""; }
+    // gallery drift
+    if (gal) { var gr = gal.getBoundingClientRect(); if (gr.bottom > -100 && gr.top < vh + 100) gal.style.setProperty("--gp", clamp((vh - gr.top) / (vh + gr.height)).toFixed(3)); }
     // staircase scrub
     if (stair) { var stR = stair.getBoundingClientRect(), stp = clamp((vh - stR.top) / (vh * .75)); if (stR.top < vh && stR.bottom > 0) { stairPath.style.strokeDashoffset = 1200 * (1 - (reduce ? 1 : stp)); $$("circle", dots).forEach(function(c, i){ c.style.opacity = stp > (i + 1) / 7 ? 1 : 0; }); } }
     // manifesto words + glow
