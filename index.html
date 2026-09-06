@@ -1119,8 +1119,11 @@ if(new URLSearchParams(location.search).get("subscribed")==="1"){var f=document.
   var layers = $$("[data-speed]"), mx = 0, my = 0, gx = 0, gy = 0, tiltX = 0, tiltY = 0;
   var sprog = $("#sprog"), storyPin = $("#storyPin"), methodPin = $("#methodPin"), track = $("#track"), methodBar = $("#methodBar"), mani = $("#maniLine"), maniGlow = $("#maniGlow"), hx = $("#top"), glow = $("#hxGlow"), photo = $(".hx-photo");
   var numSecs = $$("section[data-num]"), gal = $("#gal"), mbar = $("#mbar"), lastY = scrollY, vel = 0, lastT = performance.now(), navIdx = -1;
+  var lastScrollT = 0, lastPointerT = 0; addEventListener("scroll", function(){ lastScrollT = performance.now(); }, { passive: true }); addEventListener("pointermove", function(){ lastPointerT = performance.now(); }, { passive: true });
   function frame(t){
     var y = window.scrollY || 0, vh = innerHeight, dt = Math.min(50, t - lastT) / 1000 || .016; lastT = t;
+    // idle: nothing scrolling, pointer still, ticker off-screen → skip the layout reads this frame
+    if (t - lastScrollT > 400 && t - lastPointerT > 400 && t > 4000) { var tr0 = tk ? tk.parentNode.getBoundingClientRect() : null; if (!tr0 || tr0.bottom < 0 || tr0.top > vh) { lastY = y; requestAnimationFrame(frame); return; } }
     vel += ((y - lastY) / (dt * 60) - vel) * .12; lastY = y;
     if (sprog) sprog.style.transform = "scaleX(" + clamp(y / maxScroll()) + ")";
     // hero: parallax + pointer tilt + glow
