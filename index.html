@@ -18,14 +18,24 @@
 <link rel="stylesheet" href="site.css?v=772a0690">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Max Love","url":"https://maxlovefitness.com/","image":"https://maxlovefitness.com/hero.jpg","jobTitle":"Weighted calisthenics coach","sameAs":["https://www.instagram.com/maxlovefitness/","https://www.youtube.com/@maxlovefitness"],"knowsAbout":["weighted calisthenics","progressive overload","fat loss","protein intake"]}</script>
 <link rel="preload" as="image" href="hero.jpg" fetchpriority="high">
-<style>/* ===== HOME (2026-09-05 redesign) — white ground, serif display, layered motion ===== */
-.narrow2{max-width:760px}
+<style>/* ===== HOME v3 (2026-09-05) — white ground, serif display, scroll-driven ===== */
 .sec-head{max-width:640px;margin-bottom:34px}
-.sec-head.sticky{position:sticky;top:96px;align-self:start}
 .btn.ghost-dark{background:transparent;color:var(--ink);border-color:var(--rule)}
 .btn.ghost-dark:hover{border-color:var(--ink)}
-.btn .spots{display:inline-block;margin-left:8px;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--red);background:var(--red-wash);padding:3px 7px;border-radius:6px;vertical-align:middle}
+.btn.light{background:#fff;color:var(--ink);border-color:#fff}
+.btn.light:hover{background:#e9eaec}
+.btn.line{background:transparent;color:var(--ink);border-color:var(--ink)}
+.btn.line:hover{background:var(--ink);color:#fff}
+.btn.big{padding:15px 22px;font-size:16px}
 .sr{position:absolute;left:-9999px}
+.k{font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3)}
+.seg{display:flex;gap:8px;flex-wrap:wrap}
+.seg button{flex:1 1 auto;min-width:86px;font-family:Manrope,sans-serif;font-size:14px;font-weight:700;color:var(--ink2);background:#fff;border:1px solid var(--rule);border-radius:10px;padding:11px 12px;cursor:pointer;transition:.14s}
+.seg button[aria-pressed=true]{background:var(--ink);border-color:var(--ink);color:#fff}
+.seg button:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+
+/* scroll progress */
+.sprog{position:fixed;left:0;top:0;height:3px;width:100%;transform-origin:0 50%;transform:scaleX(0);background:var(--red);z-index:60;pointer-events:none}
 
 /* hero */
 .hx{position:relative;padding:44px 0 26px;overflow:clip}
@@ -45,12 +55,12 @@
 .hx-h1.in .w:nth-child(2){transition-delay:.08s}.hx-h1.in .w:nth-child(4){transition-delay:.22s}.hx-h1.in .w:nth-child(5){transition-delay:.30s}
 .hx-h1 .red{color:var(--red)}
 .hx-ctas{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px}
-.hx-note{margin-top:14px;font-size:13.5px;color:var(--ink3)}
+.hx-note{margin-top:14px;font-size:13.5px;color:var(--ink3);max-width:52ch}
 .hx-visual{position:relative;min-height:520px}
 .hx-photo{position:absolute;right:4%;top:0;width:min(80%,340px);aspect-ratio:3/4;border-radius:22px;overflow:hidden;transform:rotate(-2.5deg);box-shadow:0 40px 90px rgba(24,24,27,.22),0 2px 0 rgba(255,255,255,.6) inset;will-change:transform}
 .hx-photo img{width:100%;height:100%;object-fit:cover;object-position:50% 12%}
 .chip{position:absolute;background:rgba(255,255,255,.72);backdrop-filter:blur(14px) saturate(1.2);-webkit-backdrop-filter:blur(14px) saturate(1.2);border:1px solid rgba(24,24,27,.08);border-radius:14px;padding:12px 14px;box-shadow:0 18px 48px rgba(24,24,27,.14);width:236px;will-change:transform;font-size:13px;line-height:1.35}
-.chip .k{display:block;font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3)}
+.chip .k{display:block}
 .chip .k.it{margin-top:8px}
 .chip b{display:block;font-family:"JetBrains Mono",monospace;font-size:15px;font-weight:600;margin-top:2px}
 .chip b.big{font-family:"Fraunces",Georgia,serif;font-size:38px;font-weight:600;line-height:1;letter-spacing:-.02em}
@@ -61,11 +71,42 @@
 .chip.c3{left:6%;top:6%;width:168px}
 .hx-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:44px;padding-top:26px;border-top:1px solid var(--rule)}
 .hx-stats b{display:block;font-family:"Fraunces",Georgia,serif;font-weight:600;font-size:clamp(30px,3.6vw,44px);letter-spacing:-.02em;line-height:1;font-variant-numeric:tabular-nums}
-.hx-stats span+span,.hx-stats div>span:last-child{display:block;font-size:13px;color:var(--ink3);margin-top:6px}
+.hx-stats div>span:last-child{display:block;font-size:13px;color:var(--ink3);margin-top:6px}
 
-/* before/after slider */
-.ba-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:44px;align-items:center}
-.ba{position:relative;aspect-ratio:4/5;border-radius:22px;overflow:hidden;box-shadow:0 30px 80px rgba(24,24,27,.18);user-select:none;touch-action:none;background:#eee}
+/* calculator */
+.calc-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:44px;align-items:start}
+.calc-ctl{margin-top:24px;background:#fff;border:1px solid var(--rule);border-radius:18px;padding:20px 22px;display:grid;gap:10px}
+.calc-ctl label{font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-top:6px}
+.calc-row{display:flex;align-items:center;gap:14px}
+.calc-row input{flex:1;accent-color:var(--red)}
+.calc-row output{font-family:"Fraunces",Georgia,serif;font-size:44px;font-weight:600;min-width:3ch;text-align:right;font-variant-numeric:tabular-nums;letter-spacing:-.02em;line-height:1}
+.calc-row .unit{font-weight:700;color:var(--ink3)}
+.calc-out{background:#fff;border:1px solid var(--rule);border-radius:22px;padding:24px;box-shadow:0 30px 80px rgba(24,24,27,.10)}
+.calc-top{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.calc-top div{background:var(--red-wash);border-radius:14px;padding:14px 16px}
+.calc-top .k{display:block;color:var(--red)}
+.calc-top b{display:block;font-family:"Fraunces",Georgia,serif;font-weight:600;font-size:clamp(26px,3vw,36px);letter-spacing:-.02em;line-height:1.05;margin-top:4px;font-variant-numeric:tabular-nums}
+.calc-top b small{font-family:"Manrope",sans-serif;font-size:14px;font-weight:700;color:var(--ink3)}
+.calc-like{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.calc-like span{font-size:13px;color:var(--ink2);background:var(--wash);border-radius:99px;padding:6px 11px}
+.calc-like span b{color:var(--ink)}
+.proj{margin-top:18px;border-top:1px solid var(--rule);padding-top:14px}
+.proj-head{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.proj svg{width:100%;height:auto;margin-top:8px}
+.proj .grid line{stroke:var(--rule);stroke-width:1}
+.proj .ax{font-family:"JetBrains Mono",monospace;font-size:10px;fill:var(--ink3)}
+#pjBand{fill:rgba(180,37,58,.10);stroke:none}
+#pjMid{fill:none;stroke:var(--red);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:700;stroke-dashoffset:700;transition:stroke-dashoffset 1.8s cubic-bezier(.2,.7,.2,1)}
+.calc-out.in #pjMid{stroke-dashoffset:0}
+#pjDots circle{fill:#fff;stroke:var(--red);stroke-width:2}
+.proj-note{font-family:"EB Garamond",Georgia,serif;font-style:italic;color:var(--ink3);font-size:14.5px;margin-top:6px}
+.calc-acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+
+/* story: pinned before/after */
+.story .pin{position:relative;height:340vh}
+.story-grid{position:sticky;top:0;height:100vh;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.story-vis{position:relative}
+.ba{position:relative;aspect-ratio:4/5;max-height:78vh;border-radius:22px;overflow:hidden;box-shadow:0 30px 80px rgba(24,24,27,.18);user-select:none;touch-action:pan-y;background:#eee}
 .ba img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 20%}
 .ba-before{position:absolute;inset:0;width:50%;overflow:hidden}
 .ba-before img{width:200%;max-width:none;filter:saturate(.9) contrast(.97)}
@@ -76,57 +117,100 @@
 .ba-range input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;margin:0}
 .ba-tag{position:absolute;bottom:14px;font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:rgba(0,0,0,.45);padding:5px 9px;border-radius:7px}
 .ba-tag.l{left:14px}.ba-tag.r{right:14px}
+.story-chip{position:absolute;right:-6%;bottom:12%;width:240px;background:rgba(255,255,255,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(24,24,27,.08);border-radius:14px;padding:12px 14px;box-shadow:0 18px 48px rgba(24,24,27,.16);font-size:13px;line-height:1.35;transition:opacity .35s,transform .35s}
+.story-chip.swap{opacity:0;transform:translateY(8px)}
+.story-chip .k{display:block}
+.story-chip b{display:block;font-family:"JetBrains Mono",monospace;font-size:15px;font-weight:600;margin-top:2px}
+.story-chip em{display:block;font-style:normal;color:var(--ink2);margin-top:3px}
+.story-steps{list-style:none;display:grid;gap:22px}
+.story-steps li{opacity:.28;transform:translateY(6px);transition:opacity .5s,transform .5s}
+.story-steps li.on{opacity:1;transform:none}
+.story-steps .eyebrow{color:var(--red)}
+.story-steps b{display:block;font-family:"Fraunces",Georgia,serif;font-weight:600;font-size:clamp(24px,2.6vw,34px);letter-spacing:-.02em;margin:6px 0 8px;line-height:1.08}
+.story-steps p{color:var(--ink2);font-size:15.5px;max-width:44ch}
 
-/* glass cards */
-.glass4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-.gcard{display:block;text-decoration:none;color:var(--ink);background:rgba(255,255,255,.7);backdrop-filter:blur(10px);border:1px solid rgba(24,24,27,.08);border-radius:18px;padding:20px 20px 16px;transition:transform .25s,box-shadow .25s,border-color .25s}
-.gcard:hover{transform:translateY(-4px);box-shadow:0 24px 60px rgba(24,24,27,.12);border-color:rgba(24,24,27,.16)}
-.gcard .gk{font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--red)}
-.gcard b{display:block;font-family:"Fraunces",Georgia,serif;font-weight:600;font-size:24px;letter-spacing:-.015em;margin:8px 0 6px}
-.gcard p{font-size:14px;color:var(--ink2);min-height:66px}
-.spark{width:100%;height:56px;margin-top:10px}
-.spark path{fill:none;stroke:var(--red);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:400;stroke-dashoffset:400;transition:stroke-dashoffset 1.6s cubic-bezier(.2,.7,.2,1)}
-.gcard.in .spark path{stroke-dashoffset:0}
-.gcard .gl{display:block;font-family:"EB Garamond",Georgia,serif;font-style:italic;color:var(--ink3);font-size:14px;margin-top:6px}
-
-/* stacking cards */
-.stack{display:grid;gap:18px}
-.scard{position:sticky;top:96px;display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center;text-decoration:none;color:var(--ink);background:#fff;border:1px solid var(--rule);border-radius:22px;padding:30px;box-shadow:0 24px 70px rgba(24,24,27,.10);transform-origin:top center;will-change:transform,opacity;min-height:300px}
-.scard:nth-child(2){top:110px}.scard:nth-child(3){top:124px}.scard:nth-child(4){top:138px}
-.scard .sk{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.16em;color:var(--red)}
-.scard b{display:block;font-family:"Fraunces",Georgia,serif;font-weight:600;font-size:clamp(26px,3vw,36px);letter-spacing:-.02em;margin:8px 0 10px}
-.scard p{color:var(--ink2);font-size:15.5px;max-width:44ch}
-.scard .more{display:inline-block;margin-top:16px;font-weight:700;color:var(--red)}
-.scard .more::after{content:" →"}
-.sc-ui{background:var(--wash);border-radius:16px;padding:18px;min-height:230px;display:grid;align-content:center}
-.ui-doc{background:#fff;border-radius:12px;padding:16px 18px;box-shadow:0 10px 30px rgba(0,0,0,.06);font-size:13.5px}
+/* method: pinned horizontal strip */
+.method{background:var(--wash);overflow:clip}
+.method .pin{position:relative;height:320vh}
+.method .pin>*{position:sticky}
+.method-head{top:0;padding-top:64px;z-index:2}
+.track{top:calc(64px + 96px);display:flex;gap:18px;padding:22px 22px 0;width:max-content;will-change:transform}
+.method-bar{top:calc(100vh - 44px);height:3px;background:var(--rule);border-radius:99px;overflow:hidden}
+.method-bar i{display:block;height:100%;width:0;background:var(--red)}
+.mcard{width:min(520px,82vw);background:#fff;border:1px solid var(--rule);border-radius:22px;padding:28px;box-shadow:0 24px 70px rgba(24,24,27,.08);display:grid;gap:10px;align-content:start}
+.mcard .mk{font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--red)}
+.mcard b{font-family:"Fraunces",Georgia,serif;font-weight:600;font-size:clamp(26px,2.8vw,36px);letter-spacing:-.02em;line-height:1.05}
+.mcard p{color:var(--ink2);font-size:15.5px}
+.mcard a{font-weight:700;color:var(--red);text-decoration:none;margin-top:4px}
+.mui{background:var(--wash);border-radius:16px;padding:16px;margin-top:6px;min-height:150px;display:grid;align-content:center}
+.ui-doc{font-size:13.5px}
 .ui-doc i{display:block;font-style:normal;font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:.14em;color:var(--red);margin:6px 0 4px}
 .ui-doc u{display:block;text-decoration:none;color:var(--ink2);padding:2px 0}
-.ui-doc u:first-of-type,.ui-doc i+u{color:var(--ink);font-weight:600}
-.ui-calc{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ui-doc i+u{color:var(--ink);font-weight:600}
+.ui-calc{grid-template-columns:1fr 1fr;gap:10px}
 .ui-calc div{background:#fff;border-radius:12px;padding:12px 14px;box-shadow:0 10px 30px rgba(0,0,0,.05)}
 .ui-calc span{display:block;font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3)}
-.ui-calc b{display:block;font-size:20px;margin-top:2px;font-family:"Manrope",sans-serif;font-weight:800;letter-spacing:-.01em}
+.ui-calc b{display:block;font-size:20px;margin-top:2px;font-family:"Manrope",sans-serif;font-weight:800;letter-spacing:-.01em;line-height:1.2}
 .ui-calc .out{background:var(--red-wash)}
 .ui-calc .out b{color:var(--red)}
-.ui-chat{display:grid;gap:8px;font-size:13.5px}
+.ui-chat{gap:8px;font-size:13.5px}
 .ui-chat .me{justify-self:end;background:var(--ink);color:#fff;border-radius:14px 14px 4px 14px;padding:8px 12px;font-family:"JetBrains Mono",monospace;font-size:12.5px}
-.ui-chat .ai{justify-self:start;background:#fff;border-radius:14px 14px 14px 4px;padding:8px 12px;box-shadow:0 8px 24px rgba(0,0,0,.05);color:var(--ink2);max-width:90%}
-.ui-chat .ai b{color:var(--go);font-weight:800}
-.ui-list{display:grid;gap:8px}
-.ui-list span{background:#fff;border-radius:10px;padding:9px 12px;font-size:13.5px;box-shadow:0 8px 24px rgba(0,0,0,.05)}
+.ui-chat .ai{justify-self:start;background:#fff;border-radius:14px 14px 14px 4px;padding:8px 12px;box-shadow:0 8px 24px rgba(0,0,0,.05);color:var(--ink2);max-width:92%}
+.ui-stair{display:flex;align-items:flex-end;gap:8px;height:150px}
+.ui-stair span{flex:1;height:var(--h);background:linear-gradient(180deg,var(--red),#7d1728);border-radius:6px 6px 2px 2px;transform-origin:bottom;transform:scaleY(0);transition:transform .7s cubic-bezier(.2,.7,.2,1)}
+.method.on .ui-stair span{transform:none}
+.method.on .ui-stair span:nth-child(2){transition-delay:.1s}.method.on .ui-stair span:nth-child(3){transition-delay:.2s}.method.on .ui-stair span:nth-child(4){transition-delay:.3s}.method.on .ui-stair span:nth-child(5){transition-delay:.4s}.method.on .ui-stair span:nth-child(6){transition-delay:.5s}
 
-/* how it works */
-.how-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:start}
-.steps{list-style:none;position:relative;padding-left:34px;display:grid;gap:34px;margin-top:6px}
-.steps::before{content:"";position:absolute;left:11px;top:8px;bottom:8px;width:2px;background:var(--rule)}
-.steps::after{content:"";position:absolute;left:11px;top:8px;width:2px;height:var(--fill,0%);background:var(--red);transition:height .6s cubic-bezier(.2,.7,.2,1)}
-.steps li{position:relative;opacity:.45;transition:opacity .5s}
-.steps li.on{opacity:1}
-.steps .dot{position:absolute;left:-34px;top:6px;width:24px;height:24px;border-radius:50%;background:#fff;border:2px solid var(--rule);display:grid;place-items:center;transition:border-color .4s,background .4s}
-.steps li.on .dot{border-color:var(--red);background:var(--red);box-shadow:0 0 0 6px var(--red-wash)}
-.steps b{display:block;font-family:"Fraunces",Georgia,serif;font-weight:600;font-size:24px;letter-spacing:-.015em;margin-bottom:6px}
-.steps p{color:var(--ink2);font-size:15.5px;max-width:52ch}
+/* meals */
+.meal-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:24px;align-items:start}
+.meal-list{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.meal{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;text-align:left;background:#fff;border:1px solid var(--rule);border-radius:14px;padding:12px 14px;cursor:pointer;font:inherit;color:var(--ink);transition:.16s}
+.meal:hover{border-color:var(--ink3)}
+.meal[aria-pressed=true]{border-color:var(--ink);background:var(--ink);color:#fff}
+.meal b{display:block;font-size:14.5px;font-weight:700;letter-spacing:-.01em}
+.meal small{display:block;font-size:12px;color:var(--ink3);margin-top:2px}
+.meal[aria-pressed=true] small{color:#C7CBD0}
+.meal .mp{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--ink2);white-space:nowrap}
+.meal[aria-pressed=true] .mp{color:#fff}
+.meal-tot{position:sticky;top:84px;background:var(--ink);color:#fff;border-radius:22px;padding:22px 24px;box-shadow:0 30px 80px rgba(24,24,27,.25)}
+.meal-tot .k{color:#9aa0a6}
+.mt-row{display:flex;align-items:baseline;gap:10px;margin-top:14px}
+.mt-row span{font-size:13px;color:#9aa0a6;flex:1}
+.mt-row b{font-family:"Fraunces",Georgia,serif;font-weight:600;font-size:34px;letter-spacing:-.02em;font-variant-numeric:tabular-nums;line-height:1}
+.mt-row small{font-size:12px;color:#9aa0a6}
+.mt-bar{position:relative;height:10px;background:rgba(255,255,255,.12);border-radius:99px;margin-top:8px;overflow:hidden}
+.mt-bar i{display:block;height:100%;width:0;background:var(--red);border-radius:99px;transition:width .5s cubic-bezier(.2,.7,.2,1),background .3s}
+.mt-bar i.ok{background:#3DBE74}
+.mt-bar i.over{background:#E8515F}
+.mt-bar em{position:absolute;top:0;bottom:0;background:rgba(255,255,255,.18);pointer-events:none}
+.mt-verdict{margin-top:16px;font-size:15px;color:#C7CBD0;min-height:44px}
+.mt-verdict b{color:#fff}
+.mt-acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.meal-tot .btn.ghost{color:#C7CBD0;border-color:rgba(255,255,255,.2)}
+.meal-tot .btn.ghost:hover{color:#fff;border-color:#fff}
+.meal-tot .btn.dark{background:#fff;color:var(--ink)}
+.meal-tot .btn.dark:hover{background:#e9eaec}
+
+/* logger */
+.logger-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:44px;align-items:center}
+.prompt-acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+.prompt-note{font-size:13.5px;color:#9aa0a6;margin-top:12px;max-width:48ch}
+.demo{background:#0D0F12;border:1px solid rgba(255,255,255,.08);border-radius:18px;overflow:hidden;box-shadow:0 40px 100px rgba(0,0,0,.5)}
+.demo-head{display:flex;align-items:center;gap:6px;padding:12px 14px;border-bottom:1px solid rgba(255,255,255,.06)}
+.demo-head .dot{width:10px;height:10px;border-radius:50%;display:inline-block}
+.demo-head .r{background:#FF5F57}.demo-head .y{background:#FEBC2E}.demo-head .g{background:#28C840}
+.demo-title{margin-left:10px;font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:#6B7280}
+.demo-log{padding:16px;display:grid;gap:8px;min-height:250px;max-height:320px;overflow-y:auto;font-size:13.5px;align-content:end}
+.demo-log .me{justify-self:end;background:#fff;color:var(--ink);border-radius:14px 14px 4px 14px;padding:8px 12px;font-family:"JetBrains Mono",monospace;font-size:12.5px;max-width:92%}
+.demo-log .ai{justify-self:start;background:rgba(255,255,255,.08);color:#E4E7EA;border-radius:14px 14px 14px 4px;padding:8px 12px;max-width:92%;white-space:pre-line;font-family:"JetBrains Mono",monospace;font-size:12.5px;line-height:1.55}
+.demo-log .ai b{color:#3DBE74;font-weight:700}
+.demo-quick{display:flex;gap:6px;flex-wrap:wrap;padding:0 16px 10px}
+.demo-quick button{font:inherit;font-family:"JetBrains Mono",monospace;font-size:11.5px;color:#C7CBD0;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:99px;padding:6px 10px;cursor:pointer}
+.demo-quick button:hover{background:rgba(255,255,255,.14);color:#fff}
+.demo-in{display:flex;gap:8px;padding:12px 16px 16px;border-top:1px solid rgba(255,255,255,.06)}
+.demo-in input{flex:1;min-width:0;font:inherit;font-family:"JetBrains Mono",monospace;font-size:13px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:#fff;border-radius:10px;padding:11px 12px}
+.demo-in input:focus{outline:2px solid var(--red);outline-offset:1px}
+.demo-in .btn{padding:11px 14px}
 
 /* progression */
 .prog-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:44px;align-items:center}
@@ -148,31 +232,33 @@
 
 /* manifesto */
 .manifesto{position:relative;overflow:clip}
-.manifesto .eyebrow{color:#9aa0a6}
 .manifesto h2.sec{font-size:clamp(34px,6vw,72px)}
 .mani-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:22px}
 .mani-grid p{font-size:17px;line-height:1.6;color:#C7CBD0;max-width:48ch}
 .mani-line{margin-top:44px;font-family:"Fraunces",Georgia,serif;font-weight:600;font-size:clamp(40px,9vw,120px);letter-spacing:-.035em;line-height:.9;color:#fff;display:flex;flex-wrap:wrap;gap:0 .3em}
+.mani-line span{display:inline-block;opacity:calc(.15 + var(--p,1) * .85);transform:translateY(calc((1 - var(--p,1)) * 40px));will-change:transform,opacity}
+.mani-line span:nth-child(2){--p:var(--p2,1)}.mani-line span:nth-child(3){--p:var(--p3,1)}.mani-line span:nth-child(4){--p:var(--p4,1)}
 .mani-line .red{color:#E8515F}
 
 /* ladder */
-.ladder{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;align-items:stretch}
-.lad{position:relative;background:#fff;border:1px solid var(--rule);border-radius:18px;padding:20px 18px 18px;display:flex;flex-direction:column;gap:8px;transition:transform .25s,box-shadow .25s}
+.ladder{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;align-items:stretch}
+.lad{position:relative;background:#fff;border:1px solid var(--rule);border-radius:20px;padding:24px 22px 22px;display:flex;flex-direction:column;gap:8px;transition:transform .25s,box-shadow .25s}
 .lad:hover{transform:translateY(-4px);box-shadow:0 24px 60px rgba(24,24,27,.10)}
 .lad.hot{background:var(--ink);color:#fff;border-color:var(--ink);box-shadow:0 30px 80px rgba(24,24,27,.28)}
 .lad .lk{font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--red)}
 .lad.hot .lk{color:#FF8E99}
-.lad b{font-family:"Fraunces",Georgia,serif;font-weight:600;font-size:21px;letter-spacing:-.015em;line-height:1.15}
-.lad p{font-size:13.5px;color:var(--ink2);flex:1}
+.lad b{font-family:"Fraunces",Georgia,serif;font-weight:600;font-size:24px;letter-spacing:-.015em;line-height:1.12}
+.lad p{font-size:14.5px;color:var(--ink2);flex:1}
 .lad.hot p{color:#C7CBD0}
-.lad .lp{font-family:"Fraunces",Georgia,serif;font-weight:600;font-size:30px;letter-spacing:-.02em;margin-top:4px}
+.lad .lp{font-family:"Fraunces",Georgia,serif;font-weight:600;font-size:34px;letter-spacing:-.02em;margin-top:4px}
 .lad .lp small{font-family:"Manrope",sans-serif;font-size:12px;font-weight:600;color:var(--ink3);letter-spacing:0}
 .lad.hot .lp small{color:#9aa0a6}
 .lad .btn{justify-content:center;margin-top:6px}
 .lad.hot .btn.solid{background:#fff;color:var(--ink)}
 .lad.hot .btn.solid:hover{background:#eee}
-.lad .lnote{font-size:12px;color:var(--ink3);line-height:1.4}
+.lad .lnote{font-size:12.5px;color:var(--ink3);line-height:1.45}
 .lad.hot .lnote{color:#9aa0a6}
+.lad.hot .lnote a{color:#fff}
 .reserve{display:grid;gap:8px;margin-top:6px}
 .reserve input[type=email]{border:1px solid var(--rule);border-radius:9px;padding:11px 12px;font:inherit;font-size:14px;background:#fff}
 .reserve input[type=email]:focus{outline:2px solid var(--red);outline-offset:1px}
@@ -183,15 +269,18 @@
 .fin{position:relative;padding:110px 0 100px;overflow:clip;text-align:center}
 .fin-field{position:absolute;inset:-30% -10%;pointer-events:none;background:radial-gradient(40% 50% at 50% 60%, rgba(180,37,58,.12), transparent 70%),radial-gradient(60% 40% at 20% 20%, rgba(24,24,27,.05), transparent 70%),radial-gradient(50% 50% at 85% 30%, rgba(24,24,27,.05), transparent 70%);will-change:transform}
 .fin-in{position:relative}
-.fin .sec-head,.fin .lede{margin-left:auto;margin-right:auto}
-.fin .lede{max-width:56ch}
+.fin .lede{max-width:56ch;margin-left:auto;margin-right:auto}
 .fin .hx-ctas{justify-content:center}
 
+/* toast */
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);background:var(--ink);color:#fff;padding:12px 16px;border-radius:12px;font-size:14px;font-weight:600;opacity:0;pointer-events:none;transition:.3s;z-index:70;box-shadow:0 20px 50px rgba(0,0,0,.3)}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
 /* motion respect */
-@media (prefers-reduced-motion:reduce){.hx-h1 .w{opacity:1;transform:none;filter:none;transition:none}.spark path,#stairPath{stroke-dashoffset:0;transition:none}.scard{position:static}}
+@media (prefers-reduced-motion:reduce){.hx-h1 .w{opacity:1;transform:none;filter:none;transition:none}#stairPath,#pjMid{stroke-dashoffset:0;transition:none}.story .pin,.method .pin{height:auto}.story-grid{position:static;height:auto}.method .pin>*{position:static}.track{overflow-x:auto;width:auto}.mani-line span{opacity:1;transform:none}.ui-stair span{transform:none}}
 
 /* responsive */
-@media (max-width:980px){.ladder{grid-template-columns:repeat(2,1fr)}.glass4{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:980px){.calc-grid,.logger-grid{grid-template-columns:1fr;gap:26px}.ladder{grid-template-columns:1fr}.lad{max-width:560px}}
 @media (max-width:820px){
   .hx-grid{grid-template-columns:1fr;gap:26px}
   .hx-visual{min-height:440px;margin-top:10px}
@@ -199,13 +288,25 @@
   .chip{width:200px;font-size:12.5px}
   .chip.c1{left:-2%;top:56%}.chip.c2{right:-2%;top:70%;width:190px}.chip.c3{left:auto;right:0;top:4%;width:150px}
   .hx-stats{grid-template-columns:repeat(2,1fr)}
-  .ba-grid,.how-grid,.prog-grid{grid-template-columns:1fr;gap:26px}
-  .sec-head.sticky{position:static}
-  .scard{position:static;grid-template-columns:1fr;padding:22px;min-height:0}
-  .sc-ui{min-height:0}
-  .mani-grid{grid-template-columns:1fr}
+  .story .pin{height:auto}
+  .story-grid{position:static;height:auto;grid-template-columns:1fr;gap:26px;padding:56px 22px}
+  .ba{max-height:none;touch-action:none}
+  .story-chip{right:4%;bottom:8%;width:210px}
+  .story-steps li{opacity:1;transform:none}
+  .method .pin{height:auto}
+  .method .pin>*{position:static}
+  .method-head{padding-top:52px}
+  .track{width:auto;overflow-x:auto;scroll-snap-type:x mandatory;padding:18px 22px 22px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .track::-webkit-scrollbar{display:none}
+  .mcard{scroll-snap-align:start;flex:0 0 auto}
+  .method-bar{display:none}
+  .meal-grid{grid-template-columns:1fr}
+  .meal-tot{order:-1;position:sticky;top:104px;z-index:3;padding:16px 18px}
+  .mt-row b{font-size:28px}
+  .mt-verdict{min-height:0}
+  .prog-grid,.mani-grid{grid-template-columns:1fr;gap:26px}
 }
-@media (max-width:560px){.ladder,.glass4{grid-template-columns:1fr}.hx{padding-top:28px}}
+@media (max-width:560px){.meal-list{grid-template-columns:1fr}.hx{padding-top:28px}.calc-top{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -214,6 +315,8 @@
   <nav class="nav" aria-label="Site"><a href="index.html" class="on">Home</a><a href="start.html">Start here</a><a href="plan.html">Free plan</a><a href="tools.html">Tools</a><a href="about.html">About</a></nav>
   <a class="btn dark" href="apply.html">Apply</a>
 </div></header>
+<div class="sprog" id="sprog" aria-hidden="true"></div>
+
 <!-- HERO: three layers — field (back), photo card (mid), log chips (front) -->
 <section class="hx" id="top">
   <div class="hx-field" data-speed="0.18" aria-hidden="true"></div>
@@ -221,12 +324,12 @@
     <div class="hx-copy">
       <div class="eyebrow rv">lean on two workouts a week · for people with a job</div>
       <h1 class="hx-h1" id="hxTitle"><span class="w">Ripped</span> <span class="w">is</span> <span class="w">a</span> <span class="w">diet.</span><br><span class="w red">Strong</span> <span class="w red">is</span> <span class="w red">two</span> <span class="w red">sets.</span></h1>
-      <p class="lede rv d2">I'm not huge. I'm lean, and I got lean by counting every meal and lifting two or three days a week. The food takes the fat off; two hard sets on two lifts keep the muscle. The whole system is here, free.</p>
+      <p class="lede rv d2">I'm not huge. I'm lean, and I got lean by counting every meal and lifting two or three days a week. The food takes the fat off; two hard sets on two lifts keep the muscle. Everything I use is on this page, working, free.</p>
       <div class="hx-ctas rv d3">
-        <a class="btn solid big" href="plan.html">Get the free plan</a>
-        <a class="btn ghost-dark big" href="apply.html">Apply for 1-on-1 <span class="spots">5 founding spots</span></a>
+        <a class="btn solid big" href="#numbers">Get my two numbers</a>
+        <a class="btn ghost-dark big" href="plan.html">The free plan</a>
       </div>
-      <p class="hx-note rv d3">Free. No email needed. Your calorie and protein numbers, the two-day routine, and the log that counts for you.</p>
+      <p class="hx-note rv d3">No account, no email. Your calorie and protein targets in ten seconds, a meal builder that hits them, and the prompts that turn ChatGPT into your log.</p>
     </div>
     <div class="hx-visual">
       <figure class="hx-photo" data-speed="0.06"><img src="hero.jpg" alt="Max Love" width="940" height="1800" fetchpriority="high"></figure>
@@ -245,66 +348,120 @@
   </div>
 </section>
 
-<!-- BEFORE / AFTER — draggable -->
-<section class="band" id="proof"><div class="wrap ba-grid">
-  <div class="ba-copy">
-    <div class="eyebrow rv">before and after</div>
-    <h2 class="sec rv d1">Seventy pounds. Same person.</h2>
-    <p class="lede rv d2">No app, no six-day split, no supplements you can't pronounce. Counted food, two hard sets, a bar and a belt, and a notebook. Drag the handle.</p>
-    <p class="note rv d3">No timeline on purpose. It took as long as it took, and yours will too. The number that matters is the session count, not the calendar.</p>
+<!-- NUMBERS: live calculator + twelve-week projection -->
+<section class="band wash calc" id="numbers"><div class="wrap calc-grid">
+  <div class="calc-in">
+    <div class="eyebrow rv">the two numbers · ten seconds</div>
+    <h2 class="sec rv d1">Lean is a food problem. Here's your math.</h2>
+    <p class="lede rv d2">Calories decide whether the fat comes off. Protein decides whether the muscle stays. Move the slider; everything on this page updates to you.</p>
+    <div class="calc-ctl rv d3">
+      <label for="cBw">Bodyweight this morning</label>
+      <div class="calc-row"><input type="range" id="cBw" min="100" max="320" value="180" step="1"><output id="cBwOut">180</output><span class="unit">lb</span></div>
+      <label>Goal</label>
+      <div class="seg" id="cGoal" role="group" aria-label="Goal"><button data-v="cut" aria-pressed="true">Lose fat</button><button data-v="hold" aria-pressed="false">Hold</button><button data-v="gain" aria-pressed="false">Build</button></div>
+    </div>
   </div>
-  <div class="ba rv d1" id="ba">
-    <img class="ba-after" src="after.jpg" alt="Max, after" width="922" height="1640" loading="lazy">
-    <div class="ba-before" id="baBefore"><img src="before.jpg" alt="Max, before" width="1000" height="1116" loading="lazy"></div>
-    <div class="ba-handle" id="baHandle" aria-hidden="true"><span></span></div>
-    <label class="ba-range"><span class="sr">Compare before and after</span><input type="range" id="baRange" min="0" max="100" value="50"></label>
-    <span class="ba-tag l">before</span><span class="ba-tag r">after</span>
+  <div class="calc-out rv d1">
+    <div class="calc-top">
+      <div><span class="k">calories a day</span><b id="cCal">1,800–2,160</b></div>
+      <div><span class="k">protein a day</span><b id="cPro">144 <small>g</small></b></div>
+    </div>
+    <div class="calc-like" id="cLike"></div>
+    <div class="proj">
+      <div class="proj-head"><span class="k">the next twelve weeks, weekly average</span><span class="k" id="pjEnd"></span></div>
+      <svg viewBox="0 0 520 200" id="pj" aria-label="Projected weekly average bodyweight over twelve weeks">
+        <g class="grid"><line x1="40" x2="510" y1="30" y2="30"/><line x1="40" x2="510" y1="80" y2="80"/><line x1="40" x2="510" y1="130" y2="130"/><line x1="40" x2="510" y1="180" y2="180"/></g>
+        <path id="pjBand"/><path id="pjMid"/><g id="pjDots"></g>
+        <text x="40" y="196" class="ax">now</text><text x="510" y="196" class="ax" text-anchor="end">week 12</text>
+        <text id="pjTop" x="8" y="34" class="ax"></text><text id="pjBot" x="8" y="184" class="ax"></text>
+      </svg>
+      <p class="proj-note" id="pjNote"></p>
+    </div>
+    <div class="calc-acts"><button class="btn dark" id="cCopy" type="button">Copy my numbers</button><a class="btn ghost" href="#meals">Build a day that hits them ↓</a></div>
   </div>
 </div></section>
 
-<!-- FOUR NUMBERS — glass cards with sparklines -->
-<section class="band wash" id="numbers"><div class="wrap">
+<!-- STORY: scroll-driven before/after -->
+<section class="story" id="proof">
+  <div class="pin" id="storyPin">
+    <div class="wrap story-grid">
+      <div class="story-vis">
+        <div class="ba" id="ba">
+          <img class="ba-after" src="after.jpg" alt="Max, after" width="922" height="1640" loading="lazy">
+          <div class="ba-before" id="baBefore"><img src="before.jpg" alt="Max, before" width="1000" height="1116" loading="lazy"></div>
+          <div class="ba-handle" id="baHandle" aria-hidden="true"><span></span></div>
+          <label class="ba-range"><span class="sr">Compare before and after</span><input type="range" id="baRange" min="0" max="100" value="8"></label>
+          <span class="ba-tag l">before</span><span class="ba-tag r">after</span>
+        </div>
+        <div class="story-chip" id="storyChip"><span class="k">you</span><b>8oz ribeye and 3 eggs</b><em>855 kcal, 75 g protein</em></div>
+      </div>
+      <ol class="story-steps" id="storySteps">
+        <li class="on" data-chip-k="food log" data-chip-b="8oz ribeye and 3 eggs" data-chip-e="855 kcal, 75 g protein. Left: 1,145 kcal, 69 g."><span class="eyebrow">01</span><b>I counted every meal.</b><p>Not clean eating. Counting. Steak, eggs, rice, fruit, whatever I'd actually eat, totalled every day. It was the whole fat loss.</p></li>
+        <li data-chip-k="training log" data-chip-b="pull 20x8,8" data-chip-e="Up. Both sets at 8. Next: 25 lb, target 5."><span class="eyebrow">02</span><b>Two lifts carried the muscle.</b><p>A weighted pull-up opens one day, a weighted dip opens the other. Two hard sets each. Everything after is support, and support can be sloppy.</p></li>
+        <li data-chip-k="weigh-in" data-chip-b="177.2 lb" data-chip-e="7-day average 177.9. Down 0.8 on the week."><span class="eyebrow">03</span><b>I wrote it down every time.</b><p>Lift, weight, both sets. Bodyweight every morning, judged on the weekly average. That page was the program.</p></li>
+        <li data-chip-k="today" data-chip-b="+205 lb dip · 22 pull-ups" data-chip-e="Seventy pounds lighter. Same person."><span class="eyebrow">04</span><b>Seventy pounds. Same person.</b><p>No app, no six-day split, no supplements you can't pronounce. A bar, a belt, a notebook, and the counting. Drag the handle yourself.</p></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- METHOD: pinned horizontal strip -->
+<section class="method" id="method">
+  <div class="pin" id="methodPin">
+    <div class="method-head wrap"><div class="eyebrow">the whole method</div><h2 class="sec">Four moves. Every week. That's it.</h2></div>
+    <div class="track" id="track">
+      <article class="mcard"><div class="mk">01 · food</div><b>Count everything.</b><p>Every meal, every day. Roughly right every day beats exactly right for a week. The food-log prompt does the arithmetic.</p><div class="mui ui-chat"><div class="me">chipotle bowl, double chicken</div><div class="ai">~1,020 kcal, 78 g (est)<br>Left: 780 kcal, 66 g</div></div><a href="#logger">Get the food prompt →</a></article>
+        <article class="mcard"><div class="mk">02 · bar</div><b>Two lifts carry your upper body.</b><p>Weighted pull-up, weighted dip. Two hard sets of five to eight, three to five minutes rest. Forty minutes door to door.</p><div class="mui ui-doc"><i>PULL DAY</i><u>Weighted pull-up · 2 hard sets × 5–8</u><u>A row or pulldown · 2 × 8–12</u><i>PUSH DAY</i><u>Weighted dip · 2 hard sets × 5–8</u><u>A press · 2 × 6–10</u></div><a href="plan.html">Open the two-day plan →</a></article>
+        <article class="mcard"><div class="mk">03 · rule</div><b>Both sets hit eight? Add five.</b><p>Reset to five reps, climb again. Any other result, same weight next time. Never add weight to fix a stall. That rule is the entire program.</p><div class="mui ui-stair"><span style="--h:22%"></span><span style="--h:36%"></span><span style="--h:50%"></span><span style="--h:64%"></span><span style="--h:78%"></span><span style="--h:92%"></span></div><a href="#progress">See your bar climb →</a></article>
+        <article class="mcard"><div class="mk">04 · page</div><b>Write it down.</b><p>Lift, weight, both sets, bodyweight. Eleven seconds. It is the only thing separating people who change from people who attend.</p><div class="mui ui-calc"><div><span>this week</span><b>177.9</b></div><div><span>last week</span><b>178.7</b></div><div class="out"><span>change</span><b>−0.8</b></div><div class="out"><span>verdict</span><b>on pace</b></div></div><a href="tools.html#week">Track your weekly average →</a></article>
+    </div>
+    <div class="method-bar wrap"><i id="methodBar"></i></div>
+  </div>
+</section>
+
+<!-- MEALS: build a day against your targets -->
+<section class="band meals" id="meals"><div class="wrap">
   <div class="sec-head">
-    <div class="eyebrow rv">the four numbers · food first</div>
-    <h2 class="sec rv d1">Lean is a food problem. Here is the math.</h2>
-    <p class="lede rv d2">Calories and protein decide whether the fat comes off and the muscle stays. The bar decides whether you look like you lift. The tools page does the arithmetic for you.</p>
+    <div class="eyebrow rv">diet first · the meals I actually repeat</div>
+    <h2 class="sec rv d1">Build a day that hits your number.</h2>
+    <p class="lede rv d2">Tap what you'd eat. It totals against the targets you set above. Portions are normal servings; the estimates are the same ones I use, and roughly right is the whole point.</p>
   </div>
-  <div class="glass4">
-    <a class="gcard rv" href="tools.html#food"><div class="gk">01 · food</div><b>Calories</b><p>Bodyweight × 10–12 to lose fat. × 12.5–13.5 to hold. × 15–16 to build.</p><svg viewBox="0 0 200 60" class="spark"><path d="M0 46 C30 44 40 30 70 32 S110 20 140 18 S180 12 200 8"/></svg><span class="gl">a 180 lb guy cutting eats 1,800–2,160</span></a>
-    <a class="gcard rv d1" href="tools.html#food"><div class="gk">02 · food</div><b>Protein</b><p>0.8 g per pound of bodyweight, every day. It's what keeps the muscle while the fat comes off.</p><svg viewBox="0 0 200 60" class="spark"><path d="M0 40 L40 38 L40 22 L90 22 L90 30 L130 28 L130 14 L200 12"/></svg><span class="gl">180 lb → about 145 g</span></a>
-    <a class="gcard rv d2" href="tools.html#belt"><div class="gk">03 · bar</div><b>Belt weight</b><p>Both sets hit eight, add five pounds, start again at five. The whole program is that rule.</p><svg viewBox="0 0 200 60" class="spark"><path d="M0 52 H40 V42 H80 V32 H120 V22 H160 V12 H200"/></svg><span class="gl">my first plate was 20 lb</span></a>
-    <a class="gcard rv d3" href="tools.html#weekly"><div class="gk">04 · body</div><b>Weekly average</b><p>One morning tells you how salty dinner was. Seven mornings averaged tell you the truth.</p><svg viewBox="0 0 200 60" class="spark"><path d="M0 14 C20 30 30 6 50 20 S80 34 100 22 S130 42 150 34 S180 50 200 46"/></svg><span class="gl">judge the average, never the day</span></a>
-  </div>
-</div></section>
-
-<!-- EVERYTHING FREE — stacking cards -->
-<section class="band" id="free"><div class="wrap">
-  <div class="sec-head">
-    <div class="eyebrow rv">everything I use, free</div>
-    <h2 class="sec rv d1">The whole method is on this site.</h2>
-    <p class="lede rv d2">Not a preview. The plan, the numbers, the log prompts and the rep standard, exactly as I run them.</p>
-  </div>
-  <div class="stack" id="stack">
-    <a class="scard" href="plan.html"><div class="sc-txt"><div class="sk">01</div><b>The two-day plan</b><p>Pull day, push day, the progression rule, what counts as a rep, your first week. Printable, with a PDF.</p><span class="more">Open the plan</span></div><div class="sc-ui"><div class="ui-doc"><i>PULL DAY</i><u>1. Weighted pull-up — 2 hard sets × 5–8</u><u>2. A row or a pulldown — 2 × 8–12</u><u>3. Curls — 2 × 8–12</u><i>PUSH DAY</i><u>1. Weighted dip — 2 hard sets × 5–8</u><u>2. A press — 2 × 6–10</u><u>3. Lateral raises, then triceps</u></div></div></a>
-    <a class="scard" href="tools.html"><div class="sc-txt"><div class="sk">02</div><b>Seven free tools</b><p>Calories and protein, starting belt weight, estimated max, plate math, weekly average, a session counter, a rest timer that stays open at the bar.</p><span class="more">Open the tools</span></div><div class="sc-ui"><div class="ui-calc"><div><span>bodyweight</span><b>180</b></div><div><span>goal</span><b>lose fat</b></div><div class="out"><span>calories</span><b>1,800–2,160</b></div><div class="out"><span>protein</span><b>145 g</b></div></div></div></a>
-    <a class="scard" href="start.html#prompts"><div class="sc-txt"><div class="sk">03</div><b>Your AI is your logger</b><p>Two prompts turn ChatGPT into a training log and a food log that answer back. Four words in, a decision out.</p><span class="more">Get the prompts</span></div><div class="sc-ui"><div class="ui-chat"><div class="me">pull 20x8,8</div><div class="ai"><b>Up.</b> Both sets at 8. Next: 25 lb, target 5 reps both sets.</div><div class="me">8oz ribeye and 3 eggs</div><div class="ai">855 kcal, 75 g protein · left 1,145 kcal, 69 g</div></div></div></a>
-    <a class="scard" href="start.html"><div class="sc-txt"><div class="sk">04</div><b>Start here</b><p>Your starting numbers, the rep standard, what to buy and the free version, and the questions everyone asks. One page.</p><span class="more">Start here</span></div><div class="sc-ui"><div class="ui-list"><span>1 · Your starting numbers</span><span>2 · What counts as a rep</span><span>3 · The one progression rule</span><span>4 · A rest timer</span><span>5 · Two prompts that log everything</span><span>6 · Protein without thinking</span></div></div></a>
+  <div class="meal-grid rv d2">
+    <div class="meal-list" id="mealList"></div>
+    <div class="meal-tot">
+      <div class="k">your day so far</div>
+      <div class="mt-row"><span>calories</span><b id="mtCal">0</b><small id="mtCalT">/ 1,800–2,160</small></div>
+      <div class="mt-bar"><i id="mtCalBar"></i><em id="mtCalBand"></em></div>
+      <div class="mt-row"><span>protein</span><b id="mtPro">0 g</b><small id="mtProT">/ 144 g</small></div>
+      <div class="mt-bar"><i id="mtProBar"></i></div>
+      <p class="mt-verdict" id="mtVerdict">Nothing yet. Start with the protein.</p>
+      <div class="mt-acts"><button class="btn ghost" id="mtClear" type="button">Clear</button><button class="btn dark" id="mtCopy" type="button">Copy this day</button></div>
+    </div>
   </div>
 </div></section>
 
-<!-- HOW IT WORKS — progress line -->
-<section class="band wash" id="how"><div class="wrap how-grid">
-  <div class="sec-head sticky">
-    <div class="eyebrow rv">how it works</div>
-    <h2 class="sec rv d1">Four moves. One cycle. Every week.</h2>
-    <p class="lede rv d2">This is the entire system. Most people already know it. Almost nobody does all four at once, for long enough.</p>
+<!-- LOGGER: the AI is your logger, live -->
+<section class="band dark logger" id="logger"><div class="wrap logger-grid">
+  <div>
+    <div class="eyebrow rv">no app · two prompts</div>
+    <h2 class="sec rv d1">Your AI is your logger.</h2>
+    <p class="lede rv d2">Paste one prompt into ChatGPT and it keeps your training log, applies the progression rule, and tells you what to lift next. Paste the other and it counts your food. Four words in, a decision out. Try it on the right.</p>
+    <div class="prompt-acts rv d3">
+      <button class="btn solid" id="copyTrain" type="button">Copy the training prompt</button>
+      <button class="btn light" id="copyFood" type="button">Copy the food prompt</button>
+    </div>
+    <p class="prompt-note rv d3" id="promptNote">Both prompts are written with the numbers you set above. Paste each into its own chat.</p>
   </div>
-  <ol class="steps" id="steps">
-    <li><div class="dot"></div><div><b>Count everything.</b><p>Every meal, every day. It was the main factor in my fat loss, more than any lift. The food-log prompt does the counting for you.</p></div></li>
-    <li><div class="dot"></div><div><b>Two lifts carry your upper body.</b><p>A weighted pull-up opens one day, a weighted dip opens the other. Everything after them is support, and support can be sloppy.</p></div></li>
-    <li><div class="dot"></div><div><b>Two hard sets. Three to five minutes rest.</b><p>Sixteen comfortable sets lose to two you actually mean. If you're not resting long enough to get bored, you're not lifting heavy enough to need it.</p></div></li>
-    <li><div class="dot"></div><div><b>Write it down.</b><p>Lift, weight, both sets. Both hit eight, add five pounds. That page is the program, and it's the only thing separating people who change from people who attend.</p></div></li>
-  </ol>
+  <div class="demo rv d1">
+    <div class="demo-head"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="demo-title">training log · food log</span></div>
+    <div class="demo-log" id="demoLog">
+      <div class="ai">log ready</div>
+    </div>
+    <div class="demo-quick" id="demoQuick">
+      <button type="button">pull 20x8,8</button><button type="button">dip 30x6,5</button><button type="button">bw 177.2</button><button type="button">8oz ribeye and 3 eggs</button><button type="button">greek yogurt and a banana</button><button type="button">skipped</button>
+    </div>
+    <form class="demo-in" id="demoForm"><input type="text" id="demoInput" placeholder="type a set or a meal…" autocomplete="off" aria-label="Type a set or a meal"><button class="btn solid" type="submit">Send</button></form>
+  </div>
 </div></section>
 
 <!-- PROGRESSION — interactive staircase -->
@@ -312,7 +469,7 @@
   <div>
     <div class="eyebrow rv">progressive overload</div>
     <h2 class="sec rv d1">Your bar isn't fixed.</h2>
-    <p class="lede rv d2">Repeating a weight isn't standing still. A hard five becoming a clean eight on the same load is the progress; the plate change is just the receipt. Tell it where you are.</p>
+    <p class="lede rv d2">Repeating a weight isn't standing still. A hard five becoming a clean eight on the same load is the progress; the plate change is the receipt. Tell it where you are.</p>
     <div class="prog-in rv d3">
       <label for="puNow">Strict pull-ups you can do right now</label>
       <div class="prog-row"><input type="range" id="puNow" min="0" max="25" value="12"><output id="puOut">12</output></div>
@@ -322,7 +479,7 @@
   <div class="stair rv d1" id="stair">
     <svg viewBox="0 0 480 260" aria-label="Belt weight rising in five-pound steps as both sets reach eight reps">
       <g class="grid"><line x1="40" x2="470" y1="220" y2="220"/><line x1="40" x2="470" y1="160" y2="160"/><line x1="40" x2="470" y1="100" y2="100"/><line x1="40" x2="470" y1="40" y2="40"/></g>
-      <text x="8" y="224" class="ax">+0</text><text x="8" y="164" class="ax">+15</text><text x="8" y="104" class="ax">+30</text><text x="8" y="44" class="ax">+45</text>
+      <text x="8" y="224" class="ax" id="axA">+0</text><text x="8" y="164" class="ax" id="axB">+15</text><text x="8" y="104" class="ax" id="axC">+30</text><text x="8" y="44" class="ax" id="axD">+45</text>
       <path id="stairPath" d="M40 220 H100 V200 H160 V180 H220 V160 H280 V140 H340 V120 H400 V100 H470"/>
       <g id="stairDots"></g>
       <text x="470" y="88" class="lab" text-anchor="end">every step: both sets hit 8</text>
@@ -331,7 +488,7 @@
   </div>
 </div></section>
 
-<!-- MANIFESTO -->
+<!-- MANIFESTO — kinetic -->
 <section class="band dark manifesto" id="who"><div class="wrap">
   <div class="eyebrow rv">a note on who this is for</div>
   <h2 class="sec rv d1">This isn't for everyone.</h2>
@@ -339,7 +496,7 @@
     <p class="rv d2">If you want to get huge, this isn't it. I'm not huge. If you want a six-day split and a reason to be at the gym for ninety minutes, this will bore you too. It's counting every meal, two lifts, two sets, and the same page filled in for a long time.</p>
     <p class="rv d3">If you want to be lean and strong with a job, a life, and about forty minutes two or three times a week, this is the most you can get from the least. It worked on me. It works on you if you count and you show up.</p>
   </div>
-  <div class="mani-line rv d3"><span>fewer sets,</span><span class="red">heavier bar.</span></div>
+  <div class="mani-line" id="maniLine" data-sp><span>fewer</span> <span>sets,</span> <span class="red">heavier</span> <span class="red">bar.</span></div>
 </div></section>
 
 <!-- WHAT'S FOR SALE -->
@@ -350,26 +507,11 @@
     <p class="lede rv d2">Everything above is free and it works. What's below is for people who want their numbers set for them, the counting made automatic, and someone watching the log.</p>
   </div>
   <div class="ladder">
-    <div class="lad rv"><div class="lk">free</div><b>The two-day plan</b><p>The whole program, one page, printable. Plus the tools and both log prompts.</p><div class="lp">$0</div><a class="btn line" href="plan.html">Get the plan</a></div>
-    <div class="lad rv d1"><div class="lk">coming · reserve</div><b>The Lean Protocol</b><p>The counting system in full: your cut, hold and build numbers, the grocery list and the meals I actually repeat, the food-log prompt set up for you, plus the two-day routine and its plateau rules. Twelve weeks, written out.</p><div class="lp">$47 <small>one time</small></div><form class="reserve" action="https://formsubmit.co/maxhlove@gmail.com" method="POST"><input type="hidden" name="_subject" value="Reserve — The Lean Protocol"><input type="hidden" name="_template" value="table"><input type="hidden" name="_captcha" value="false"><input type="hidden" name="_next" value="https://maxlovefitness.com/index.html?reserved=protocol#sell"><input type="hidden" name="Product" value="The Lean Protocol $47"><input type="text" name="_honey" class="honey" tabindex="-1" autocomplete="off"><input type="email" name="email" placeholder="you@email.com" required aria-label="Email for the Protocol"><button class="btn solid" type="submit">Reserve at $47</button></form><span class="lnote">No charge now. You get first access and the founding price.</span></div>
-    <div class="lad hot rv d2"><div class="lk">5 founding spots</div><b>Lean in 12 Weeks · 1-on-1</b><p>Your calorie and protein numbers set for you and adjusted as your weight moves, your two days written for your equipment, weekly check-ins on the food log and the photos, and me on the other end when it stalls.</p><div class="lp">$149 <small>every 4 weeks · or $399 up front</small></div><a class="btn solid" href="apply.html">Apply</a><span class="lnote">Founding rate. Send all 12 check-ins and if the photos show no visible change, I coach you free until they do.</span></div>
-    <div class="lad rv d3"><div class="lk">private</div><b>Private 12 Weeks</b><p>Two calls a week, daily review of the day's food, a Sunday planning call, and every week's sessions written by hand.</p><div class="lp">$997 <small>per month</small></div><a class="btn line" href="apply.html?tier=private">Ask about it</a></div>
-    <div class="lad rv d3"><div class="lk">later · waitlist</div><b>The 2-Day Lean community</b><p>Weekly group call, check-in threads, a lift leaderboard, and the plan, tools and prompts in one place. Opens when there are enough of us to make it worth your time.</p><div class="lp">free <small>to start</small></div><form class="reserve" action="https://formsubmit.co/maxhlove@gmail.com" method="POST"><input type="hidden" name="_subject" value="Waitlist — 2-Day Lean community"><input type="hidden" name="_template" value="table"><input type="hidden" name="_captcha" value="false"><input type="hidden" name="_next" value="https://maxlovefitness.com/index.html?reserved=community#sell"><input type="hidden" name="Product" value="Community waitlist"><input type="text" name="_honey" class="honey" tabindex="-1" autocomplete="off"><input type="email" name="email" placeholder="you@email.com" required aria-label="Email for the community waitlist"><button class="btn line" type="submit">Join the waitlist</button></form></div>
+    <div class="lad rv"><div class="lk">free · now</div><b>The two-day plan</b><p>The whole program on one page, printable. Plus every tool and both log prompts, forever.</p><div class="lp">$0</div><a class="btn line" href="plan.html">Get the plan</a><span class="lnote">No email. Print it, put it where you train.</span></div>
+    <div class="lad rv d1"><div class="lk">coming · reserve</div><b>The Lean Protocol</b><p>The counting system in full: your cut, hold and build numbers, the grocery list and the meals I actually repeat, the food-log prompt set up for you, plus the two-day routine and its plateau rules. Twelve weeks, written out.</p><div class="lp">$47 <small>one time</small></div><form class="reserve" action="https://formsubmit.co/maxhlove@gmail.com" method="POST"><input type="hidden" name="_subject" value="Reserve — The Lean Protocol"><input type="hidden" name="_template" value="table"><input type="hidden" name="_captcha" value="false"><input type="hidden" name="_next" value="https://maxlovefitness.com/index.html?reserved=protocol#sell"><input type="hidden" name="Product" value="The Lean Protocol $47"><input type="text" name="_honey" class="honey" tabindex="-1" autocomplete="off"><input type="email" name="email" placeholder="you@email.com" required aria-label="Email for the Protocol"><button class="btn solid" type="submit">Reserve at $47</button></form><span class="lnote">No charge now. First access, founding price.</span></div>
+    <div class="lad hot rv d2"><div class="lk">5 founding spots</div><b>Lean in 12 Weeks · 1-on-1</b><p>Your calorie and protein numbers set and adjusted as your weight moves, your two days written for your equipment, weekly check-ins on the food log and the photos, and me on the other end when it stalls.</p><div class="lp">$149 <small>every 4 weeks · or $399 up front</small></div><a class="btn solid" href="apply.html">Apply</a><span class="lnote">Send all 12 check-ins and if the photos show no visible change, I coach you free until they do. Want it private, two calls a week and daily review? <a href="apply.html?tier=private">$997 a month, ask.</a></span></div>
   </div>
   <p class="reserved-msg" id="reservedMsg" hidden>Got it. You're on the list — you'll hear from me first, and at the founding price.</p>
-</div></section>
-
-<!-- FAQ -->
-<section class="band wash" id="faq"><div class="wrap narrow2">
-  <div class="eyebrow rv">questions</div>
-  <h2 class="sec rv d1">The ones everyone asks first.</h2>
-  <div class="rv d2" style="margin-top:14px">
-    <details class="faq"><summary>Is two hard sets really enough?</summary><p>For the first year or two, comfortably. You don't have a volume problem, you have an intensity problem — sixteen comfortable sets lose to two you actually mean, fully rested. Add volume later, once the weight has genuinely stopped moving.</p></details>
-    <details class="faq"><summary>Can I do this at home or a park?</summary><p>Yes. A bar, something to dip on, and a backpack with books until you buy a belt. That's the whole gym. Every accessory can be dumbbells, bands, or skipped in month one.</p></details>
-    <details class="faq"><summary>How long until I see something?</summary><p>Strength moves first, the mirror second, other people third. Judge the session count, not the reflection: twenty-four sessions with the belt heavier than when you started means it's working.</p></details>
-    <details class="faq"><summary>Do you use an app?</summary><p>No. I paste my sets into ChatGPT and it keeps the log, compares to last time and tells me what to lift next. The two prompts that do it are free on the <a href="start.html#prompts">start-here page</a>.</p></details>
-  </div>
-  <p style="margin-top:20px"><a class="btn ghost" href="start.html#faq">All the questions</a></p>
 </div></section>
 
 <!-- FINAL CTA — layered -->
@@ -378,8 +520,8 @@
   <div class="wrap fin-in">
     <div class="eyebrow rv">start this week</div>
     <h2 class="sec rv d1">Count everything.<br>Lift twice. Write it down.</h2>
-    <p class="lede rv d2">Set your two numbers on the tools page, paste the food-log prompt, and do the first pull day this week. That's the whole ask.</p>
-    <div class="hx-ctas rv d3"><a class="btn solid big" href="plan.html">Get the free plan</a><a class="btn ghost-dark big" href="tools.html#food">Set my numbers</a></div>
+    <p class="lede rv d2">Your two numbers are set above. Copy the food prompt, do the first pull day this week, and weigh in every morning. That's the whole ask.</p>
+    <div class="hx-ctas rv d3"><a class="btn solid big" href="plan.html">Get the free plan</a><a class="btn ghost-dark big" href="#logger">Copy the prompts</a></div>
   </div>
 </section>
 
@@ -436,64 +578,193 @@ if(new URLSearchParams(location.search).get("subscribed")==="1"){var f=document.
   var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
   var $ = function(s, r){ return (r||document).querySelector(s); };
   var $$ = function(s, r){ return [].slice.call((r||document).querySelectorAll(s)); };
+  var clamp = function(v){ return Math.max(0, Math.min(1, v)); };
+  var fmt = function(n){ return Math.round(n).toLocaleString("en-US"); };
+  var desktop = function(){ return innerWidth > 820; };
+
+  // toast
+  var toast = document.createElement("div"); toast.className = "toast"; document.body.appendChild(toast); var tt;
+  function say(msg){ toast.textContent = msg; toast.classList.add("show"); clearTimeout(tt); tt = setTimeout(function(){ toast.classList.remove("show"); }, 1800); }
+  function copy(text, ok){ var done = function(){ say(ok || "Copied"); };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, function(){ fallback(text); done(); }); else { fallback(text); done(); } }
+  function fallback(text){ var ta = document.createElement("textarea"); ta.value = text; ta.style.position = "fixed"; ta.style.left = "-9999px"; document.body.appendChild(ta); ta.select(); try { document.execCommand("copy"); } catch(e){} document.body.removeChild(ta); }
 
   // headline words enter after first paint
   var h1 = $("#hxTitle"); if (h1) requestAnimationFrame(function(){ setTimeout(function(){ h1.classList.add("in"); }, 60); });
 
-  // parallax layers on scroll + gentle mouse drift for the chips
+  // ---------- shared state: the two numbers ----------
+  var S = { bw: 180, goal: "cut" };
+  function calories(bw, g){ var r = function(n){ return Math.round(bw * n / 10) * 10; }; return g === "cut" ? [r(10), r(12)] : g === "hold" ? [r(12.5), r(13.5)] : [r(15), r(16)]; }
+  function protein(bw){ return Math.round(bw * 0.8); }
+  function goalWord(g){ return g === "cut" ? "lose fat while keeping muscle" : g === "hold" ? "hold my weight" : "build up"; }
+
+  var cBw = $("#cBw"), cBwOut = $("#cBwOut"), cCal = $("#cCal"), cPro = $("#cPro"), cLike = $("#cLike");
+  function paintCalc(){
+    var c = calories(S.bw, S.goal), p = protein(S.bw);
+    cBwOut.textContent = S.bw;
+    cCal.textContent = fmt(c[0]) + "–" + fmt(c[1]);
+    cPro.innerHTML = p + " <small>g</small>";
+    cLike.innerHTML = '<span><b>' + (Math.round(p/52*10)/10) + '</b> × 6 oz chicken</span><span>or <b>' + (Math.round(p/19*10)/10) + '</b> × 3 eggs</span><span>or <b>' + (Math.round(p/25*10)/10) + '</b> scoops whey</span>';
+    paintProj(c); paintMeals(); buildPrompts();
+  }
+  cBw.addEventListener("input", function(){ S.bw = +cBw.value; paintCalc(); });
+  $("#cGoal").addEventListener("click", function(e){ var b = e.target.closest("button"); if (!b) return; $$("button", this).forEach(function(x){ x.setAttribute("aria-pressed", String(x === b)); }); S.goal = b.getAttribute("data-v"); paintCalc(); });
+  $("#cCopy").addEventListener("click", function(){ var c = calories(S.bw, S.goal); copy("Bodyweight " + S.bw + " lb. Goal: " + goalWord(S.goal) + ". Eat " + c[0] + "-" + c[1] + " calories and " + protein(S.bw) + " g protein a day. Judge the 7-day average, never one morning.", "Your numbers are copied"); });
+
+  // twelve-week projection (weekly averages; pace band from the plan: cut 0.5–1%/wk, hold ±1%, build 0.25–0.5%/wk)
+  var pjBand = $("#pjBand"), pjMid = $("#pjMid"), pjDots = $("#pjDots"), pjTop = $("#pjTop"), pjBot = $("#pjBot"), pjEnd = $("#pjEnd"), pjNote = $("#pjNote");
+  function paintProj(c){
+    var lo = [], hi = [], mid = [], bw = S.bw, g = S.goal;
+    for (var w = 0; w <= 12; w++){
+      var a = g === "cut" ? bw * Math.pow(1 - .010, w) : g === "hold" ? bw * (1 - .01) : bw * Math.pow(1 + .0025, w);
+      var b = g === "cut" ? bw * Math.pow(1 - .005, w) : g === "hold" ? bw * (1 + .01) : bw * Math.pow(1 + .005, w);
+      lo.push(Math.min(a, b)); hi.push(Math.max(a, b)); mid.push((a + b) / 2);
+    }
+    var ymin = Math.min.apply(null, lo) - 1, ymax = Math.max.apply(null, hi) + 1;
+    var X = function(i){ return 40 + i / 12 * 470; }, Y = function(v){ return 30 + (ymax - v) / (ymax - ymin) * 150; };
+    var top = hi.map(function(v, i){ return X(i).toFixed(1) + "," + Y(v).toFixed(1); }), bot = lo.map(function(v, i){ return X(i).toFixed(1) + "," + Y(v).toFixed(1); }).reverse();
+    pjBand.setAttribute("d", "M" + top.join(" L") + " L" + bot.join(" L") + " Z");
+    pjMid.setAttribute("d", "M" + mid.map(function(v, i){ return X(i).toFixed(1) + "," + Y(v).toFixed(1); }).join(" L"));
+    pjDots.innerHTML = mid.map(function(v, i){ return i % 4 === 0 ? '<circle cx="' + X(i).toFixed(1) + '" cy="' + Y(v).toFixed(1) + '" r="4"/>' : ""; }).join("");
+    pjTop.textContent = Math.round(ymax) + " lb"; pjBot.textContent = Math.round(ymin) + " lb";
+    var e1 = Math.round(lo[12]), e2 = Math.round(hi[12]);
+    pjEnd.textContent = "week 12: " + (g === "hold" ? "about " + bw : e1 + "–" + e2) + " lb";
+    pjNote.textContent = g === "cut" ? "Half a percent to one percent of bodyweight a week. Faster than that two weeks running, eat more; you're losing muscle with the fat. Nothing moving two weeks running, eat less."
+      : g === "hold" ? "The weekly average should sit inside the band. Drifting past it two weeks running, adjust by about 100 calories." : "A quarter to half a percent a week. Faster than that, ease off; most of the extra isn't muscle.";
+  }
+
+  // ---------- meals ----------
+  var MEALS = [
+    ["8 oz ribeye + 3 eggs", "the chip in the hero, for real", 855, 75], ["6 oz chicken breast + 1 cup rice", "the default dinner", 485, 56], ["Greek yogurt bowl", "1 cup nonfat, berries, a little honey", 210, 24],
+    ["3 eggs + 2 slices toast", "breakfast when there's time", 375, 25], ["Whey shake in water", "one scoop", 120, 25], ["6 oz salmon + potato", "medium potato, butter", 500, 40],
+    ["6 oz 93% ground beef + rice", "one cup rice", 505, 40], ["Cottage cheese, 1 cup", "the quiet protein", 180, 25], ["Oats, ½ cup dry + banana", "in water or milk", 255, 6],
+    ["Chipotle bowl, double chicken", "white rice, salsa, no cheese", 880, 76], ["Apple + peanut butter, 2 tbsp", "the snack that stops the snacking", 285, 8], ["Protein bar", "typical 60 g bar", 220, 20]
+  ];
+  var picked = {}, mealList = $("#mealList");
+  mealList.innerHTML = MEALS.map(function(m, i){ return '<button class="meal" type="button" aria-pressed="false" data-i="' + i + '"><span><b>' + m[0] + '</b><small>' + m[1] + '</small></span><span class="mp">' + m[2] + ' kcal · ' + m[3] + ' g</span></button>'; }).join("");
+  mealList.addEventListener("click", function(e){ var b = e.target.closest(".meal"); if (!b) return; var i = b.getAttribute("data-i"); picked[i] = !picked[i]; b.setAttribute("aria-pressed", String(!!picked[i])); paintMeals(); });
+  $("#mtClear").addEventListener("click", function(){ picked = {}; $$(".meal", mealList).forEach(function(b){ b.setAttribute("aria-pressed", "false"); }); paintMeals(); });
+  $("#mtCopy").addEventListener("click", function(){ var t = totals(); if (!t.n) { say("Pick a meal first"); return; } copy(Object.keys(picked).filter(function(k){ return picked[k]; }).map(function(k){ var m = MEALS[k]; return m[0] + " — " + m[2] + " kcal, " + m[3] + " g"; }).join("\n") + "\nTotal: " + t.cal + " kcal, " + t.pro + " g protein", "Your day is copied"); });
+  function totals(){ var cal = 0, pro = 0, n = 0; Object.keys(picked).forEach(function(k){ if (picked[k]) { cal += MEALS[k][2]; pro += MEALS[k][3]; n++; } }); return { cal: cal, pro: pro, n: n }; }
+  function paintMeals(){
+    var t = totals(), c = calories(S.bw, S.goal), p = protein(S.bw);
+    $("#mtCal").textContent = fmt(t.cal); $("#mtCalT").textContent = "/ " + fmt(c[0]) + "–" + fmt(c[1]);
+    $("#mtPro").textContent = t.pro + " g"; $("#mtProT").textContent = "/ " + p + " g";
+    var top = c[1] * 1.15;
+    var cb = $("#mtCalBar"); cb.style.width = clamp(t.cal / top) * 100 + "%"; cb.className = t.cal > c[1] ? "over" : t.cal >= c[0] ? "ok" : "";
+    var band = $("#mtCalBand"); band.style.left = clamp(c[0] / top) * 100 + "%"; band.style.width = clamp((c[1] - c[0]) / top) * 100 + "%";
+    var pb = $("#mtProBar"); pb.style.width = clamp(t.pro / (p * 1.15)) * 100 + "%"; pb.className = t.pro >= p ? "ok" : "";
+    var v = $("#mtVerdict");
+    if (!t.n) v.innerHTML = "Nothing yet. Start with the protein.";
+    else if (t.cal > c[1]) v.innerHTML = "<b>Over by " + fmt(t.cal - c[1]) + " kcal.</b> " + (t.pro >= p ? "Protein's done, so drop the thing with the least protein per calorie." : "And protein isn't there yet. Swap a carb-heavy pick for a lean protein.");
+    else if (t.pro >= p && t.cal >= c[0]) v.innerHTML = "<b>That's a day.</b> Protein hit, calories inside the band. Repeat it tomorrow.";
+    else if (t.pro >= p) v.innerHTML = "<b>Protein hit.</b> " + fmt(c[0] - t.cal) + " kcal still to eat before you're in the band. Rice, potato, fruit.";
+    else v.innerHTML = "<b>" + (p - t.pro) + " g protein to go</b> with " + fmt(c[1] - t.cal) + " kcal of room. Chicken, eggs, yogurt, whey.";
+  }
+
+  // ---------- prompts ----------
+  var P = { train: "", food: "" };
+  function buildPrompts(){
+    var bw = S.bw, c = calories(bw, S.goal), p = protein(bw), g = S.goal;
+    var goalLine = g === "cut" ? "lose fat while keeping muscle" : g === "hold" ? "hold my weight" : "build up";
+    var pace = g === "cut" ? "- I want to lose 0.5 to 1% of bodyweight a week. Faster than that two weeks running, tell me to eat more. Slower than that two weeks running, tell me to eat less.\n"
+      : g === "gain" ? "- I want to gain 0.25 to 0.5% of bodyweight a week. Faster than that two weeks running, tell me to eat a little less.\n"
+      : "- My weekly average should stay flat. Moving more than 1% either way two weeks running, tell me to adjust.\n";
+    P.train =
+"You are my training log. You are not a coach and not a cheerleader. You keep records, apply my rules, and give me the next action in one line.\n\nMY SETUP\n- Bodyweight " + bw + " lb. Goal: " + goalLine + ".\n- Eating " + c[0] + "-" + c[1] + " calories and " + p + " g protein a day.\n- Training 2 days a week.\n- Pull day opens with the weighted pull-up. Push day opens with the weighted dip. Those two are the lifts that matter. Everything else is support and does not need careful progression.\n- Current working loads: not set yet. I will tell you after my first session.\n- Two hard sets of the opening lift, 5 to 8 reps, three to five minutes rest.\n\nHOW I WILL TALK TO YOU\nShort lines. Read them like this:\n  pull 20x8,7   = weighted pull-up, 20 lb, 8 reps then 7 reps\n  dip 30x6,5    = weighted dip, 30 lb, 6 then 5\n  bw 177.2      = this morning's bodyweight\n  skipped       = I meant to train and did not\nIf a line is ambiguous, ask one short question. Never guess.\n\nTHE PROGRESSION RULE\nWhen BOTH sets of an opening lift reach 8 clean reps, add 5 lb next session and reset to 5 reps. Any other result, repeat the same weight. Never add weight to fix a stall.\n\nEVERY TIME I SEND A SESSION\n1. Reprint the whole training log as one table: date, lift, weight, set 1, set 2. Oldest first. Never truncate it or summarise it away.\n2. One line comparing this session to the last time I did that lift: up, held, or down.\n3. One line with the exact weight and rep target for that lift next session.\nNothing else. No encouragement.\n\nTHINGS TO TELL ME WITHOUT BEING ASKED\n- Same weight and same reps three sessions running: say so, and ask three questions — how I'm sleeping, whether I'm in a calorie deficit, and whether anything aches. Do not tell me to add weight.\n- I mention any pain anywhere: hold the weight, stop each set one rep earlier, and do not progress me until I say it is quiet.\n- Two missed sessions in a row: say so in one line. One missed session: say nothing.\n- I come back after two weeks or more off: tell me to test one heavy set, then drop to about half that and do the work there for a week. Do not restart me where I left off.\n\nBODYWEIGHT\n- Keep a second table: date and bodyweight. Judge it on the 7-day average, never a single morning.\n" + pace + "- Every Sunday give me four lines: this week's average weight, the change from last week's average, how many sessions I trained, and whether my opening lifts went up.\n\nHARD RULES\n- Never invent a number I did not give you. If one is missing, ask for it.\n- One line of feedback, never a paragraph. No motivation, no exclamation marks, no emoji.\n- Pounds, not kilos.\n- If I ask to change the program, repeat the progression rule back to me and ask what problem I am trying to solve.\n\nReply with \"log ready\" and then wait for my first session.";
+    P.food =
+"You are my food log. You estimate, you total, and you tell me what is left. You do not comment on my food choices.\n\nMY NUMBERS\n- Bodyweight " + bw + " lb. Goal: " + goalLine + ".\n- Target " + c[0] + "-" + c[1] + " calories and " + p + " g protein a day.\n- Protein is the number I care most about hitting. Calories are the number that decides the fat loss.\n\nHOW I WILL TALK TO YOU\nPlain English, as I eat it. \"8oz ribeye and 3 eggs\". \"Protein shake\". \"Chipotle bowl, double chicken, white rice, cheese\".\n- Estimate calories and protein yourself. Use normal portion sizes unless I give you a weight.\n- For restaurant food or anything you are unsure about, estimate calories on the high side and protein on the low side, and mark it (est).\n- If something is too vague to estimate, ask ONE short question, then estimate anyway.\n\nEVERY TIME I SEND FOOD\nReply in exactly this shape and nothing more:\n  [item] - [kcal] kcal, [protein] g\n  Today: [running total] kcal, [running total] g protein\n  Left: [remaining] kcal, [remaining] g protein\nIf I am over on calories, say the number I am over by. No comment on it.\n\nCLOSING A DAY\nWhen I say \"done\", or when I send the first food of a new day, close the previous day: add a row to a table with date, calories, protein, and whether I hit my protein target. Reprint the last 7 days of that table every time you close a day.\n\nEVERY SUNDAY\nFour lines only: average daily calories, average daily protein, how many days out of seven I hit protein, and one sentence on whether my intake matches my target.\n\nHARD RULES\n- Never comment on whether a food is healthy, clean, or a good choice. Not once. Macros over food choices.\n- Never invent a number I gave you, and never quietly round my targets.\n- One line per item. No paragraphs, no motivation, no emoji.\n- If I ask what to eat, give me two or three options that fit the calories and protein I have left. Nothing about how I should feel.\n- Grams and pounds.\n\nReply with \"food log ready\" and then wait for my first meal.";
+    $("#promptNote").textContent = "Both prompts carry your numbers: " + bw + " lb, " + c[0] + "–" + c[1] + " kcal, " + p + " g protein. Paste each into its own chat.";
+  }
+  $("#copyTrain").addEventListener("click", function(){ copy(P.train, "Training prompt copied. Paste it into a new chat."); });
+  $("#copyFood").addEventListener("click", function(){ copy(P.food, "Food prompt copied. Paste it into a new chat."); });
+
+  // ---------- logger demo: the same rules, running locally ----------
+  var log = $("#demoLog"), loads = {}, eaten = { cal: 0, pro: 0 }, bws = [];
+  var FOOD = [[/ribeye/, "8oz ribeye and 3 eggs", 855, 75], [/yogurt/, "greek yogurt and a banana", 315, 25], [/chipotle/, "chipotle bowl, double chicken", 1020, 78], [/chicken/, "chicken and rice", 485, 56], [/shake|whey/, "whey shake", 120, 25], [/eggs?/, "3 eggs", 215, 19], [/salmon/, "salmon and potato", 500, 40], [/oats|oatmeal/, "oats and banana", 255, 6], [/burger/, "burger and fries", 1100, 40], [/pizza/, "2 slices pizza", 570, 24], [/steak/, "8 oz steak", 640, 56], [/rice/, "1 cup rice", 205, 4], [/banana|apple/, "fruit", 105, 1]];
+  function add(cls, html){ var d = document.createElement("div"); d.className = cls; d.innerHTML = html; log.appendChild(d); log.scrollTop = log.scrollHeight; }
+  function reply(line){
+    var t = line.trim(), c = calories(S.bw, S.goal), p = protein(S.bw), m;
+    if ((m = t.match(/^(pull|dip)\s*(\d+)\s*x\s*(\d+)\s*,\s*(\d+)$/i))){
+      var lift = m[1].toLowerCase(), w = +m[2], r1 = +m[3], r2 = +m[4], prev = loads[lift], cmp;
+      cmp = !prev ? "First " + lift + " logged." : (w > prev.w || (w === prev.w && r1 + r2 > prev.r1 + prev.r2)) ? "<b>Up</b> on last time (" + prev.w + "x" + prev.r1 + "," + prev.r2 + ")." : (w === prev.w && r1 + r2 === prev.r1 + prev.r2) ? "Held. Same as last time." : "Down on last time (" + prev.w + "x" + prev.r1 + "," + prev.r2 + ").";
+      loads[lift] = { w: w, r1: r1, r2: r2 };
+      var next = (r1 >= 8 && r2 >= 8) ? "Both sets at 8. Next: <b>" + (w + 5) + " lb</b>, target 5 both sets." : "Next: " + w + " lb again, target 8 both sets.";
+      return lift + " · " + w + " lb · " + r1 + ", " + r2 + "\n" + cmp + "\n" + next;
+    }
+    if ((m = t.match(/^bw\s*(\d+(\.\d+)?)$/i))){ bws.push(+m[1]); var avg = bws.reduce(function(a, b){ return a + b; }, 0) / bws.length;
+      return "bw " + m[1] + " logged. " + (bws.length < 7 ? bws.length + " of 7 mornings for a real average." : "7-day average: " + avg.toFixed(1) + " lb.") + " Judge the average, not today."; }
+    if (/^skipped$/i.test(t)) return "Noted. One missed session costs nothing. Two in a row and I'll say so.";
+    if (/^done$/i.test(t)){ var hit = eaten.pro >= p; var out = "Day closed: " + fmt(eaten.cal) + " kcal, " + eaten.pro + " g protein · protein " + (hit ? "<b>hit</b>" : "missed by " + (p - eaten.pro) + " g"); eaten = { cal: 0, pro: 0 }; return out; }
+    for (var i = 0; i < FOOD.length; i++){ if (FOOD[i][0].test(t)){ var f = FOOD[i]; eaten.cal += f[2]; eaten.pro += f[3];
+      var left = c[1] - eaten.cal; return f[1] + " - " + f[2] + " kcal, " + f[3] + " g (est)\nToday: " + fmt(eaten.cal) + " kcal, " + eaten.pro + " g protein\n" + (left >= 0 ? "Left: " + fmt(left) + " kcal, " + Math.max(0, p - eaten.pro) + " g protein" : "Over by " + fmt(-left) + " kcal."); } }
+    return "One short question: is that a set (like \"pull 20x8,8\"), a weigh-in (\"bw 177.2\"), or food? Type it the way you'd say it.";
+  }
+  function send(text){ if (!text) return; add("me", text.replace(/</g, "&lt;")); setTimeout(function(){ add("ai", reply(text)); }, 260); }
+  $("#demoQuick").addEventListener("click", function(e){ var b = e.target.closest("button"); if (b) send(b.textContent); });
+  $("#demoForm").addEventListener("submit", function(e){ e.preventDefault(); var i = $("#demoInput"); send(i.value); i.value = ""; });
+
+  // ---------- before / after slider ----------
+  var ba = $("#ba"), range = $("#baRange"), before = $("#baBefore"), handle = $("#baHandle"), baUser = false;
+  function setBA(v){ before.style.width = v + "%"; handle.style.left = v + "%"; range.value = v; }
+  if (ba) { setBA(8); range.addEventListener("input", function(){ baUser = true; setBA(+range.value); });
+    var drag = false;
+    var move = function(e){ if (!drag) return; var r = ba.getBoundingClientRect(); var x = (e.touches ? e.touches[0].clientX : e.clientX) - r.left; setBA(Math.max(0, Math.min(100, x / r.width * 100))); };
+    ba.addEventListener("pointerdown", function(e){ drag = true; baUser = true; move(e); }); addEventListener("pointerup", function(){ drag = false; }); ba.addEventListener("pointermove", move);
+  }
+  // story steps + chip
+  var steps = $$("#storySteps li"), chip = $("#storyChip"), curStep = -1;
+  function setStep(i){ if (i === curStep) return; curStep = i; steps.forEach(function(li, k){ li.classList.toggle("on", k === i); });
+    var li = steps[i]; chip.classList.add("swap"); setTimeout(function(){ chip.innerHTML = '<span class="k">' + li.getAttribute("data-chip-k") + '</span><b>' + li.getAttribute("data-chip-b") + '</b><em>' + li.getAttribute("data-chip-e") + '</em>'; chip.classList.remove("swap"); }, 180); }
+  setStep(0);
+
+  // ---------- stair ----------
+  var drawIO = new IntersectionObserver(function(en){ en.forEach(function(x){ if (x.isIntersecting) { x.target.classList.add("in"); drawIO.unobserve(x.target); } }); }, { threshold: .3 });
+  $$(".stair, .calc-out").forEach(function(e){ drawIO.observe(e); });
+  var methodIO = new IntersectionObserver(function(en){ en.forEach(function(x){ if (x.isIntersecting) { $("#method").classList.add("on"); methodIO.disconnect(); } }); }, { threshold: .1 });
+  methodIO.observe($("#track"));
+  var dots = $("#stairDots"); if (dots) { [[100,200],[160,180],[220,160],[280,140],[340,120],[400,100]].forEach(function(p,i){ var c = document.createElementNS("http://www.w3.org/2000/svg","circle"); c.setAttribute("cx",p[0]); c.setAttribute("cy",p[1]); c.setAttribute("r","5"); c.style.transitionDelay = (0.3 + i*0.3) + "s"; dots.appendChild(c); }); }
+  var pu = $("#puNow"), puOut = $("#puOut"), puRes = $("#puRes");
+  function puStart(n){ if (n < 8) return null; if (n <= 10) return 10; if (n <= 14) return 20; if (n <= 19) return 35; return 45; }
+  function puPaint(){ var n = +pu.value; puOut.textContent = n; var w = puStart(n);
+    puRes.innerHTML = w === null ? "Under eight strict reps: <b>no belt yet</b>. Get to eight clean, dead-hang reps first — that's the program for now." : "Start the belt at <b>+" + w + " lb</b>. Two hard sets of 5–8. Both sets hit 8 → <b>+" + (w+5) + " lb</b> next time, back to 5 reps.";
+    var base = w === null ? 0 : w; [["#axA", base], ["#axB", base + 15], ["#axC", base + 30], ["#axD", base + 45]].forEach(function(a){ $(a[0]).textContent = "+" + a[1]; }); }
+  if (pu) { pu.addEventListener("input", puPaint); puPaint(); }
+
+  // ---------- scroll engine ----------
   var layers = $$("[data-speed]"), chips = $$(".chip[data-depth]"), mx = 0, my = 0, ticking = false;
+  var sprog = $("#sprog"), storyPin = $("#storyPin"), methodPin = $("#methodPin"), track = $("#track"), methodBar = $("#methodBar"), mani = $("#maniLine");
   function paint(){
     ticking = false;
-    var y = window.scrollY || 0;
-    layers.forEach(function(el){
-      var r = el.getBoundingClientRect(); if (r.bottom < -200 || r.top > innerHeight + 200) return;
-      var sp = parseFloat(el.getAttribute("data-speed")) || 0;
-      var dx = 0, dy = 0;
+    var y = window.scrollY || 0, vh = innerHeight, docH = document.documentElement.scrollHeight - vh;
+    if (sprog) sprog.style.transform = "scaleX(" + clamp(y / docH) + ")";
+    if (!reduce) layers.forEach(function(el){
+      var r = el.getBoundingClientRect(); if (r.bottom < -200 || r.top > vh + 200) return;
+      var sp = parseFloat(el.getAttribute("data-speed")) || 0, dx = 0, dy = 0;
       if (el.hasAttribute("data-depth")) { var d = parseFloat(el.getAttribute("data-depth")); dx = mx * d; dy = my * d; }
       var rot = el.classList.contains("hx-photo") ? " rotate(-2.5deg)" : "";
       el.style.transform = "translate3d(" + dx.toFixed(1) + "px," + (y * sp + dy).toFixed(1) + "px,0)" + rot;
     });
+    if (desktop() && !reduce) {
+      // story: pinned progress drives the slider and the steps
+      var sr = storyPin.getBoundingClientRect(), sp2 = clamp(-sr.top / (sr.height - vh));
+      if (sr.top < vh && sr.bottom > 0) { if (!baUser) setBA(8 + sp2 * 84); setStep(Math.min(3, Math.floor(sp2 * 4))); if (sp2 >= 1) baUser = false; }
+      // method: pinned progress slides the track
+      var mr = methodPin.getBoundingClientRect(), mp = clamp((clamp(-mr.top / (mr.height - vh)) - .10) / .82); // hold the first card for a beat, land the last one early
+      if (mr.top < vh && mr.bottom > 0) { var maxX = Math.max(0, track.scrollWidth - innerWidth + 22); track.style.transform = "translate3d(" + (-mp * maxX).toFixed(1) + "px,0,0)"; methodBar.style.width = (mp * 100) + "%"; }
+    } else { track.style.transform = ""; }
+    // manifesto words
+    if (mani && !reduce) { var r2 = mani.getBoundingClientRect(), p = clamp((vh - r2.top) / (vh * .6)); mani.style.setProperty("--p", clamp(p * 1.6)); mani.style.setProperty("--p2", clamp(p * 1.6 - .2)); mani.style.setProperty("--p3", clamp(p * 1.6 - .4)); mani.style.setProperty("--p4", clamp(p * 1.6 - .6)); }
   }
   function req(){ if (!ticking) { ticking = true; requestAnimationFrame(paint); } }
-  if (!reduce) {
-    addEventListener("scroll", req, { passive: true });
-    addEventListener("pointermove", function(e){ mx = (e.clientX / innerWidth - .5); my = (e.clientY / innerHeight - .5); req(); }, { passive: true });
-    paint();
-  }
+  addEventListener("scroll", req, { passive: true }); addEventListener("resize", req);
+  if (!reduce) addEventListener("pointermove", function(e){ mx = (e.clientX / innerWidth - .5); my = (e.clientY / innerHeight - .5); req(); }, { passive: true });
+  // mobile story: steps light up as they pass
+  if (!desktop()) { var sIO = new IntersectionObserver(function(en){ en.forEach(function(x){ if (x.isIntersecting) setStep(steps.indexOf(x.target)); }); }, { threshold: .6 }); steps.forEach(function(li){ sIO.observe(li); }); setBA(50); }
+  paint();
 
-  // before / after slider
-  var ba = $("#ba"), range = $("#baRange"), before = $("#baBefore"), handle = $("#baHandle");
-  function setBA(v){ before.style.width = v + "%"; handle.style.left = v + "%"; }
-  if (ba) { setBA(50); range.addEventListener("input", function(){ setBA(+range.value); });
-    var drag = false;
-    var move = function(e){ if (!drag) return; var r = ba.getBoundingClientRect(); var x = (e.touches ? e.touches[0].clientX : e.clientX) - r.left; var v = Math.max(0, Math.min(100, x / r.width * 100)); range.value = v; setBA(v); };
-    ba.addEventListener("pointerdown", function(e){ drag = true; move(e); }); addEventListener("pointerup", function(){ drag = false; }); ba.addEventListener("pointermove", move);
-  }
-
-  // sparklines + staircase draw when they come into view
-  var drawIO = new IntersectionObserver(function(en){ en.forEach(function(x){ if (x.isIntersecting) { x.target.classList.add("in"); drawIO.unobserve(x.target); } }); }, { threshold: .35 });
-  $$(".gcard, .stair").forEach(function(e){ drawIO.observe(e); });
-  var dots = $("#stairDots"); if (dots) { [[100,200],[160,180],[220,160],[280,140],[340,120],[400,100]].forEach(function(p,i){ var c = document.createElementNS("http://www.w3.org/2000/svg","circle"); c.setAttribute("cx",p[0]); c.setAttribute("cy",p[1]); c.setAttribute("r","5"); c.style.transitionDelay = (0.3 + i*0.3) + "s"; dots.appendChild(c); }); }
-
-  // how-it-works: light the steps as they pass, fill the line
-  var steps = $("#steps");
-  if (steps) { var lis = $$("li", steps);
-    var sIO = new IntersectionObserver(function(en){ en.forEach(function(x){ if (x.isIntersecting) x.target.classList.add("on"); }); var on = lis.filter(function(l){ return l.classList.contains("on"); }).length; steps.style.setProperty("--fill", (on / lis.length * 100) + "%"); }, { threshold: .6, rootMargin: "0px 0px -15% 0px" });
-    lis.forEach(function(l){ sIO.observe(l); }); }
-
-  // stacking cards: as each card pins, the ones under it shrink a touch
-  var cards = $$("#stack .scard");
-  function stackPaint(){ if (innerWidth < 821) return; cards.forEach(function(c, i){ var r = c.getBoundingClientRect(); var top = 96 + i * 14; var next = cards[i+1]; if (!next) { c.style.transform = ""; c.style.opacity = ""; return; } var nr = next.getBoundingClientRect(); var prog = Math.max(0, Math.min(1, (top + r.height - nr.top) / r.height)); c.style.transform = "scale(" + (1 - prog * .05) + ")"; c.style.opacity = String(1 - prog * .35); }); }
-  if (cards.length && !reduce) { addEventListener("scroll", function(){ requestAnimationFrame(stackPaint); }, { passive: true }); stackPaint(); }
-
-  // progression: pull-ups now -> starting belt weight (same table as the tools page)
-  var pu = $("#puNow"), puOut = $("#puOut"), puRes = $("#puRes");
-  function puStart(n){ if (n < 8) return null; if (n <= 10) return 10; if (n <= 14) return 20; if (n <= 19) return 35; return 45; }
-  function puPaint(){ var n = +pu.value; puOut.textContent = n; var w = puStart(n);
-    puRes.innerHTML = w === null ? "Under eight strict reps: <b>no belt yet</b>. Get to eight clean, dead-hang reps first — that's the program for now." : "Start the belt at <b>+" + w + " lb</b>. Two hard sets of 5–8. Both sets hit 8 → <b>+" + (w+5) + " lb</b> next time, back to 5 reps."; }
-  if (pu) { pu.addEventListener("input", puPaint); puPaint(); }
-
-  // reserve forms: thank-you after FormSubmit's redirect
+  // ---------- first paint + reserve thank-you ----------
+  paintCalc();
   var q = new URLSearchParams(location.search); var msg = $("#reservedMsg");
   if (msg && q.get("reserved")) { msg.hidden = false; msg.scrollIntoView({ block: "center" }); }
 })();
