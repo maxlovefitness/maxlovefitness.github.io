@@ -508,6 +508,24 @@ section[data-num]{overflow:clip}
 .spot:hover::after{opacity:1}
 .lad.hot.spot::after{background:radial-gradient(240px circle at var(--mx,50%) var(--my,50%), rgba(255,142,153,.16), transparent 60%);z-index:1}
 @media (hover:none){.spot::after{display:none}}
+
+/* ===== v11: entrance, curves, micro-interactions ===== */
+@keyframes hxin{from{opacity:0;scale:.9;translate:0 18px}to{opacity:1;scale:1;translate:0 0}}
+html.js .hx-photo{animation:hxin .9s cubic-bezier(.2,.7,.2,1) .05s both}
+html.js .chip{animation:hxin .7s cubic-bezier(.2,.7,.2,1) both, bob 6s ease-in-out 1s infinite}
+html.js .chip.c3{animation-delay:.45s,1s}html.js .chip.c1{animation-delay:.6s,1s}html.js .chip.c2{animation-delay:.75s,1s}
+html.js .hx-field{animation:fieldin 1.2s ease-out both}
+@keyframes fieldin{from{opacity:0}to{opacity:1}}
+.band.dark{position:relative;border-radius:34px 34px 0 0;margin-top:-34px;padding-top:calc(72px + 34px)}
+.band.dark+.band{border-radius:34px 34px 0 0;margin-top:-34px;position:relative;background:#fff;padding-top:calc(72px + 34px)}
+.band.dark+.band.wash{background:var(--wash)}
+@media (max-width:820px){.band.dark,.band.dark+.band{border-radius:22px 22px 0 0;margin-top:-22px;padding-top:calc(52px + 22px)}}
+.ticker:hover .tk{animation-play-state:paused}
+.btn:active,.meal:active,.seg button:active{transform:scale(.97)}
+.btn.mag:active{transform:scale(.97)!important}
+@keyframes mealpop{0%{scale:1}40%{scale:1.04}100%{scale:1}}
+.meal[aria-pressed=true]{animation:mealpop .3s cubic-bezier(.2,.7,.2,1)}
+@media (prefers-reduced-motion:reduce){html.js .hx-photo,html.js .chip,html.js .hx-field{animation:none}.meal[aria-pressed=true]{animation:none}}
 </style>
 </head>
 <body>
