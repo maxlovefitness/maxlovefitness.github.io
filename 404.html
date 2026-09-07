@@ -43,7 +43,7 @@
       <button class="btn dark" type="submit">Send me the next one</button>
     </form>
     <div class="ok" id="subok" hidden>Got it. You'll hear from me when there's something worth sending.</div>
-    <p class="fine">Goes straight to my inbox and nowhere else. Unsubscribe by replying "stop".</p>
+    <p class="fine">Goes straight to my inbox and nowhere else. Unsubscribe by replying "stop". Or email <a href="mailto:maxhlove@gmail.com?subject=Add%20me%20to%20the%20list">maxhlove@gmail.com</a> and I'll add you by hand.</p>
   </div>
 </div></section>
 <footer><div class="wrap">
@@ -91,6 +91,4 @@ document.documentElement.classList.add("js");
   cs.forEach(function(e){co.observe(e)});
 })();
 
-if(new URLSearchParams(location.search).get("subscribed")==="1"){var f=document.getElementById("subform"),o=document.getElementById("subok");if(f&&o){f.hidden=true;o.hidden=false;}history.replaceState(null,"",location.pathname+"#subscribe");}</script>
-</body>
-</html>
+if(new URLSearchParams(location.search).get("subscribed")==="1"){var f=document.getElementById("subform"),o=document.getElementById("subok"
