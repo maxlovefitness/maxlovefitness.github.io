@@ -310,4 +310,8 @@ try{
 }catch(e){}
 
 /* carry the visitor's numbers over from the home page */
-try{const sv=JSON.parse(localStorage.getItem("mlf_numbers")||"null");if(sv&&sv.bw){$("f-bw").value=sv.bw;$("m-bw").value=sv.bw;const g=document.querySelector('#f-goal button[data-v="'+sv.goal+'"]');if(g)g.click();const w=document.querySelector('#w-goal button[data-v="'+sv.goal+'"]');if(w)w.click();food();e
+try{const sv=JSON.parse(localStorage.getItem("mlf_numbers")||"null");if(sv&&sv.bw){$("f-bw").value=sv.bw;$("m-bw").value=sv.bw;const g=document.querySelector('#f-goal button[data-v="'+sv.goal+'"]');if(g)g.click();const w=document.querySelector('#w-goal button[data-v="'+sv.goal+'"]');if(w)w.click();food();emax();}const pu=+localStorage.getItem("mlf_pu");if(pu>0){$("s-pu").value=pu;start();}}catch(e){}
+})();
+</script>
+</body>
+</html>

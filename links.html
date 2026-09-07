@@ -124,4 +124,6 @@ document.documentElement.classList.add("js");
   cs.forEach(function(e){co.observe(e)});
 })();
 
-if(new URLSearchParams(location.search).get("subscribed")==="1"){var f=document.getElementById("subform"),o=document.getElementById("subok"
+if(new URLSearchParams(location.search).get("subscribed")==="1"){var f=document.getElementById("subform"),o=document.getElementById("subok");if(f&&o){f.hidden=true;o.hidden=false;}history.replaceState(null,"",location.pathname+"#subscribe");}</script>
+</body>
+</html>
